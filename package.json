@@ -36,5 +36,8 @@
   "main": "app.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/next": "^9.0.0"
+  }
 }
