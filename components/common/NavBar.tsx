@@ -14,7 +14,7 @@ export default function NavBar() {
           <Image src={logo} alt={"logo"} className={styles.navLogo}/>
         </Link>
         <ul className={styles.button}>
-          <li><a>歷年專案</a></li>
+          <li><Link href={"/project/list"}>歷年專案</Link></li>
           <li><a>專案管理</a></li>
           <li><a>帳號管理</a></li>
         </ul>

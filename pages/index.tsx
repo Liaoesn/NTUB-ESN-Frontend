@@ -10,7 +10,7 @@ export default function Home() {
     <Layout>
       <main className={styles.login}>
         <Image src={logo} alt='logo' />
-        <a className={styles.loginButtton}><FaGoogle/></a>
+        <a className={styles.loginButtton}><FaGoogle /></a>
       </main>
     </Layout>
   );

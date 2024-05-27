@@ -1,25 +1,28 @@
 @import "@/styles/base/variables";
 @import "@/styles/base/extends";
-.login{
+
+.login {
   @extend %flex-center;
   flex-direction: column;
-  img{
+
+  img {
     width: 30vw;
     height: auto;
     margin-bottom: 10vh;
   }
-  .loginButtton{
+
+  .loginButtton {
     transition: 1s;
     @extend %flex-center;
     height: 80px;
     width: 80px;
     font-size: 40px;
-    color: #999;
     background-color: white;
     border-radius: 100%;
     box-shadow: 0px 0px 10px 5px #d8d8d8;
     transition: 0.5s;
-    &:hover{
+    color: #999;
+    &:hover {
       transition: 0.5s;
       background-color: $mainColor;
       color: white;
