@@ -2,6 +2,7 @@
 
 - npm install 下載套件
 - npm run dev 開啟server
+- npm install @mui/material @emotion/react @emotion/styled 下載Mui套件
 
 # 使用套件
 
@@ -12,6 +13,9 @@
     - material icon [連結](https://react-icons.github.io/react-icons/icons?name=md)
 
 - sidebar:
+    - [連結](https://www.npmjs.com/package/react-pro-sidebar)
+
+- Mui:
     - [連結](https://www.npmjs.com/package/react-pro-sidebar)
 
 # 說明
