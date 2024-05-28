@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 export default function ProjectList() {
@@ -68,7 +68,7 @@ export default function ProjectList() {
                 <p>排序進度:4/6</p>
               </div>
             </article>
-            <div className={styles.projectTime}>
+            <div className={styles.projectAbout}>
               <p>結案日期：2024/05/24</p>
             </div>
           </div>
