@@ -8,7 +8,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
-// 使用用户路由
+// 使用者路由
 app.use('/user', userRoutes);
 
 app.listen(port, () => {
