@@ -1,32 +1,79 @@
-@use "@/styles/base/variables";
+@import "@/styles/base/variables";
 @import "@/styles/base/extends";
 
 .navbar {
   position: fixed;
   z-index: 99;
-  background-color: #d9d9d9b0;
+  background-color: #d9d9d9bb;
   height: 6vh;
+  top: 0px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  .navLogo{
-    height: 4vh;
-    width: auto;
-    margin-left: 5vw;
+  .buttonList {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .navLogo {
+      height: 4vh;
+      width: auto;
+      margin: 0 5vw;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      color: $mainColor;
+      height: 100%;
+
+      li {
+        @extend %flex-center;
+        width: 7vw;
+        height: 100%;
+        font-weight: bold;
+        border-left: 1px solid $fontColor;
+
+        a {
+          color: $fontColor;
+          height: 100%;
+          line-height: 6vh;
+        }
+
+        &:last-child {
+          border-right: 1px solid $fontColor;
+        }
+
+        a {
+          color: $mainColor;
+        }
+
+        &:hover {
+          background-color: $mainColorLight;
+          transition: 0.2s;
+
+          a {
+            color: white;
+          }
+        }
+      }
+    }
   }
 
   .right {
-    background-color: variables.$mainColor;
+    background-color: $mainColor;
     width: 40%;
     height: 100%;
     display: flex;
     justify-content: space-between;
+
     .triangleArea {
       width: 80px;
       height: 100%;
       position: relative;
+
       .lTriangle {
         position: absolute;
         width: 0;
@@ -34,8 +81,9 @@
         right: 50px;
         border-style: solid;
         border-width: 0 30px 5vh 30px;
-        border-color: transparent transparent variables.$fontColor transparent;
+        border-color: transparent transparent $fontColor transparent;
       }
+
       .rTriangle {
         position: absolute;
         width: 0;
@@ -43,12 +91,14 @@
         right: 15px;
         border-style: solid;
         border-width: 5vh 30px 0 30px;
-        border-color: variables.$fontColor transparent transparent transparent;
+        border-color: $fontColor transparent transparent transparent;
       }
     }
-    .buttonArea{
+
+    .buttonArea {
       @extend %flex-center;
-      .linkUser{
+
+      .linkUser {
         @extend %flex-center;
         background-color: rgba(255, 255, 255, 0.3);
         height: 50%;
@@ -57,16 +107,18 @@
         border-radius: 15px;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
-        color: variables.$fontColorWhite;
+        color: $fontColorWhite;
         margin-right: 25px;
         transition: 0.5s;
-        &:hover{
+
+        &:hover {
           box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.4);
           transition: 0.5s;
           background-color: rgba(255, 255, 255, 0.85);
-          color: variables.$mainColor;
+          color: $mainColor;
         }
-        img{
+
+        img {
           height: 100%;
           width: auto;
           border-radius: 100%;
@@ -74,7 +126,8 @@
 
         }
       }
-      .linkLogout{
+
+      .linkLogout {
         @extend %flex-center;
         background-color: rgba(255, 255, 255, 0.3);
         height: 30%;
@@ -83,13 +136,14 @@
         transition: 0.5s;
         border-radius: 10px;
         font-weight: bold;
-        color: variables.$fontColorWhite;
+        color: $fontColorWhite;
         font-size: 20px;
         margin-right: 25px;
-        &:hover{
+
+        &:hover {
           box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.4);
           transition: 0.5s;
-          background-color: variables.$mainColorRed;
+          background-color: $mainColorRed;
         }
       }
     }
