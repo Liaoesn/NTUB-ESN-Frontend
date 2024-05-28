@@ -6,7 +6,18 @@ import styles from "@/styles/components/common/navbar.module.scss";
 import logo from "@/public/img/navLogo.png";
 import photo from "@/public/img/head.jpg";
 
-export default function NavBar() {
+// 定義 User 類型
+interface User {
+  name: string;
+  picture: string;
+}
+
+// 定義 NavBarProps 類型
+interface NavBarProps {
+  user: User | null;
+}
+
+export default function NavBar({user}: NavBarProps) {
   return (
     <nav className={styles.navbar}>
       <div className={styles.buttonList}>
@@ -19,20 +30,23 @@ export default function NavBar() {
           <li><a>帳號管理</a></li>
         </ul>
       </div>
+  
       <div className={styles.right}>
         <div className={styles.triangleArea}>
           <span className={styles.lTriangle}></span>
           <span className={styles.rTriangle}></span>
         </div>
+        {user && (
         <div className={styles.buttonArea}>
           <Link href={"/AboutUser"} className={styles.linkUser}>
-            <Image src={photo} alt={"user"} />
-            <p>LiaoYiChen</p>
+            <Image src={user?.picture} alt={"user"} width={100} height={100} />
+            <p>{user?.name}</p>
           </Link>
-          <Link href={"/AboutUser"} className={styles.linkLogout}>
+          <Link href={"/api/auth/logout"} className={styles.linkLogout}>
             <VscSignOut />
           </Link>
         </div>
+        )}
       </div>
     </nav>
   );

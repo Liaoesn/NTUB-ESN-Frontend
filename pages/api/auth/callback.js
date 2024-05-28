@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
     const userEmail = userInfo.data.email;
     if (!userEmail.endsWith('@ntub.edu.tw')) {
-      return res.status(403).send('Unauthorized email domain');
+      return res.status(403).send('Please log in with your school Google account');
     }
 
     const token = jwt.sign(userInfo.data, JWT_SECRET);
