@@ -37,8 +37,7 @@
     "react-pro-sidebar": "^1.0.0-alpha.7",
     "sass": "^1.72.0",
     "scss": "^0.2.4",
-    "typescript": "4.9.3",
-    "windicss-webpack-plugin": "^1.8.0"
+    "typescript": "4.9.3"
   },
   "description": "- npm install 下載套件\r - npm run dev 開啟server",
   "main": "app.js",
@@ -46,6 +45,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/next": "^9.0.0"
+    "@types/next": "^9.0.0",
+    "windicss-webpack-plugin": "^1.8.0"
   }
 }
