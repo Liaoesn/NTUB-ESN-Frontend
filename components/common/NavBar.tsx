@@ -4,7 +4,6 @@ import { VscSignOut } from "react-icons/vsc";
 
 import styles from "@/styles/components/common/navbar.module.scss";
 import logo from "@/public/img/navLogo.png";
-import photo from "@/public/img/head.jpg";
 
 // 定義 User 類型
 interface User {
@@ -25,9 +24,9 @@ export default function NavBar({user}: NavBarProps) {
           <Image src={logo} alt={"logo"} className={styles.navLogo}/>
         </Link>
         <ul className={styles.button}>
-          <li><Link href={"/project/list"}>歷年專案</Link></li>
-          <li><a>專案管理</a></li>
+          <li><Link href={"/project/manageList"}>管理專案</Link></li>
           <li><a>帳號管理</a></li>
+          <li><Link href={"/project/list"}>歷年專案</Link></li>
         </ul>
       </div>
   

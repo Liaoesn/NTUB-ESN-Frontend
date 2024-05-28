@@ -3,6 +3,7 @@
 - npm install 下載套件
 - npm run dev 開啟server
 - npm install @mui/material @emotion/react @emotion/styled 下載Mui套件
+- npm install jsonwebtoke
 
 # 使用套件
 
@@ -16,7 +17,10 @@
     - [連結](https://www.npmjs.com/package/react-pro-sidebar)
 
 - Mui:
-    - [連結](https://www.npmjs.com/package/react-pro-sidebar)
+    - [連結](https://mui.com/material-ui/getting-started/)
+
+- jsonwebtoken
+    - google登入
 
 # 說明
 
