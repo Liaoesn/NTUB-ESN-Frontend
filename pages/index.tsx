@@ -9,7 +9,7 @@ export default function Home() {
 
   const handleGoogleLogin = () => {
     // 將這個URL發送給前端，用戶點擊後將重定向到Google登入頁面
-    window.location.href = '/api/login';
+    window.location.href = '/api/auth/login';
   };
 
   return (

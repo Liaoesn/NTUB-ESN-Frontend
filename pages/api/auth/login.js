@@ -4,7 +4,7 @@ const { GOOGLE_CLIENT_ID, HOST } = process.env;
 
 const client = new OAuth2Client({
   clientId: GOOGLE_CLIENT_ID,
-  redirectUri: `${HOST}/api/callback`,
+  redirectUri: `${HOST}/api/auth/callback`,
 });
 
 export default function handler(req, res) {
