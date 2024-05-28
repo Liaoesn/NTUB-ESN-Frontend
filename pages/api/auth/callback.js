@@ -7,7 +7,7 @@ const { GOOGLE_CLIENT_ID, GOOGLE_SECRET_KEY, JWT_SECRET, HOST } = process.env;
 const client = new OAuth2Client({
   clientId: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_SECRET_KEY,
-  redirectUri: `${HOST}/api/callback`,
+  redirectUri: `${HOST}/api/auth/callback`,
 });
 
 export default async function handler(req, res) {
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     });
 
     const userEmail = userInfo.data.email;
-    if (!userEmail.endsWith('@school.edu')) {
+    if (!userEmail.endsWith('@ntub.edu.tw')) {
       return res.status(403).send('Unauthorized email domain');
     }
 
