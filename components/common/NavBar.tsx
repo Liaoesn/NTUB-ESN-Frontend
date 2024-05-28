@@ -24,8 +24,8 @@ export default function NavBar({user}: NavBarProps) {
           <Image src={logo} alt={"logo"} className={styles.navLogo}/>
         </Link>
         <ul className={styles.button}>
-          <li><Link href={"/project/manageList"}>管理專案</Link></li>
-          <li><a>帳號管理</a></li>
+          <li><Link href={"/project/manageList"}>專案管理</Link></li>
+          <li><Link href={"/project/list"}>帳號管理</Link></li>
           <li><Link href={"/project/list"}>歷年專案</Link></li>
         </ul>
       </div>
