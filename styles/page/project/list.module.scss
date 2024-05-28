@@ -1,19 +1,88 @@
 @import "@/styles/base/variables";
 @import "@/styles/base/extends";
 
-.listArea{
+.listArea {
   @extend %list-area;
-  
-  h2{
+
+  h2 {
     color: $mainColor;
     font-size: 36px;
     font-weight: bold;
     width: 100%;
-    padding-bottom:20px ;
-    border-bottom:1px solid $mainColor ;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $mainColor ;
   }
 
-  .dropdownArea{
-    border-bottom:1px solid $mainColor ;
+  .dropdownArea {
+    border-bottom: 1px solid black;
+
+    .drop {
+      border-radius: 20px;
+    }
+  }
+
+  .projectList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .projectItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 90%;
+      height: 5%;
+      padding: 10px;
+      color: $mainColor;
+      border-bottom: 1px solid $fontColor;
+      transition: 0.4s;
+
+      article {
+        @extend %flex-center;
+
+
+        .projectLogo {
+          @extend %flex-center;
+          width: 50px;
+          height: 50px;
+          background-color: rgb(215, 185, 101);
+          border-radius: 100%;
+          color: white;
+        }
+
+        .projectContent {
+          margin: 13px 30px;
+          letter-spacing: 3px;
+
+          b {
+            font-weight: bold;
+            margin: 5px;
+          }
+
+          p {
+            margin: 5px;
+
+            span {
+              font-weight: bold;
+              text-decoration: underline;
+            }
+          }
+        }
+
+      }
+
+      &:hover {
+        transition: 0.4s;
+        background-color: $mainColorGreen;
+      }
+    }
+  }
+
+  .projectPage {
+    width: 100%;
+    padding-top: 20px;
+    border-top:1px solid black; 
+    @extend %flex-center;
   }
 }
