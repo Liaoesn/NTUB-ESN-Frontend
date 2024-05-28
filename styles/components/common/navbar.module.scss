@@ -37,17 +37,15 @@
         border-left: 1px solid $fontColor;
 
         a {
-          color: $fontColor;
+          color: $mainColor;
           height: 100%;
+          width: 100%;
           line-height: 6vh;
+          text-align: center;
         }
 
         &:last-child {
           border-right: 1px solid $fontColor;
-        }
-
-        a {
-          color: $mainColor;
         }
 
         &:hover {
