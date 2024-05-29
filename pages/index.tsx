@@ -50,3 +50,18 @@ export default function Home() {
 
   );
 }
+
+export async function getServerSideProps({ req }) {
+  const res = await fetch('http://localhost:3000/api/auth/user', {
+    headers: {
+      cookie: req.headers.cookie ?? '',
+    },
+  });
+  const user = res.ok ? await res.json() : null;
+
+  return {
+    props: {
+      user,
+    },
+  };
+}
