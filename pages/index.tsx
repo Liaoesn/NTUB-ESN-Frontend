@@ -43,7 +43,7 @@ export default function Home() {
     ) : (
       <main className={styles.login}>
         <Image src={logo} alt='logo' />
-        <a className={styles.loginButtton} onClick={handleGoogleLogin}><FaGoogle/></a>
+        <a className={styles.loginButtton} onClick={handleGoogleLogin}><FaGoogle/><p>請用學校帳號登入</p></a>
       </main>
     )}
   </Layout>
