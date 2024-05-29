@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import '../styles/main.scss';
+import Layout from '../components/Layout/Layout';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
 
   useEffect(() => {
     async function fetchUser() {
@@ -19,7 +20,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ProSidebarProvider>
-      <Component {...pageProps} user={user} />
+      <Layout user={user}>
+        <Component {...pageProps} />
+      </Layout>
     </ProSidebarProvider>
   );
 }

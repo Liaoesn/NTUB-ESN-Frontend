@@ -1,8 +1,7 @@
 import { OAuth2Client } from 'google-auth-library';
-import jwt from 'jsonwebtoken';
 import { withSession } from '../../../lib/session';
 
-const { GOOGLE_CLIENT_ID, GOOGLE_SECRET_KEY, JWT_SECRET, HOST } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_SECRET_KEY, HOST } = process.env;
 
 const client = new OAuth2Client({
   clientId: GOOGLE_CLIENT_ID,
@@ -26,8 +25,7 @@ export default withSession(async (req, res) => {
       return res.status(403).send('Please log in with your school Google account');
     }
 
-    const token = jwt.sign(userInfo.data, JWT_SECRET);
-    req.session.set('token', token);
+    req.session.set('user', userInfo.data);
     await req.session.save();
     res.redirect('/');
   } catch (error) {

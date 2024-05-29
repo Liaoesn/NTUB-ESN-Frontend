@@ -4,7 +4,7 @@ import { VscSignOut } from "react-icons/vsc";
 import styles from "@/styles/components/common/navbar.module.scss";
 import logo from "@/public/img/navLogo.png";
 
-export default function NavBar({ user }) {
+export default function NavBar({ user }: { user?: { name: string, picture: string } }) {
   return (
     <nav className={styles.navbar}>
       <div className={styles.buttonList}>
@@ -24,16 +24,18 @@ export default function NavBar({ user }) {
         </div>
         <div className={styles.buttonArea}>
         {user && (
-          <Link href={"/AboutUser"} className={styles.linkUser}>
-            <>
-              <Image src={user.picture} alt={"user"} />
-              <p>{user.name}</p>
-            </>
-          </Link>
+          <>
+            <Link href={"/AboutUser"} className={styles.linkUser}>
+              <>
+                <Image src={user.picture} alt={"user"} width={110} height={110}/>
+                <p>{user.name}</p>
+              </>
+            </Link>
+            <Link href={"/api/auth/logout"} className={styles.linkLogout}>
+              <VscSignOut />
+            </Link>
+          </>
         )}
-          <Link href={"/api/auth/logout"} className={styles.linkLogout}>
-            <VscSignOut />
-          </Link>
         </div>
       </div>
     </nav>

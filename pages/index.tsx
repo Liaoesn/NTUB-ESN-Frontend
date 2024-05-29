@@ -6,6 +6,7 @@ import Layout from '../components/Layout/Layout';
 import NavBar from '../components/common/NavBar';
 import logo from '@/public/img/logo.png'
 import styles from '@/styles/Home.module.scss'
+import { GetServerSidePropsContext } from 'next';
 
 interface User {
   name: string;
@@ -51,7 +52,7 @@ export default function Home() {
   );
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req }: GetServerSidePropsContext) {
   const res = await fetch('http://localhost:3000/api/auth/user', {
     headers: {
       cookie: req.headers.cookie ?? '',
