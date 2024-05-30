@@ -3,12 +3,9 @@ import { FaGoogle } from "react-icons/fa";
 import Image from "next/image";
 
 import Layout from '../../components/Layout/Layout';
-import NavBar from '../../components/common/NavBar';
 import logo from '@/public/img/logo.png'
 import styles from '@/styles/Home.module.scss'
 import { GetServerSidePropsContext } from 'next';
-import router from 'next/router';
-import CheckPopup from '@/components/popup/checkPopup';
 
 interface User {
   name: string;
@@ -17,7 +14,6 @@ interface User {
 
 export default function Login() {
   const [user, setUser] = useState<User | null>(null);
-  const [popup, setPopup] = useState<boolean>();
 
   useEffect(() => {
     async function fetchUser() {
