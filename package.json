@@ -11,7 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@mui/material": "^5.15.18",
+    "@mui/material": "^5.15.19",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
@@ -30,6 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "less": "^4.2.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.9.9",
     "next": "13.0.3",
     "next-iron-session": "^4.2.0",
     "next-session": "^4.0.5",
