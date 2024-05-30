@@ -30,6 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "less": "^4.2.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.9.9",
     "next": "13.0.3",
     "next-iron-session": "^4.2.0",
     "next-session": "^4.0.5",

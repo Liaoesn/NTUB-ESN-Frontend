@@ -3,7 +3,10 @@
 - npm install 下載套件
 - npm run dev 開啟server
 - npm install @mui/material @emotion/react @emotion/styled 下載Mui套件
-- npm install jsonwebtoke
+- npm install jsonwebtoke 可以不用了
+- npm install next-iron-session
+- npm install mysql2
+
 
 # 使用套件
 
