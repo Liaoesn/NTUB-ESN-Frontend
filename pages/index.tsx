@@ -40,7 +40,7 @@ export default function Home() {
           <section className={styles.banner}>
             <div onClick={() => router.push('/project/list')} className={styles.yearButton}>
               <article>
-                <h3>關看歷年專案</h3>
+                <h3>觀看歷年專案</h3>
                 <p>歷年的書審狀況、辦法、結果、人數...都在這裡了</p>
               </article>
               <FaClock className={styles.buttonIcon} />

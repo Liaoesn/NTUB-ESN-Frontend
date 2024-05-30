@@ -36,8 +36,9 @@ export default function ProjectList() {
                 onChange={handleChange}
               >
                 <MenuItem value={10}>二技</MenuItem>
-                <MenuItem value={20}>五專</MenuItem>
-                <MenuItem value={30}>四技</MenuItem>
+                <MenuItem value={20}>四技</MenuItem>
+                <MenuItem value={30}>碩士</MenuItem>
+                <MenuItem value={30}>博士</MenuItem>
               </Select>
             </FormControl>
             <FormControl sx={{ m: 2, minWidth: 120 }} size="small">
