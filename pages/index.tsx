@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaClock, FaFileAlt } from "react-icons/fa";
 import Image from "next/image";
 
 import Layout from '../components/Layout/Layout';
@@ -7,6 +7,7 @@ import NavBar from '../components/common/NavBar';
 import logo from '@/public/img/logo.png'
 import styles from '@/styles/Home.module.scss'
 import { GetServerSidePropsContext } from 'next';
+import router from 'next/router';
 
 interface User {
   name: string;
@@ -37,8 +38,24 @@ export default function Home() {
     {user ? (
       <>
         <NavBar user={user} />
-        <main className={styles.login}>
-        <Image src={logo} alt='logo' />
+        <main className={styles.mainPage}>
+          <Image src={logo} alt='logo' />
+          <section className={styles.banner}>
+            <div onClick={() => router.push('/project/list')} className={styles.yearButton}>
+              <article>
+                <h3>關看歷年專案</h3>
+                <p>歷年的書審狀況、辦法、結果、人數...都在這裡了</p>
+              </article>
+              <FaClock className={styles.buttonIcon} />
+            </div>
+            <div onClick={() => router.push('/project/manageList')} className={styles.listButton}>
+              <article>
+                <h3>{user.name}的專案</h3>
+                <p>您建立或是參與的書審專案</p>
+              </article>
+              <FaFileAlt className={styles.buttonIcon} />
+            </div>
+          </section>
         </main>
       </>
     ) : (
