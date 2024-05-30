@@ -27,7 +27,7 @@ export default withSession(async (req, res) => {
 
     req.session.set('user', userInfo.data);
     await req.session.save();
-    res.redirect('/');
+    res.redirect('/user/loginSuccess');
   } catch (error) {
     console.error(error);
     res.status(400).send('Error fetching Google user info');
