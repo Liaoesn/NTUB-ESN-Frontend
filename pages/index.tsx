@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { FaGoogle, FaClock, FaFileAlt } from "react-icons/fa";
+import { FaClock, FaFileAlt } from "react-icons/fa";
 import Image from "next/image";
+import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout/Layout';
 import NavBar from '../components/common/NavBar';
-import logo from '@/public/img/logo.png'
-import styles from '@/styles/Home.module.scss'
-import { GetServerSidePropsContext } from 'next';
-import router from 'next/router';
+import logo from '@/public/img/logo.png';
+import styles from '@/styles/Home.module.scss';
 
 interface User {
   name: string;
@@ -16,6 +15,7 @@ interface User {
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchUser() {
@@ -23,18 +23,15 @@ export default function Home() {
       if (res.ok) {
         const data = await res.json();
         setUser(data);
+      } else {
+        router.push('user/login'); // 如果沒有用戶登錄，導向登錄頁面
       }
     }
     fetchUser();
   }, []);
 
-  const handleGoogleLogin = () => {
-    // 將這個URL發送給前端，用戶點擊後將重定向到Google登入頁面
-    window.location.href = '/api/auth/login';
-  };
-
   return (
-  <Layout>
+    <Layout>
     {user ? (
       <>
         <NavBar user={user} />
@@ -58,28 +55,8 @@ export default function Home() {
           </section>
         </main>
       </>
-    ) : (
-      <main className={styles.login}>
-        <Image src={logo} alt='logo' />
-        <a className={styles.loginButtton} onClick={handleGoogleLogin}><FaGoogle/><p>請用學校帳號登入</p></a>
-      </main>
-    )}
+    ) : ('')}
   </Layout>
 
   );
-}
-
-export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  const res = await fetch('http://localhost:3000/api/auth/user', {
-    headers: {
-      cookie: req.headers.cookie ?? '',
-    },
-  });
-  const user = res.ok ? await res.json() : null;
-
-  return {
-    props: {
-      user,
-    },
-  };
 }

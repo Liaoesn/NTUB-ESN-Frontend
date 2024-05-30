@@ -51,14 +51,14 @@
 }
 .mainPage{
   display: flex;
-  width: 70%;
+  width: 80%;
   justify-content: center;
   flex-direction: column;
 
   img {
     width: 40vw;
     height: auto;
-    margin-left: 5vw;
+    margin-left: 15vw;
   }
 
   .banner{
@@ -67,7 +67,7 @@
       align-items: end;
     div{
       height: 5vh;
-      padding: 20px 40px;
+      padding: 20px 60px;
       border-radius: 10px;
       margin-bottom: 20px;
       width: fit-content;
@@ -84,6 +84,8 @@
       }
 
       &:hover{
+        transition: 0.4s;
+        box-shadow: 6px 8px 5px 1px $fontColor;
         .buttonIcon{
           margin-left: 20px;
           transition: 0.5s;
