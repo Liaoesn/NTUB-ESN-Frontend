@@ -1,8 +1,9 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+import Link from 'next/link';
 import React from 'react';
-import { FaAngleLeft, FaAngleRight, FaPen, FaCog } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaCog } from "react-icons/fa";
 
 
 export default function ProjectList() {
@@ -89,7 +90,7 @@ export default function ProjectList() {
             </div>
           </article>
           <div className={styles.projectAbout}>
-            <a className={styles.projectSet}><FaCog /></a>
+            <Link className={styles.projectSet} href={'/project/seting'}><FaCog /></Link>
             <p>結案日期：{project.endDate}</p>
           </div>
         </div>

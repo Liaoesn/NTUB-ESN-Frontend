@@ -1,6 +1,6 @@
-import { serialize } from 'cookie';
+import { withSession } from '../../../lib/session';
 
-export default function handler(req, res) {
-  res.setHeader('Set-Cookie', serialize('token', '', { path: '/', expires: new Date(0) }));
+export default withSession(async function handler(req, res) {
+  req.session.destroy();
   res.redirect('/');
-}
+});

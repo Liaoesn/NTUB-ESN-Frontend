@@ -1,8 +1,7 @@
 import { OAuth2Client } from 'google-auth-library';
-import jwt from 'jsonwebtoken';
-import { serialize } from 'cookie';
+import { withSession } from '../../../lib/session';
 
-const { GOOGLE_CLIENT_ID, GOOGLE_SECRET_KEY, JWT_SECRET, HOST } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_SECRET_KEY, HOST } = process.env;
 
 const client = new OAuth2Client({
   clientId: GOOGLE_CLIENT_ID,
@@ -10,7 +9,7 @@ const client = new OAuth2Client({
   redirectUri: `${HOST}/api/auth/callback`,
 });
 
-export default async function handler(req, res) {
+export default withSession(async (req, res) => {
   const { code } = req.query;
 
   try {
@@ -26,11 +25,11 @@ export default async function handler(req, res) {
       return res.status(403).send('Please log in with your school Google account');
     }
 
-    const token = jwt.sign(userInfo.data, JWT_SECRET);
-    res.setHeader('Set-Cookie', serialize('token', token, { path: '/' }));
+    req.session.set('user', userInfo.data);
+    await req.session.save();
     res.redirect('/');
   } catch (error) {
     console.error(error);
     res.status(400).send('Error fetching Google user info');
   }
-}
+});

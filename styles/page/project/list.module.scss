@@ -71,11 +71,25 @@
         }
       }
       .projectAbout{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        a{
+          color: $mainColor;
+        }
         .projectSet{
-          font-size: $mediumSize;
+          font-size: 25px;
+          height: 30px;
+          margin-right:20%;
           margin-bottom: 15%;
           display: flex;
           justify-content: end;
+          transition: 1s;
+          &:hover{
+            font-size: 30px;
+            color: white;
+            transition: 0.5s;
+          }
         }
       }
       &:hover {
