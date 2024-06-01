@@ -11,33 +11,37 @@ export default function NavBar({ user }: { user?: { name: string, picture: strin
         <Link href={"/"}>
           <Image src={logo} alt={"logo"} className={styles.navLogo}/>
         </Link>
-        <ul className={styles.button}>
-          <li><Link href={"/project/list"}>歷年專案</Link></li>
-          <li><Link href={"/project/manageList"}>專案管理</Link></li>
-          <li><Link href={"/project/list"}>帳號管理</Link></li>
-        </ul>
-      </div>
-      <div className={styles.right}>
+        {user && (
+          <ul className={styles.button}>
+            <li><Link href={"/project/list"}>歷年專案</Link></li>
+            <li><Link href={"/project/manageList"}>專案管理</Link></li>
+            <li><Link href={"/project/list"}>帳號管理</Link></li>
+          </ul>
+        )}
+        </div>
+        <div className={styles.right}>
         <div className={styles.triangleArea}>
           <span className={styles.lTriangle}></span>
           <span className={styles.rTriangle}></span>
         </div>
         <div className={styles.buttonArea}>
-        {user && (
-          <>
-            <Link href={"/AboutUser"} className={styles.linkUser}>
-              <>
-                <Image src={user.picture} alt={"user"} width={110} height={110}/>
-                <p>{user.name}</p>
-              </>
-            </Link>
-            <Link href={"/api/auth/logout"} className={styles.linkLogout}>
-              <VscSignOut />
-            </Link>
-          </>
-        )}
+          {user ? (
+            <>
+              <Link href={"/AboutUser"} className={styles.linkUser}>
+                <>
+                  <Image src={user.picture} alt={"user"} width={110} height={110}/>
+                  <p>{user.name}</p>
+                </>
+              </Link>
+              <Link href={"/api/auth/logout"} className={styles.linkLogout}>
+                <VscSignOut />
+              </Link>
+            </>
+          ) : (
+            <Link href={"/api/auth/login"} className={styles.linkLogin}>登入</Link>
+          )}
         </div>
       </div>
-    </nav>
+  </nav>
   );
 }
