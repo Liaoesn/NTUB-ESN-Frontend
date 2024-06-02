@@ -61,7 +61,7 @@ export default withSession(async (req, res) => {
     const userEmail = userInfo.email;
 
     if (!userEmail.endsWith('@ntub.edu.tw')) {
-      return res.status(403).send('Please log in with your school Google account');
+      return res.redirect('/user/loginFail');
     }
 
     let user = await getUserFromDb(userEmail);
