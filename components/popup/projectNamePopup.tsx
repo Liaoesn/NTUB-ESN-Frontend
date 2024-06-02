@@ -4,7 +4,10 @@ import { Autocomplete, FormControl, InputLabel, MenuItem, Select, SelectChangeEv
 import React from "react";
 import { MdOutlineCancel, MdArrowRight, MdArrowLeft} from "react-icons/md";
 
-export default function ProjectNamePopup() {
+interface ProjectNamePopupProps {
+    onClose: () => void;
+  }
+const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
     const [academic, setAcademic] = React.useState('');
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -18,7 +21,9 @@ export default function ProjectNamePopup() {
             <div className={styles.mainShow}>
                 <section className={styles.title}>
                     <h4>輸入名稱和選擇學制與年度</h4>
-                    <a><MdOutlineCancel /></a>
+                    <a onClick={onClose} className={styles.closeButton}>
+                        <MdOutlineCancel />
+                    </a>
                 </section>
                 <section className={styles.inputArea}>
                     <Autocomplete
@@ -38,7 +43,7 @@ export default function ProjectNamePopup() {
                             />
                         </Stack>
                         <FormControl sx={{ minWidth: 250 }}>
-                            <InputLabel id="demo-simple-select-label">年度</InputLabel>
+                            <InputLabel id="demo-simple-select-label">學制</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -55,12 +60,9 @@ export default function ProjectNamePopup() {
                         </FormControl>
                     </article>
                 </section>
-                <section className={styles.showStep}>
-                    <a><MdArrowLeft/></a>
-                    <p>step(1/5)</p>
-                    <a><MdArrowRight/></a>
-                </section>
             </div>
         </div>
     );
 }
+
+export default ProjectNamePopup;
