@@ -65,21 +65,34 @@ export default function ProjectList() {
               <div className={styles.projectLogo}><p>113</p></div>
               <div className={styles.projectContent}>
                 <b>113學年度 二技 履歷評分</b>
-                <p>專案建立者:<span>玲冬艦</span></p>
-                <p>排序進度:4/6</p>
+                <p>專案建立者:<span>張安志</span></p>
+                <p>排序進度:3/6</p>
               </div>
             </article>
             <div className={styles.projectAbout}>
-              <p>結案日期：2024/05/24</p>
+              <p>結案日期：2024/06/30</p>
             </div>
           </div>
           <div className={styles.projectItem}>
             <article>
               <div className={styles.projectLogo}><p>113</p></div>
               <div className={styles.projectContent}>
-                <b>113學年度 二技 履歷評分</b>
-                <p>專案建立者:<span>玲冬艦</span></p>
+                <b>113學年度 碩士班 履歷評分</b>
+                <p>專案建立者:<span>趙勇</span></p>
                 <p>排序進度:4/6</p>
+              </div>
+            </article>
+            <div className={styles.projectTime}>
+              <p>結案日期：2024/06/10</p>
+            </div>
+          </div>
+          <div className={styles.projectItem}>
+            <article>
+              <div className={styles.projectLogo}><p>113</p></div>
+              <div className={styles.projectContent}>
+                <b>113學年度 四技績優 履歷評分</b>
+                <p>專案建立者:<span>張安志</span></p>
+                <p>排序進度:5/6</p>
               </div>
             </article>
             <div className={styles.projectTime}>
@@ -90,39 +103,26 @@ export default function ProjectList() {
             <article>
               <div className={styles.projectLogo}><p>113</p></div>
               <div className={styles.projectContent}>
-                <b>113學年度 二技 履歷評分</b>
-                <p>專案建立者:<span>玲冬艦</span></p>
-                <p>排序進度:4/6</p>
+                <b>113學年度 特殊選才 履歷評分</b>
+                <p>專案建立者:<span>林明志</span></p>
+                <p>排序進度:6/6</p>
               </div>
             </article>
             <div className={styles.projectTime}>
-              <p>結案日期：2024/05/24</p>
+              <p>結案日期：2024/04/30</p>
             </div>
           </div>
           <div className={styles.projectItem}>
             <article>
               <div className={styles.projectLogo}><p>113</p></div>
               <div className={styles.projectContent}>
-                <b>113學年度 二技 履歷評分</b>
-                <p>專案建立者:<span>玲冬艦</span></p>
-                <p>排序進度:4/6</p>
+                <b>113學年度 技優推甄 履歷評分</b>
+                <p>專案建立者:<span>林明志</span></p>
+                <p>排序進度:6/6</p>
               </div>
             </article>
             <div className={styles.projectTime}>
-              <p>結案日期：2024/05/24</p>
-            </div>
-          </div>
-          <div className={styles.projectItem}>
-            <article>
-              <div className={styles.projectLogo}><p>113</p></div>
-              <div className={styles.projectContent}>
-                <b>113學年度 二技 履歷評分</b>
-                <p>專案建立者:<span>玲冬艦</span></p>
-                <p>排序進度:4/6</p>
-              </div>
-            </article>
-            <div className={styles.projectTime}>
-              <p>結案日期：2024/05/24</p>
+              <p>結案日期：2024/04/30</p>
             </div>
           </div>
         </section>
