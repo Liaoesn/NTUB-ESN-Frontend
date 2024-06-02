@@ -65,7 +65,7 @@ export default function ProjectList() {
               <div className={styles.projectLogo}><p>113</p></div>
               <div className={styles.projectContent}>
                 <b>113學年度 二技 履歷評分</b>
-                <p>專案建立者:<span>張安志</span></p>
+                <p>專案建立者:<span>廖翊丞</span></p>
                 <p>排序進度:3/6</p>
               </div>
             </article>
@@ -78,7 +78,7 @@ export default function ProjectList() {
               <div className={styles.projectLogo}><p>113</p></div>
               <div className={styles.projectContent}>
                 <b>113學年度 碩士班 履歷評分</b>
-                <p>專案建立者:<span>趙勇</span></p>
+                <p>專案建立者:<span>廖翊丞</span></p>
                 <p>排序進度:4/6</p>
               </div>
             </article>
