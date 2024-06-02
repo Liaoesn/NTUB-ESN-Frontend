@@ -4,8 +4,14 @@ import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Sel
 import Link from 'next/link';
 import React from 'react';
 import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
+import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+interface User {
+  name: string;
+  picture: string;
+}
+function ProjectList({ user }: { user: User | null }) {
 
-export default function ProjectList() {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
 
@@ -40,7 +46,7 @@ export default function ProjectList() {
   return (
     <Layout>
       <main className={styles.listArea}>
-        <h2>廖翊丞的專案總覽</h2>
+        <h2>{user?.name}的專案總覽</h2>
         <section className={styles.dropdownArea}>
           <Box sx={{ minWidth: 120 }}>
             <FormControl sx={{ m: 2, minWidth: 120, height: 20, }} size="small">
@@ -116,4 +122,28 @@ export default function ProjectList() {
       </main>
     </Layout>
   );
+}
+export default function Home() {
+  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch('/api/auth/user');
+        if (res.ok) {
+          const data = await res.json();
+          setUser(data);
+        } else {
+          router.push('/user/login'); // 如果沒有用戶登錄，導向登錄頁面
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+        router.push('/user/login');
+      }
+    }
+    fetchUser();
+  }, [router]);
+
+  return user ? <ProjectList user={user} /> : <p>Loading...</p>;
 }
