@@ -69,28 +69,51 @@
           }
         }
       }
-      .projectAbout{
+
+      .projectAbout {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        a{
-          color: $mainColor;
-        }
-        .projectSet{
-          font-size: 25px;
-          height: 30px;
-          margin-right:20%;
-          margin-bottom: 15%;
+        .projectButton {
           display: flex;
           justify-content: end;
-          transition: 1s;
-          &:hover{
-            font-size: 30px;
-            color: white;
-            transition: 0.5s;
+
+          a {
+            color: $mainColor;
           }
+
+          .projectSet {
+            font-size: 25px;
+            height: 30px;
+            margin-bottom: 15%;
+            margin-right: 20%;
+            display: flex;
+            justify-content: end;
+            transition: 1s;
+
+            &:hover {
+              color: white;
+              transition: 0.5s;
+            }
+          }
+
+          .projectDel {
+            color: $mainColorRed;
+            font-size: 25px;
+            height: 30px;
+            margin-bottom: 15%;
+            display: flex;
+            justify-content: end;
+            transition: 1s;
+
+            &:hover {
+              color: white;
+              transition: 0.5s;
+            }
+          }
+
         }
       }
+
       &:hover {
         transition: 0.4s;
         background-color: $mainColorGreen;
@@ -101,7 +124,7 @@
   .projectPage {
     width: 100%;
     padding-top: 10px;
-    border-top:1px solid black; 
+    border-top: 1px solid black;
     @extend %flex-center;
   }
 }

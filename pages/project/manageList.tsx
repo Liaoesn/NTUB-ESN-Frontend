@@ -3,7 +3,7 @@ import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
-import { FaAngleLeft, FaAngleRight, FaCog } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaCog, FaRegTrashAlt } from "react-icons/fa";
 
 
 export default function ProjectList() {
@@ -80,22 +80,25 @@ export default function ProjectList() {
           </Box>
         </section>
         <section className={styles.projectList}>
-        {projects.map(project => (
-        <div key={project.id} className={styles.projectItem}>
-          <article>
-            <div className={styles.projectLogo}><p>{project.year}</p></div>
-            <div className={styles.projectContent}>
-              <b>{project.title}</b>
-              <p>專案建立者:<span>{project.creator}</span></p>
-              <p>排序進度:{project.progress}</p>
+          {projects.map(project => (
+            <div key={project.id} className={styles.projectItem}>
+              <article>
+                <div className={styles.projectLogo}><p>{project.year}</p></div>
+                <div className={styles.projectContent}>
+                  <b>{project.title}</b>
+                  <p>專案建立者:<span>{project.creator}</span></p>
+                  <p>排序進度:{project.progress}</p>
+                </div>
+              </article>
+              <div className={styles.projectAbout}>
+                <div className={styles.projectButton}>
+                  <Link className={styles.projectSet} href={'/project/seting'}><FaCog /></Link>
+                  <Link className={styles.projectDel} href={'/project/seting'}><FaRegTrashAlt /></Link>
+                </div>
+                <p>結案日期：{project.endDate}</p>
+              </div>
             </div>
-          </article>
-          <div className={styles.projectAbout}>
-            <Link className={styles.projectSet} href={'/project/seting'}><FaCog /></Link>
-            <p>結案日期：{project.endDate}</p>
-          </div>
-        </div>
-      ))}
+          ))}
         </section>
         <section className={styles.projectPage}>
           <Stack spacing={2}>

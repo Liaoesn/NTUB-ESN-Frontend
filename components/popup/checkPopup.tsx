@@ -12,7 +12,7 @@ const CheckPopup: React.FC<CheckPopupProps> = ({ title }) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsVisible(false);
-    }, 2000); // 10 seconds
+    }, 2000);
 
     return () => clearTimeout(timeout);
   }, []);
