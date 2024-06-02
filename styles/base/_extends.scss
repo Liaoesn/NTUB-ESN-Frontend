@@ -1,13 +1,32 @@
-%flex-center{
+@import "@/styles/base/variables";
+
+%flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-%list-area{
+
+%list-area {
   width: 55vw;
   height: 85vh;
   background-color: white;
   margin-top: 8vh;
   border-radius: 20px;
   padding: 30px 50px 10px;
+}
+
+%popup-area {
+  z-index: 999;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  @extend %flex-center;
+}
+
+%popup-mainShow {
+  border-radius: 20px;
+  background-color: white;
+  flex-direction: column;
+  color: $mainColor;
 }

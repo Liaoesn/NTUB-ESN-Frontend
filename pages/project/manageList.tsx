@@ -3,7 +3,7 @@ import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
-import { FaAngleLeft, FaAngleRight, FaCog, FaRegTrashAlt } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
 
 
 export default function ProjectList() {
@@ -78,6 +78,7 @@ export default function ProjectList() {
               </Select>
             </FormControl>
           </Box>
+          <a><FaRegPlusSquare/></a>
         </section>
         <section className={styles.projectList}>
           {projects.map(project => (

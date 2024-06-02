@@ -1,35 +1,32 @@
 @import "@/styles/base/variables";
 @import "@/styles/base/extends";
 
-.popupBG{
-    z-index: 999;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    @extend %flex-center;
-    .mainShow{
-        border-radius: 20px;
+.popupBG {
+    @extend %popup-area;
+
+    .mainShow {
         width: 40vw;
         height: 40vh;
-        background-color: white;
         @extend %flex-center;
-        flex-direction: column;
-        color: $mainColor;
-        .icon{
+        @extend %popup-mainShow;
+
+        .icon {
             font-size: 10vw;
             animation: shakeUpDown 0.5s infinite alternate;
         }
-        h3{
+
+        h3 {
             margin-top: 20px;
             font-size: 24px;
         }
     }
 }
+
 @keyframes shakeUpDown {
     from {
         transform: translateY(0px);
     }
+
     to {
         transform: translateY(-20px);
     }
