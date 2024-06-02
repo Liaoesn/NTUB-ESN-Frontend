@@ -38,7 +38,7 @@ export default function NavBar({ user }: { user?: { name: string, picture: strin
               </Link>
             </>
           ) : (
-            <Link href={"/api/auth/login"} className={styles.linkLogin}>登入</Link>
+            <Link href={"/api/auth/login"} className={styles.linkLogin}></Link>
           )}
         </div>
       </div>
