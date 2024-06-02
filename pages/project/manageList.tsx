@@ -5,7 +5,6 @@ import Link from 'next/link';
 import React from 'react';
 import { FaAngleLeft, FaAngleRight, FaCog } from "react-icons/fa";
 
-
 export default function ProjectList() {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
@@ -24,24 +23,24 @@ export default function ProjectList() {
       id: 1,
       year: 113,
       title: "113學年度 二技 履歷評分",
-      creator: "玲冬艦",
-      progress: "4/6",
-      endDate: "2024/05/24"
+      creator: "廖翊丞",
+      progress: "3/6",
+      endDate: "2024/06/30"
     },
     {
       id: 2,
       year: 114,
-      title: "114學年度 三技 履歷評分",
-      creator: "張三",
-      progress: "3/5",
-      endDate: "2024/06/15"
+      title: "113學年度 碩士班 履歷評分",
+      creator: "廖翊丞",
+      progress: "4/6",
+      endDate: "2024/06/10"
     },
   ];
 
   return (
     <Layout>
       <main className={styles.listArea}>
-        <h2>Liao的專案總覽</h2>
+        <h2>廖翊丞的專案總覽</h2>
         <section className={styles.dropdownArea}>
           <Box sx={{ minWidth: 120 }}>
             <FormControl sx={{ m: 2, minWidth: 120, height: 20, }} size="small">
