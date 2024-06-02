@@ -1,5 +1,6 @@
 import Layout from '@/components/Layout/Layout';
 import ProjectNamePopup from '@/components/popup/projectNamePopup';
+import ProjectPeoplePopup from '@/components/popup/projectPeoplePopup';
 import styles from '@/styles/page/project/seting.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import React from 'react';
@@ -23,6 +24,7 @@ export default function ProjectList() {
   return (
     <Layout>
       <ProjectNamePopup />
+      <ProjectPeoplePopup />
       <main className={styles.listArea}>
         <h2>專案設定</h2>
         <section className={styles.aboutArea}>
