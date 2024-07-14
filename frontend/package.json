@@ -14,7 +14,7 @@
     "@mui/material": "^5.15.20",
     "axios": "^1.7.2",
     "mysql2": "^3.10.1",
-    "next": "14.2.4",
+    "next": "^14.2.4",
     "next-auth": "^4.24.7",
     "next-iron-session": "^4.2.0",
     "react": "^18",

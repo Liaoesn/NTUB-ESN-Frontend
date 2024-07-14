@@ -27,7 +27,7 @@ export default function NavBar({ user }: { user?: { username: string, avatar_url
         <div className={styles.buttonArea}>
           {user ? (
             <>
-              <Link href={"/AboutUser"} className={styles.linkUser}>
+              <Link href={"/user/about"} className={styles.linkUser}>
                 <>
                   <Image src={user.avatar_url} alt={"user"} width={110} height={110} priority/>
                   <p>{user.username}</p>
