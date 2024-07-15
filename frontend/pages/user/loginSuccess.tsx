@@ -25,14 +25,26 @@ export default function LoginSuccess({ user }: { user: User | undefined }) {
     </Layout>
   );
 }
-export async function getServerSideProps() {
-  // 模擬從 API 或數據庫獲取 user 資料
-  const user: User = {
-    username: '張庭瑋',
-    avatar_url: 'https://lh3.googleusercontent.com/a/ACg8ocLPmVzoA6nCM2_PuM_BUtg6mroeKngmLY1Vb29dU-2BhJuKTA=s96-c',
-  };
+export function Home() {
+  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
-  return {
-    props: { user }, // 將 user 作為 prop 傳遞給頁面組件
-  };
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch('/api/auth/user');
+        if (res.ok) {
+          const data = await res.json();
+          setUser(data.user);
+        } else {
+          router.push('/user/login'); // 如果沒有用戶登錄，導向登錄頁面
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+        router.push('/user/login');
+      }
+    }
+    fetchUser();
+  }, [router]);
+
 }
