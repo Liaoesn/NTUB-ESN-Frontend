@@ -11,27 +11,22 @@ interface LayoutProps {
 export default function Layout({ children, user }: LayoutProps) {
   const [userData, setUserData] = useState<{ username: string, avatar_url: string } | undefined>(user);
   
-
   const fetchUser = async () => {
     const res = await fetch('http://localhost:5000/api/auth/user', {
       credentials: 'include', // 確保發送請求時會附帶 cookie
     });
     if (res.ok) {
       const data = await res.json();
-      setUserData(data);
+      setUserData(data.user);
     }
   };
 
   useEffect(() => {
     // 檢查用戶是否已經存在於狀態中
-    if (!user) {
+    if (!userData) {
       fetchUser();
     }
   }, []);
-
-  const handleGoogleLogin = () => {
-    window.location.href = '/api/auth/login';
-  };
 
   return (
     <>
