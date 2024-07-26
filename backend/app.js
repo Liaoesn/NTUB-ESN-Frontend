@@ -3,10 +3,11 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const authRoutes = require('./routes/auth');
 const cors = require('cors');
 const crypto = require('crypto');
 const app = express();
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +33,7 @@ app.use(session({
 
 // API 路由
 app.use('/api/auth', authRoutes);
-
+app.use('/api/user', userRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

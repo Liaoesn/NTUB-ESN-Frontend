@@ -5,12 +5,8 @@ import React, { useEffect, useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from 'next/router';
 
-interface User {
-  username: string;
-  avatar_url: string;
-}
 
-function ProjectList({ user }: { user: User | undefined }) {
+export default function ProjectList() {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
 
@@ -25,7 +21,7 @@ function ProjectList({ user }: { user: User | undefined }) {
   };
 
   return (
-    <Layout user={user}>
+    <Layout>
       <main className={styles.listArea}>
         <h2>歷年專案</h2>
         <section className={styles.dropdownArea}>
@@ -148,28 +144,4 @@ function ProjectList({ user }: { user: User | undefined }) {
       </main>
     </Layout>
   );
-}
-export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch('/api/auth/user');
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-        } else {
-          router.push('/user/login'); // 如果沒有用戶登錄，導向登錄頁面
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        router.push('/user/login');
-      }
-    }
-    fetchUser();
-  }, [router]);
-
-  return user ? <ProjectList user={user} /> : <p>Loading...</p>;
 }

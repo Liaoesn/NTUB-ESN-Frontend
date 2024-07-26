@@ -4,12 +4,16 @@ import { VscSignOut } from "react-icons/vsc";
 import styles from "@/styles/components/common/navbar.module.scss";
 import logo from "@/public/img/navLogo.png";
 
-export default function NavBar({ user }: { user?: { username: string, avatar_url: string } }) {
+interface NavbarProps {
+  user?: { username: string; avatar_url: string } | undefined;
+}
+
+const NavBar = ({ user }: NavbarProps) => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.buttonList}>
         <Link href={"/"}>
-          <Image src={logo} alt={"logo"} className={styles.navLogo}/>
+          <Image src={logo} alt={"logo"} className={styles.navLogo} />
         </Link>
         {user && (
           <ul className={styles.button}>
@@ -18,8 +22,8 @@ export default function NavBar({ user }: { user?: { username: string, avatar_url
             <li><Link href={"/project/list"}>帳號管理</Link></li>
           </ul>
         )}
-        </div>
-        <div className={styles.right}>
+      </div>
+      <div className={styles.right}>
         <div className={styles.triangleArea}>
           <span className={styles.lTriangle}></span>
           <span className={styles.rTriangle}></span>
@@ -29,7 +33,7 @@ export default function NavBar({ user }: { user?: { username: string, avatar_url
             <>
               <Link href={"/user/about"} className={styles.linkUser}>
                 <>
-                  <Image src={user.avatar_url} alt={"user"} width={110} height={110} priority/>
+                  <Image src={user.avatar_url} alt={"user"} width={110} height={110} priority />
                   <p>{user.username}</p>
                 </>
               </Link>
@@ -42,6 +46,8 @@ export default function NavBar({ user }: { user?: { username: string, avatar_url
           )}
         </div>
       </div>
-  </nav>
+    </nav>
   );
-}
+};
+
+export default NavBar;
