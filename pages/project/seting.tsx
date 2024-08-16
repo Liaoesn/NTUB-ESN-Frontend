@@ -1,8 +1,9 @@
 import Layout from '@/components/Layout/Layout';
 import ProjectNamePopup from '@/components/popup/projectNamePopup';
 import ProjectPeoplePopup from '@/components/popup/projectPeoplePopup';
+import ProjectChoosePopup from '@/components/popup/projectChoosePopup';
 import styles from '@/styles/page/project/seting.module.scss'
-import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { FaRegTrashAlt, FaCheck, FaPen, FaFolder } from "react-icons/fa";
 import { useRouter } from 'next/router';
@@ -17,6 +18,7 @@ function ProjectList({ user }: { user: User | undefined }) {
   const [academic, setAcademic] = React.useState('');
   const [showPopup, setShowPopup] = React.useState(false);
   const [showPopup1, setShowPopup1] = React.useState(false);
+  const [showChoosePopup, setShowChoosePopup] = React.useState(false);
 
   const handleChange = (event: SelectChangeEvent) => {
 
@@ -44,10 +46,19 @@ function ProjectList({ user }: { user: User | undefined }) {
     setShowPopup1(false);
   };
 
+  const handChoosePopup = () => {
+    setShowChoosePopup(true);
+  };
+
+  const handleCloseChoosePopup = () => {
+    setShowChoosePopup(false);
+  };
+
   return (
     <Layout user={user}>
       {showPopup && <ProjectNamePopup onClose={handleClosePopup} />}
       {showPopup1 && <ProjectPeoplePopup onClose={handleClosePopup1} />}
+      {showChoosePopup && <ProjectChoosePopup onClose={handleCloseChoosePopup} />}
       <main className={styles.listArea}>
         <h2>專案設定</h2>
         <section className={styles.aboutArea}>
@@ -75,7 +86,7 @@ function ProjectList({ user }: { user: User | undefined }) {
                   <h3>審核方式</h3>
                   <p>全部分配</p>
                 </div>
-                <a onClick={handleCheckClick1}><FaPen/></a>
+                <a onClick={handChoosePopup}><FaPen/></a>
                 <div className={styles.contentShort}>
                   <h3>錄取人數</h3>
                   <p>20</p>
