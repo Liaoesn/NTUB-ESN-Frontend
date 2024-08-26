@@ -1,5 +1,5 @@
 interface projectinterface{
-    id:number;
+    prono:number;
     img:string;
     tit:string;
     proname: string;
