@@ -94,10 +94,10 @@ export default function ProjectList() {
                 onChange={handleChange}
               >
                 <MenuItem value={'all'}>全部</MenuItem>
-                <MenuItem value={'01'}>二技</MenuItem>
-                <MenuItem value={'02'}>四技</MenuItem>
+                <MenuItem value={'01'}>博士</MenuItem>
+                <MenuItem value={'02'}>二技</MenuItem>
                 <MenuItem value={'03'}>碩士</MenuItem>
-                <MenuItem value={'04'}>博士</MenuItem>
+                <MenuItem value={'04'}>四技</MenuItem>
               </Select>
             </FormControl>
             <FormControl sx={{ m: 2, minWidth: 120 }} size="small">
