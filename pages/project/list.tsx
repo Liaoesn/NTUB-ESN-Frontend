@@ -4,20 +4,76 @@ import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Sel
 import React, { useEffect, useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from 'next/router';
+import Project from './project';
+import projectinterface from './projectinterface'
+import axios from 'axios';
 
+
+const getList = async () => {
+  const response = await axios.get('/api/project/list');
+
+  console.log(response.data);
+  const list = response.data.map((temp:projectinterface) => {
+    console.log(temp);
+    return temp;
+  });
+  console.log(list);
+}
 
 export default function ProjectList() {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
+  const [page, setPage] = React.useState<number>(1);
+  const [projects, setProjects] = useState<projectinterface[]>([]);
+
+  
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const response = await axios.get('/api/project/list', {
+          params: { year, academic, page }
+
+        });
+
+        console.log(response);
+        const list = response.data.map((temp: projectinterface) => {
+          return temp;
+        });
+        
+        setProjects(list);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    getList();
+  }, [year, academic, page]);
 
   const handleChange = (event: SelectChangeEvent) => {
 
     if (event.target.name == 'year') {
-      setYear(event.target.value);
+      const year = event.target.value;
+      console.log('setYear: ' + year);
+      if(year == 'all') {
+        setYear('');
+      } else {
+        setYear(event.target.value);
+      }
     };
     if (event.target.name == 'academic') {
-      setAcademic(event.target.value);
+      const academic = event.target.value;
+      console.log('academic: ' + academic);
+      if(academic == "all" ) {
+        setAcademic('');
+      } else {
+        setAcademic(event.target.value);
+      }
     };
+  };
+  
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    console.log('Current Page:', value);
   };
 
   return (
@@ -37,10 +93,11 @@ export default function ProjectList() {
                 name="academic"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>二技</MenuItem>
-                <MenuItem value={20}>四技</MenuItem>
-                <MenuItem value={30}>碩士</MenuItem>
-                <MenuItem value={30}>博士</MenuItem>
+                <MenuItem value={'all'}>全部</MenuItem>
+                <MenuItem value={'01'}>二技</MenuItem>
+                <MenuItem value={'02'}>四技</MenuItem>
+                <MenuItem value={'03'}>碩士</MenuItem>
+                <MenuItem value={'04'}>博士</MenuItem>
               </Select>
             </FormControl>
             <FormControl sx={{ m: 2, minWidth: 120 }} size="small">
@@ -53,7 +110,8 @@ export default function ProjectList() {
                 label="year"
                 name="year"
                 onChange={handleChange}
-              >
+              > 
+                <MenuItem value={'all'}>全部</MenuItem>
                 <MenuItem value={'112'}>112</MenuItem>
                 <MenuItem value={'113'}>113</MenuItem>
                 <MenuItem value={'114'}>114</MenuItem>
@@ -62,76 +120,15 @@ export default function ProjectList() {
           </Box>
         </section>
         <section className={styles.projectList}>
-          <div className={styles.projectItem}>
-            <article>
-              <div className={styles.projectLogo}><p>113</p></div>
-              <div className={styles.projectContent}>
-                <b>113學年度 二技 履歷評分</b>
-                <p>專案建立者:<span>廖翊丞</span></p>
-                <p>排序進度:3/6</p>
-              </div>
-            </article>
-            <div className={styles.projectAbout}>
-              <p>結案日期：2024/06/30</p>
-            </div>
-          </div>
-          <div className={styles.projectItem}>
-            <article>
-              <div className={styles.projectLogo}><p>113</p></div>
-              <div className={styles.projectContent}>
-                <b>113學年度 碩士班 履歷評分</b>
-                <p>專案建立者:<span>廖翊丞</span></p>
-                <p>排序進度:4/6</p>
-              </div>
-            </article>
-            <div className={styles.projectTime}>
-              <p>結案日期：2024/06/10</p>
-            </div>
-          </div>
-          <div className={styles.projectItem}>
-            <article>
-              <div className={styles.projectLogo}><p>113</p></div>
-              <div className={styles.projectContent}>
-                <b>113學年度 四技績優 履歷評分</b>
-                <p>專案建立者:<span>張安志</span></p>
-                <p>排序進度:5/6</p>
-              </div>
-            </article>
-            <div className={styles.projectTime}>
-              <p>結案日期：2024/05/24</p>
-            </div>
-          </div>
-          <div className={styles.projectItem}>
-            <article>
-              <div className={styles.projectLogo}><p>113</p></div>
-              <div className={styles.projectContent}>
-                <b>113學年度 特殊選才 履歷評分</b>
-                <p>專案建立者:<span>林明志</span></p>
-                <p>排序進度:6/6</p>
-              </div>
-            </article>
-            <div className={styles.projectTime}>
-              <p>結案日期：2024/04/30</p>
-            </div>
-          </div>
-          <div className={styles.projectItem}>
-            <article>
-              <div className={styles.projectLogo}><p>113</p></div>
-              <div className={styles.projectContent}>
-                <b>113學年度 技優推甄 履歷評分</b>
-                <p>專案建立者:<span>林明志</span></p>
-                <p>排序進度:6/6</p>
-              </div>
-            </article>
-            <div className={styles.projectTime}>
-              <p>結案日期：2024/04/30</p>
-            </div>
-          </div>
+          {projects.map((project) =>{
+            return <Project key={project.prono} project={project} />
+          })}
         </section>
         <section className={styles.projectPage}>
           <Stack spacing={2}>
             <Pagination
-              count={3}
+              count={5}
+              onChange={handlePageChange}
               renderItem={(item) => (
                 <PaginationItem
                   slots={{ previous: FaAngleLeft, next: FaAngleRight }}
