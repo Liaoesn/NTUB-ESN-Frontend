@@ -31,10 +31,13 @@ export default function ProjectList() {
     const getList = async () => {
       try {
         const response = await axios.get('/api/project/list', {
-          params: { year, academic, page }
-
+          params: { 
+            year: year === 'all' ? '' : year, 
+            academic: academic === 'all' ? '' : academic, 
+            page 
+          }
         });
-
+  
         console.log(response);
         const list = response.data.map((temp: projectinterface) => {
           return temp;
@@ -45,31 +48,25 @@ export default function ProjectList() {
         console.error("Error fetching projects:", error);
       }
     };
-
+  
     getList();
   }, [year, academic, page]);
+  
 
   const handleChange = (event: SelectChangeEvent) => {
-
-    if (event.target.name == 'year') {
-      const year = event.target.value;
-      console.log('setYear: ' + year);
-      if(year == 'all') {
-        setYear('');
-      } else {
-        setYear(event.target.value);
-      }
-    };
-    if (event.target.name == 'academic') {
-      const academic = event.target.value;
-      console.log('academic: ' + academic);
-      if(academic == "all" ) {
-        setAcademic('');
-      } else {
-        setAcademic(event.target.value);
-      }
-    };
+    const { name, value } = event.target;
+  
+    if (name === 'year') {
+      setYear(value);  // 保持为 'all' 或者具体的年份
+      console.log('setYear:', value);
+    }
+  
+    if (name === 'academic') {
+      setAcademic(value);  // 保持为 'all' 或者具体的学制
+      console.log('setAcademic:', value);
+    }
   };
+  
   
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
