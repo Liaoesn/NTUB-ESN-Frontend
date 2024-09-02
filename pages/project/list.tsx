@@ -117,9 +117,13 @@ export default function ProjectList() {
           </Box>
         </section>
         <section className={styles.projectList}>
-          {projects.map((project) =>{
-            return <Project key={project.prono} project={project} />
-          })}
+          {projects.map((project, index) => (
+            <React.Fragment key={project.prono}>
+            <Project project={project} />
+            {index < projects.length-1 && <hr/>}
+            
+          </React.Fragment>
+          ))}
         </section>
         <section className={styles.projectPage}>
           <Stack spacing={2}>
