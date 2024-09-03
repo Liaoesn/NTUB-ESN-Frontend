@@ -5,22 +5,34 @@ interface proProps{
     project: projectinterface;
 }
 function project(project : proProps) {
+    const edate = new Date(project.project.enddate);
     return (
         <div className={styles.projectItem}>
         <article>
         <div className={styles.projectLogo}>
-            <p>{project.project.img}</p>
+            <p>{project.project.prodescription}</p>
         </div>
         <div className={styles.projectContent}>
-            <b>{project.project.tit}</b>
-            <p>專案建立者: <span>{project.project.proname}</span></p>
+            <b>{project.project.proname}</b>
+            <p>專案建立者: <span>{project.project.create_id}</span></p>
             <p>排序進度: {project.project.state}</p>
         </div>  
         </article>
         <div className={styles.projectTime}>
-        <p>結案日期：{project.project.enddate}</p>
+        <p>結案日期：{formatDate(edate)}</p>
         </div>
         </div>
     );
+}
+
+function formatDate(date : Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份是從 0 開始的
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 }
 export default project;
