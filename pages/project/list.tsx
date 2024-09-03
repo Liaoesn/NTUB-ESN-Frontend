@@ -6,25 +6,71 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Project from './project';
 import projectinterface from './projectinterface'
+import axios from 'axios';
+
+
+const getList = async () => {
+  const response = await axios.get('/api/project/list');
+
+  console.log(response.data);
+  const list = response.data.map((temp:projectinterface) => {
+    console.log(temp);
+    return temp;
+  });
+  console.log(list);
+}
 
 export default function ProjectList() {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
-  const [projects, setProjects] = useState<projectinterface[]>([
-    {id:Math.random(), img:'112', tit:'112學年度 三技 履歷部分', proname: 'OOO', state:'3/6', enddate: '112/09'},
-    {id:Math.random(), img:'113', tit:'113學年度 二技 履歷部分', proname: 'XXX', state:'2/6', enddate: '113/10'},
-    {id:Math.random(), img:'112', tit:'112學年度 五專 履歷部分', proname: 'ZZZ', state:'3/6', enddate: '112/11'},
-    {id:Math.random(), img:'113', tit:'113學年度 四技 履歷部分', proname: 'XXX', state:'0/6', enddate: '113/12'},
-  ]);
+  const [page, setPage] = React.useState<number>(1);
+  const [projects, setProjects] = useState<projectinterface[]>([]);
+
+  
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const response = await axios.get('/api/project/list', {
+          params: { 
+            year: year === 'all' ? '' : year, 
+            academic: academic === 'all' ? '' : academic, 
+            page 
+          }
+        });
+  
+        console.log(response);
+        const list = response.data.map((temp: projectinterface) => {
+          return temp;
+        });
+        
+        setProjects(list);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+  
+    getList();
+  }, [year, academic, page]);
+  
 
   const handleChange = (event: SelectChangeEvent) => {
-
-    if (event.target.name == 'year') {
-      setYear(event.target.value);
-    };
-    if (event.target.name == 'academic') {
-      setAcademic(event.target.value);
-    };
+    const { name, value } = event.target;
+  
+    if (name === 'year') {
+      setYear(value);  // 保持为 'all' 或者具体的年份
+      console.log('setYear:', value);
+    }
+  
+    if (name === 'academic') {
+      setAcademic(value);  // 保持为 'all' 或者具体的学制
+      console.log('setAcademic:', value);
+    }
+  };
+  
+  
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    console.log('Current Page:', value);
   };
 
   return (
@@ -44,10 +90,11 @@ export default function ProjectList() {
                 name="academic"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>二技</MenuItem>
-                <MenuItem value={20}>四技</MenuItem>
-                <MenuItem value={30}>碩士</MenuItem>
-                <MenuItem value={30}>博士</MenuItem>
+                <MenuItem value={'all'}>全部</MenuItem>
+                <MenuItem value={'01'}>博士</MenuItem>
+                <MenuItem value={'02'}>二技</MenuItem>
+                <MenuItem value={'03'}>碩士</MenuItem>
+                <MenuItem value={'04'}>四技</MenuItem>
               </Select>
             </FormControl>
             <FormControl sx={{ m: 2, minWidth: 120 }} size="small">
@@ -60,7 +107,8 @@ export default function ProjectList() {
                 label="year"
                 name="year"
                 onChange={handleChange}
-              >
+              > 
+                <MenuItem value={'all'}>全部</MenuItem>
                 <MenuItem value={'112'}>112</MenuItem>
                 <MenuItem value={'113'}>113</MenuItem>
                 <MenuItem value={'114'}>114</MenuItem>
@@ -69,14 +117,19 @@ export default function ProjectList() {
           </Box>
         </section>
         <section className={styles.projectList}>
-          {projects.map((project) =>{
-            return <Project project={project} />
-          })}
+          {projects.map((project, index) => (
+            <React.Fragment key={project.prono}>
+            <Project project={project} />
+            {index < projects.length-1 && <hr/>}
+            
+          </React.Fragment>
+          ))}
         </section>
         <section className={styles.projectPage}>
           <Stack spacing={2}>
             <Pagination
-              count={3}
+              count={5}
+              onChange={handlePageChange}
               renderItem={(item) => (
                 <PaginationItem
                   slots={{ previous: FaAngleLeft, next: FaAngleRight }}
