@@ -2,7 +2,7 @@ interface projectinterface{
     prono:number;
     prodescription:string;
     proname: string;
-    create_id:number;
+    username:string;
     state:string;
     enddate: string;
     
