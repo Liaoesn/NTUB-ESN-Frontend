@@ -14,7 +14,7 @@ function project(project : proProps) {
         </div>
         <div className={styles.projectContent}>
             <b>{project.project.proname}</b>
-            <p>專案建立者: <span>{project.project.create_id}</span></p>
+            <p>專案建立者: <span>{project.project.username}</span></p>
             <p>排序進度: {project.project.state}</p>
         </div>  
         </article>
