@@ -1,5 +1,7 @@
-import projectInterface from './projectInterface'
-import styles from '@/styles/page/project/list.module.scss'
+import projectInterface from './projectInterface';
+import styles from '@/styles/page/project/list.module.scss';
+import Link from 'next/link';
+import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
 
 interface proProps{
     project: projectInterface;
@@ -18,9 +20,13 @@ function project({project} : proProps) {
             <p>排序進度: {project.state}</p>
         </div>  
         </article>
-        <div className={styles.projectTime}>
-        <p>結案日期：{formatDate(edate)}</p>
-        </div>
+        <div className={styles.projectAbout}>
+                <div className={styles.projectButton}>
+                <Link className={styles.projectSet} href={'/projectManage/edit'}><FaCog /></Link>
+                <Link className={styles.projectDel} href={'/projectManage/edit'}><FaRegTrashAlt /></Link>
+                </div>
+                <p>結案日期：{formatDate(edate)}</p>
+            </div>
         </div>
     );
 }

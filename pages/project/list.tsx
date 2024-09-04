@@ -5,28 +5,15 @@ import React, { useEffect, useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Project from './project';
-import projectinterface from './projectinterface'
+import projectInterface from './projectInterface'
 import axios from 'axios';
-
-
-const getList = async () => {
-  const response = await axios.get('/api/project/list');
-
-  console.log(response.data);
-  const list = response.data.map((temp:projectinterface) => {
-    console.log(temp);
-    return temp;
-  });
-  console.log(list);
-}
 
 export default function ProjectList() {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
-  const [projects, setProjects] = useState<projectinterface[]>([]);
+  const [projects, setProjects] = useState<projectInterface[]>([]);
 
-  
   useEffect(() => {
     const getList = async () => {
       try {
@@ -39,7 +26,7 @@ export default function ProjectList() {
         });
   
         console.log(response);
-        const list = response.data.map((temp: projectinterface) => {
+        const list = response.data.map((temp: projectInterface) => {
           return temp;
         });
         
