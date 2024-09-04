@@ -1,8 +1,8 @@
 interface projectinterface{
     prono:number;
-    img:string;
-    tit:string;
+    prodescription:string;
     proname: string;
+    create_id:number;
     state:string;
     enddate: string;
     
