@@ -21,27 +21,22 @@ function ProjectList({ user }: { user: User | undefined }) {
   const [users, setUsers] = useState<userInterface[]>([]);
 
   useEffect(() => {
-    const getList = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('/api/user/list', {
+        const response: { data: userInterface[] } = await axios.get('/api/user/list', {
           params: { 
             permission: permission === 'all' ? '' : permission, 
             page 
           }
         });
-  
-        console.log(response);
-        const list = response.data.map((temp: userInterface) => {
-          return temp;
-        });
-        
-        setUsers(list);
+
+        setUsers(response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
     };
   
-    getList();
+    fetchData();
   }, [permission, page]);
 
   const handleChange = (event: SelectChangeEvent) => {
