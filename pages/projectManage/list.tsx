@@ -1,7 +1,6 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
-import Link from 'next/link';
 import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
@@ -111,7 +110,7 @@ function ProjectManage({ user }: { user: User | undefined }) {
           <a><FaRegPlusSquare/></a>
         </section>
 
-        <section className={styles.ProjectManage}>
+        <section className={styles.projectList}>
         {projects.map((project, index) => (
             <React.Fragment key={project.prono}>
             <Project project={project} />

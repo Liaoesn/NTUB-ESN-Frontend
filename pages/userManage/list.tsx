@@ -8,13 +8,10 @@ import React, { useState, useEffect } from 'react';
 import UserRow from './user';
 import userInterface from './userInterface';
 import axios from 'axios';
+import PrivateRoute from '../privateRoute';
+import userI from '../userI';
 
-interface User {
-  username: string;
-  avatar_url: string;
-}
-
-function ProjectList({ user }: { user: User | undefined }) {
+function UserManageList({ user }: { user: userI | undefined }) {
 
   const [permission, setPermission] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
@@ -109,27 +106,12 @@ function ProjectList({ user }: { user: User | undefined }) {
     </Layout>
   );
 }
-export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
-  const router = useRouter();
+export default function Init() {
+  const [user, setUser] = useState<userI>();
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch('/api/auth/user');
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-        } else {
-          router.push('/user/login'); // 如果沒有用戶登錄，導向登錄頁面
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        router.push('/user/login');
-      }
-    }
-    fetchUser();
-  }, [router]);
-
-  return user ? <ProjectList user={user} /> : <p>Loading...</p>;
+  return (
+    <PrivateRoute>
+      <UserManageList user={user} />
+    </PrivateRoute>
+  );
 }
