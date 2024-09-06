@@ -1,48 +1,69 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
-import Link from 'next/link';
 import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
+import Project from './project';
+import projectInterface from './projectInterface'
+import axios from 'axios';
 
 interface User {
   username: string;
   avatar_url: string;
 }
 
-function ProjectList({ user }: { user: User | undefined }) {
+function ProjectManage({ user }: { user: User | undefined }) {
 
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
+  const [page, setPage] = React.useState<number>(1);
+  const [projects, setProjects] = useState<projectInterface[]>([]);
+
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const response = await axios.get('/api/project/list', {
+          params: { 
+            year: year === 'all' ? '' : year, 
+            academic: academic === 'all' ? '' : academic, 
+            page 
+          }
+        });
+  
+        console.log(response);
+        const list = response.data.map((temp: projectInterface) => {
+          return temp;
+        });
+        
+        setProjects(list);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+  
+    getList();
+  }, [year, academic, page]);
 
   const handleChange = (event: SelectChangeEvent) => {
-
-    if (event.target.name == 'year') {
-      setYear(event.target.value);
-    };
-    if (event.target.name == 'academic') {
-      setAcademic(event.target.value);
-    };
+    const { name, value } = event.target;
+  
+    if (name === 'year') {
+      setYear(value);  // 保持为 'all' 或者具体的年份
+      console.log('setYear:', value);
+    }
+  
+    if (name === 'academic') {
+      setAcademic(value);  // 保持为 'all' 或者具体的学制
+      console.log('setAcademic:', value);
+    }
   };
-  const projects = [
-    {
-      id: 1,
-      year: 113,
-      title: "113學年度 二技 履歷評分",
-      creator: "廖翊丞",
-      progress: "3/6",
-      endDate: "2024/06/30"
-    },
-    {
-      id: 2,
-      year: 114,
-      title: "113學年度 碩士班 履歷評分",
-      creator: "廖翊丞",
-      progress: "4/6",
-      endDate: "2024/06/10"
-    },
-  ];
+  
+  
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    console.log('Current Page:', value);
+  };
 
   return (
     <Layout user={user}>
@@ -50,7 +71,7 @@ function ProjectList({ user }: { user: User | undefined }) {
         <h2>{user?.username}的專案總覽</h2>
         <section className={styles.dropdownArea}>
           <Box sx={{ minWidth: 120 }}>
-            <FormControl sx={{ m: 2, minWidth: 120, height: 20, }} size="small">
+          <FormControl sx={{ m: 2, minWidth: 120, height: 20, }} size="small">
               <InputLabel id="demo-simple-select-label">學制</InputLabel>
               <Select
                 sx={{ borderRadius: 20 }}
@@ -61,10 +82,11 @@ function ProjectList({ user }: { user: User | undefined }) {
                 name="academic"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>二技</MenuItem>
-                <MenuItem value={20}>四技</MenuItem>
-                <MenuItem value={30}>碩士</MenuItem>
-                <MenuItem value={30}>博士</MenuItem>
+                <MenuItem value={'all'}>全部</MenuItem>
+                <MenuItem value={'01'}>博士</MenuItem>
+                <MenuItem value={'02'}>二技</MenuItem>
+                <MenuItem value={'03'}>碩士</MenuItem>
+                <MenuItem value={'04'}>四技</MenuItem>
               </Select>
             </FormControl>
             <FormControl sx={{ m: 2, minWidth: 120 }} size="small">
@@ -77,7 +99,8 @@ function ProjectList({ user }: { user: User | undefined }) {
                 label="year"
                 name="year"
                 onChange={handleChange}
-              >
+              > 
+                <MenuItem value={'all'}>全部</MenuItem>
                 <MenuItem value={'112'}>112</MenuItem>
                 <MenuItem value={'113'}>113</MenuItem>
                 <MenuItem value={'114'}>114</MenuItem>
@@ -86,31 +109,22 @@ function ProjectList({ user }: { user: User | undefined }) {
           </Box>
           <a><FaRegPlusSquare/></a>
         </section>
+
         <section className={styles.projectList}>
-          {projects.map(project => (
-            <div key={project.id} className={styles.projectItem}>
-              <article>
-                <div className={styles.projectLogo}><p>{project.year}</p></div>
-                <div className={styles.projectContent}>
-                  <b>{project.title}</b>
-                  <p>專案建立者:<span>{project.creator}</span></p>
-                  <p>排序進度:{project.progress}</p>
-                </div>
-              </article>
-              <div className={styles.projectAbout}>
-                <div className={styles.projectButton}>
-                  <Link className={styles.projectSet} href={'/project/seting'}><FaCog /></Link>
-                  <Link className={styles.projectDel} href={'/project/seting'}><FaRegTrashAlt /></Link>
-                </div>
-                <p>結案日期：{project.endDate}</p>
-              </div>
-            </div>
+        {projects.map((project, index) => (
+            <React.Fragment key={project.prono}>
+            <Project project={project} />
+            {index < projects.length-1 && <hr/>}
+            
+          </React.Fragment>
           ))}
         </section>
+        
         <section className={styles.projectPage}>
           <Stack spacing={2}>
             <Pagination
-              count={3}
+              count={5}
+              onChange={handlePageChange}
               renderItem={(item) => (
                 <PaginationItem
                   slots={{ previous: FaAngleLeft, next: FaAngleRight }}
@@ -146,5 +160,5 @@ export default function Home() {
     fetchUser();
   }, [router]);
 
-  return user ? <ProjectList user={user} /> : <p>Loading...</p>;
+  return user ? <ProjectManage user={user} /> : <p>Loading...</p>;
 }

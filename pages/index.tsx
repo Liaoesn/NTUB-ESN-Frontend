@@ -52,7 +52,7 @@ export default function Home() {
               </article>
               <FaClock className={styles.buttonIcon} />
             </div>
-            <div onClick={() => router.push('/project/manageList')} className={styles.listButton}>
+            <div onClick={() => router.push('/projectManage/list')} className={styles.listButton}>
               <article>
                 <h3>{user.username}的專案</h3>
                 <p>您建立或是參與的書審專案</p>

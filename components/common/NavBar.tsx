@@ -18,7 +18,7 @@ const NavBar = ({ user }: NavbarProps) => {
         {user && (
           <ul className={styles.button}>
             <li><Link href={"/project/list"}>歷年專案</Link></li>
-            <li><Link href={"/project/manageList"}>專案管理</Link></li>
+            <li><Link href={"/projectManage/list"}>專案管理</Link></li>
             <li><Link href={"/project/list"}>帳號管理</Link></li>
           </ul>
         )}
