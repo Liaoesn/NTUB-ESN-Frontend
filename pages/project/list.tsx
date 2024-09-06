@@ -7,8 +7,12 @@ import { useRouter } from 'next/router';
 import Project from './project';
 import projectInterface from './projectInterface'
 import axios from 'axios';
+import PrivateRoute from '../privateRoute';
+import userI from '../userI';
 
-export default function ProjectList() {
+
+
+function ProjectList({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
@@ -18,19 +22,14 @@ export default function ProjectList() {
     const getList = async () => {
       try {
         const response = await axios.get('/api/project/list', {
-          params: { 
-            year: year === 'all' ? '' : year, 
-            academic: academic === 'all' ? '' : academic, 
-            page 
+          params: {
+            year: year === 'all' ? '' : year,
+            academic: academic === 'all' ? '' : academic,
+            page
           }
         });
   
-        console.log(response);
-        const list = response.data.map((temp: projectInterface) => {
-          return temp;
-        });
-        
-        setProjects(list);
+        setProjects(response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -128,5 +127,14 @@ export default function ProjectList() {
         </section>
       </main>
     </Layout>
+  );
+}
+export default function Init() {
+  const [user, setUser] = useState<userI>();
+
+  return (
+    <PrivateRoute>
+      <ProjectList user={user} />
+    </PrivateRoute>
   );
 }

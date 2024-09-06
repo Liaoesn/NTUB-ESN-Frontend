@@ -15,7 +15,6 @@
 
   .dropdownArea {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid black;
 
@@ -40,7 +39,31 @@
       }
     }
   }
+  .leftEndBox {
+    margin-right: auto;
+    min-width: 120px;
+  }
+  .searchBox {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5; /* 背景顏色 */
+    border: 1px solid #d0d0d0; /* 邊框顏色 */
+    border-radius: 25px; /* 圓角設置 */
+    padding: 5px 15px; /* 內邊距 */
 
+    input {
+      border: none;
+      outline: none;
+      background: none;
+      padding: 5px; /* 控制輸入框的內邊距 */
+      padding-left: 5px; /* 將光標向右移動 */
+    }
+  }
+
+  .buttonBox {
+    margin: 10px;
+  }
+  
   .userList {
     display: flex;
     flex-direction: column;

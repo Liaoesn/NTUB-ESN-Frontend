@@ -1,8 +1,9 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/user/list.module.scss'
-import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+import { Box, FormControl, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import Link from 'next/link';
-import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight,FaPen} from "react-icons/fa";
+import { LuSearch } from "react-icons/lu";
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import UserRow from './user';
@@ -57,7 +58,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
       <main className={styles.listArea}>
         <h2>人員總覽</h2>
         <section className={styles.dropdownArea}>
-          <Box sx={{ minWidth: 120 }}>
+          <Box className={styles.leftEndBox}>
             <FormControl sx={{ m: 2, minWidth: 120 }} size="small">
               <InputLabel id="demo-simple-select-label">職稱</InputLabel>
               <Select
@@ -75,6 +76,16 @@ function UserManageList({ user }: { user: userI | undefined }) {
                 <MenuItem value={'03'}>助教</MenuItem>
               </Select>
             </FormControl>
+          </Box>
+          <Box className={styles.searchBox}>
+            <Input 
+              id="new-input"
+              disableUnderline={true}
+            />
+            <LuSearch />
+          </Box>
+          <Box className={styles.buttonBox}>
+            <FaPen/>
           </Box>
         </section>
 

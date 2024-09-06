@@ -7,43 +7,35 @@ import React, { useState, useEffect } from 'react';
 import Project from './project';
 import projectInterface from './projectInterface'
 import axios from 'axios';
+import PrivateRoute from '../privateRoute';
+import userI from '../userI';
 
-interface User {
-  username: string;
-  avatar_url: string;
-}
-
-function ProjectManage({ user }: { user: User | undefined }) {
+function ProjectManage({ user }: { user: userI | undefined }) {
 
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
   const [projects, setProjects] = useState<projectInterface[]>([]);
+  
 
   useEffect(() => {
-    const getList = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('/api/project/list', {
-          params: { 
-            year: year === 'all' ? '' : year, 
-            academic: academic === 'all' ? '' : academic, 
-            page 
+        const { data } = await axios.get('/api/project/data', {
+          params: {
+            year: year === 'all' ? '' : year,
+            academic: academic === 'all' ? '' : academic,
+            page
           }
         });
-  
-        console.log(response);
-        const list = response.data.map((temp: projectInterface) => {
-          return temp;
-        });
-        
-        setProjects(list);
+        setProjects(data);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
     };
   
-    getList();
-  }, [year, academic, page]);
+    fetchData();
+  }, [year, academic, page]); 
 
   const handleChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
@@ -138,27 +130,12 @@ function ProjectManage({ user }: { user: User | undefined }) {
     </Layout>
   );
 }
-export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
-  const router = useRouter();
+export default function Init() {
+  const [user, setUser] = useState<userI>();
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch('/api/auth/user');
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-        } else {
-          router.push('/user/login'); // 如果沒有用戶登錄，導向登錄頁面
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        router.push('/user/login');
-      }
-    }
-    fetchUser();
-  }, [router]);
-
-  return user ? <ProjectManage user={user} /> : <p>Loading...</p>;
+  return (
+    <PrivateRoute>
+      <ProjectManage user={user} />
+    </PrivateRoute>
+  );
 }
