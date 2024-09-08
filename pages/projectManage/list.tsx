@@ -9,14 +9,13 @@ import projectInterface from './projectInterface'
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
 import userI from '../userI';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 function ProjectManage({ user }: { user: userI | undefined }) {
-
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
   const [projects, setProjects] = useState<projectInterface[]>([]);
-  
 
   useEffect(() => {
     const fetchData = async () => {

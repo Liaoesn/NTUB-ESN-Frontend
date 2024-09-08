@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export default function Layout({ children, user }: LayoutProps) {
   const [userData, setUserData] = useState<{ username: string, avatar_url: string } | undefined>(user);
-  
+
   const fetchUser = async () => {
     const res = await fetch('http://localhost:5000/api/auth/user', {
       credentials: 'include', // 確保發送請求時會附帶 cookie
