@@ -9,6 +9,7 @@ function user( {user} : proProps) {
         <div className={styles.userItem}>
             <article>
                 <div className={styles.userLogo}>
+                    <img src={user.avatar_url} alt="User Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
                 </div>
                 <div className={styles.userContent}>
                     <b>{user.username}</b>  

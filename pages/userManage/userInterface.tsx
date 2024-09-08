@@ -1,8 +1,9 @@
 interface userInterface{
     userno:number;
     username: string;
-    permissions:number;
-    
+    email: string;
+    avatar_url: string;
+    permissions:string;
 }
 
 export default userInterface;
