@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
-import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import Project from './project';

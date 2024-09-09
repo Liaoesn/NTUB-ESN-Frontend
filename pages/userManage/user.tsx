@@ -1,5 +1,6 @@
 import userInterface from './userInterface';
 import styles from '@/styles/page/user/list.module.scss';
+import { FaMinusCircle } from "react-icons/fa";
 
 interface proProps{
     user: userInterface;
@@ -16,7 +17,9 @@ function user( {user} : proProps) {
                 </div>
                 <div className={styles.itemRadius}>
                     <p>{user.permissions}</p>
-                </div>    
+                </div>  
+                <div><FaMinusCircle />  </div>
+                
             </article>
         </div>
     );
