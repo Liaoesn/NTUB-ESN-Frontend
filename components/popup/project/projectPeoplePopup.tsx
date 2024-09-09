@@ -1,5 +1,5 @@
 
-import styles from "@/styles/components/popup/projectPeoplePopup.module.scss";
+import styles from "@/styles/components/popup/project/projectPeoplePopup.module.scss";
 import React from "react";
 import { MdOutlineCancel, MdArrowRight, MdArrowLeft} from "react-icons/md";
 

@@ -1,14 +1,14 @@
 
-import styles from "@/styles/components/popup/projectChoosePopup.module.scss";
+import styles from "@/styles/components/popup/project/projectChoosePopup.module.scss";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-interface ProjectNamePopupProps {
+interface ProjectChoosePopup {
     onClose: () => void;
 }
-const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
+const ProjectChoosePopup: React.FC<ProjectChoosePopup> = ({ onClose }) => {
     const [alignment, setAlignment] = React.useState('web');
 
     const handleChange = (
@@ -45,4 +45,4 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
     );
 }
 
-export default ProjectNamePopup;
+export default ProjectChoosePopup;
