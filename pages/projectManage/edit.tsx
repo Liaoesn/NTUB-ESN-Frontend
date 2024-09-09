@@ -1,7 +1,8 @@
 import Layout from '@/components/Layout/Layout';
-import ProjectNamePopup from '@/components/popup/projectNamePopup';
-import ProjectPeoplePopup from '@/components/popup/projectPeoplePopup';
-import ProjectChoosePopup from '@/components/popup/projectChoosePopup';
+import ProjectNamePopup from '@/components/popup/project/projectNamePopup';
+import ProjectPeoplePopup from '@/components/popup/project/projectPeoplePopup';
+import ProjectChoosePopup from '@/components/popup/project/projectChoosePopup';
+import ProjectFilePopuo from '@/components/popup/project/projectFilePopup';
 import styles from '@/styles/page/project/seting.module.scss'
 import { SelectChangeEvent } from '@mui/material';
 import React, { useState, useEffect } from 'react';
@@ -16,9 +17,11 @@ interface User {
 function ProjectList({ user }: { user: User | undefined }) {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
-  const [showPopup, setShowPopup] = React.useState(false);
-  const [showPopup1, setShowPopup1] = React.useState(false);
-  const [showChoosePopup, setShowChoosePopup] = React.useState(false);
+  //PopupShowOut 各種Popup的值
+  const [showName, setShowName] = React.useState(false);
+  const [showPeople, setShowPeople] = React.useState(false);
+  const [showChoose, setShowChoose] = React.useState(false);
+  const [showFile, setShowFile] = React.useState(false);
 
   const handleChange = (event: SelectChangeEvent) => {
 
@@ -30,35 +33,40 @@ function ProjectList({ user }: { user: User | undefined }) {
     };
   };
   
-  const handleCheckClick = () => {
-    setShowPopup(true);
-  };
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-  //審核方式錄取人數
-  const handleCheckClick1 = () => {
-    setShowPopup1(true);
-  };
-
-  const handleClosePopup1 = () => {
-    setShowPopup1(false);
-  };
-
-  const handChoosePopup = () => {
-    setShowChoosePopup(true);
-  };
-
-  const handleCloseChoosePopup = () => {
-    setShowChoosePopup(false);
-  };
+  const  handlePopup = ( popupName: string ) => {
+    if (popupName == 'Chose') { 
+      if (showChoose == true) {
+        setShowChoose(false);
+      } else {
+        setShowChoose(true);
+      }
+    } else if (popupName == 'Name'){
+      if (showName == true) {
+        setShowName(false);
+      } else {
+        setShowName(true);
+      }
+    } else if (popupName == 'People'){
+      if (showPeople == true) {
+        setShowPeople(false);
+      } else {
+        setShowPeople(true);
+      }
+    } else if (popupName == 'File'){
+      if (showFile == true) {
+        setShowFile(false);
+      } else {
+        setShowFile(true);
+      }
+    }
+  }
 
   return (
     <Layout user={user}>
-      {showPopup && <ProjectNamePopup onClose={handleClosePopup} />}
-      {showPopup1 && <ProjectPeoplePopup onClose={handleClosePopup1} />}
-      {showChoosePopup && <ProjectChoosePopup onClose={handleCloseChoosePopup} />}
+      {showName && <ProjectNamePopup onClose={() => handlePopup('Name')} />}
+      {showPeople && <ProjectPeoplePopup onClose={() => handlePopup('People')} />}
+      {showChoose && <ProjectChoosePopup onClose={() => handlePopup('Chose')} />}
+      {showFile && <ProjectFilePopuo onClose={() => handlePopup('File')} />}
       <main className={styles.listArea}>
         <h2>專案設定</h2>
         <section className={styles.aboutArea}>
@@ -67,38 +75,38 @@ function ProjectList({ user }: { user: User | undefined }) {
                   <h3>專案名稱</h3>
                   <p>金美麗招生</p>
                 </div>
-                <a onClick={handleCheckClick}><FaPen/></a>
+                <a onClick={() => handlePopup('Name')}><FaPen/></a>
             </div>
             <div className={styles.setingList}>
                 <div className={styles.contentShort}>
                   <h3>學制</h3>
                   <p>二技</p>
                 </div>
-                <a onClick={handleCheckClick}><FaPen/></a>
+                <a onClick={() => handlePopup('Name')}><FaPen/></a>
                 <div className={styles.contentShort}>
                   <h3>學年</h3>
                   <p>113</p>
                 </div>
-                <a onClick={handleCheckClick}><FaPen/></a>
+                <a onClick={() => handlePopup('Name')}><FaPen/></a>
             </div>
             <div className={styles.setingList}>
                 <div className={styles.contentShort}>
                   <h3>審核方式</h3>
                   <p>全部分配</p>
                 </div>
-                <a onClick={handChoosePopup}><FaPen/></a>
+                <a onClick={() => handlePopup('Chose')}><FaPen/></a>
                 <div className={styles.contentShort}>
                   <h3>錄取人數</h3>
                   <p>20</p>
                 </div>
-                <a onClick={handleCheckClick1}><FaPen/></a>
+                <a onClick={() => handlePopup('People')}><FaPen/></a>
             </div>
             <div className={styles.setingList}>
                 <div className={styles.content}>
                   <h3>資料數量</h3>
                   <p>120筆</p>
                 </div>
-                <a><FaFolder/></a>
+                <a onClick={() => handlePopup('File')}><FaFolder/></a>
             </div>
             <div className={styles.setingTeacher}>
                 <div className={styles.contentTeacher}>
@@ -109,7 +117,7 @@ function ProjectList({ user }: { user: User | undefined }) {
                     <p>葉明貴</p>
                   </div>
                 </div>
-                <a onClick={handleCheckClick}><FaPen/></a>
+                <a onClick={() => handlePopup('File')}><FaPen/></a>
             </div>
         </section>
         <section className={styles.setingButton}>
