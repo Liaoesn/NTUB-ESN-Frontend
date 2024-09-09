@@ -1,0 +1,63 @@
+@import "@/styles/base/variables";
+@import "@/styles/base/extends";
+
+.popupBG {
+    @extend %popup-area;
+
+    .mainShow {
+        width: 35vw;
+        height: 40vh;
+        display: flex;
+        padding: 20px;
+        align-items: center;
+        @extend %popup-mainShow;
+
+        .title {
+            width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid $mainColor ;
+            font-size: 20px;
+
+            a {
+                font-size: 25px;
+                color: $mainColorRed;
+                cursor: pointer;
+            }
+        }
+
+        .inputArea {
+            width: 90%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            .year{
+                padding: 0 15px;
+                margin-top: 10%;
+                justify-content: space-between;
+                align-items: center;
+                display: flex;
+
+            }
+        }
+
+        .showStep{
+            width: 90%;
+            border-top:1px solid $mainColor; 
+            @extend %flex-center;
+            padding: 10px 0 ;
+            font-size: 20px;
+            p{
+                line-height: 32px;
+                text-align: center;
+            }
+            a{
+                font-size: 32px;
+                @extend %flex-center;
+            }
+        }
+    }
+}
