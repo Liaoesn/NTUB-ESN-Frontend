@@ -3,12 +3,13 @@ import Link from "next/link";
 import { VscSignOut } from "react-icons/vsc";
 import styles from "@/styles/components/common/navbar.module.scss";
 import logo from "@/public/img/navLogo.png";
+import React from 'react';
 
 interface NavbarProps {
   user?: { username: string; avatar_url: string } | undefined;
 }
 
-const NavBar = ({ user }: NavbarProps) => {
+const NavBar = React.memo(({ user }: NavbarProps) => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.buttonList}>
@@ -18,8 +19,8 @@ const NavBar = ({ user }: NavbarProps) => {
         {user && (
           <ul className={styles.button}>
             <li><Link href={"/project/list"}>歷年專案</Link></li>
-            <li><Link href={"/project/manageList"}>專案管理</Link></li>
-            <li><Link href={"/project/list"}>帳號管理</Link></li>
+            <li><Link href={"/projectManage/list"}>專案管理</Link></li>
+            <li><Link href={"/userManage/list"}>帳號管理</Link></li>
           </ul>
         )}
       </div>
@@ -48,6 +49,6 @@ const NavBar = ({ user }: NavbarProps) => {
       </div>
     </nav>
   );
-};
+});
 
 export default NavBar;
