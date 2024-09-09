@@ -32,7 +32,7 @@ const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         return <p>Loading...</p>;
     }
 
-    return <>{children}</>;
+    return React.cloneElement(children as React.ReactElement<any>, { user });
 };
 
 export default PrivateRoute;
