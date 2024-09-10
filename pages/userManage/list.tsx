@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/user/list.module.scss'
-import { Box, FormControl, Hidden, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+import { Box, FormControl, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import Link from 'next/link';
 import { FaAngleLeft, FaAngleRight,FaPen,FaCheck,} from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
@@ -14,10 +14,32 @@ import userI from '../userI';
 
 function UserManageList({ user }: { user: userI | undefined }) {
 
+  const [editable, setEditable] = useState<Boolean>(false);
   const [permission, setPermission] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
   const [users, setUsers] = useState<userInterface[]>([]);
+  const [permissionNames, setPermissionNames] = useState<Record<string, string>>({
+      '0': '老師',
+      '1': '助教',
+      '2': '管理者'
+  });
 
+  // api 取得 permissions 的 mapping 清單
+  useEffect(() => {
+    const fetchPermissionNames = async () => {
+      try {
+        const response = await axios.get('/api/user/permissionNames');
+        setPermissionNames(response.data);
+
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    fetchPermissionNames();
+  },[]);
+
+  // api 取得 user list
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,13 +66,17 @@ function UserManageList({ user }: { user: userI | undefined }) {
       setPermission(value);  // 保持为 'all' 或者具体的年份
       console.log('setPermission:', value);
     }
-  
+
   };
-  
-  
+
+
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     console.log('Current Page:', value);
+  };
+
+  const toggleEditable = () => {
+    setEditable(prevEditable => !prevEditable);
   };
 
   return (
@@ -71,9 +97,11 @@ function UserManageList({ user }: { user: userI | undefined }) {
                 onChange={handleChange}
               >
                 <MenuItem value={'all'}>全部</MenuItem>
-                <MenuItem value={'01'}>管理者</MenuItem>
-                <MenuItem value={'02'}>老師</MenuItem>
-                <MenuItem value={'03'}>助教</MenuItem>
+                {Object.entries(permissionNames).map(([key, value]) => (
+                    <MenuItem key={key} value={key}>
+                        {value}
+                    </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -86,8 +114,10 @@ function UserManageList({ user }: { user: userI | undefined }) {
           </Box>
           <Box className={styles.buttonBox}>
             <section className={styles.setingButton}>
-              <a className={`${styles.button} ${styles.check}`}><FaPen/></a>
-              <a className={`${styles.button} ${styles.check}`}><FaCheck/></a>
+              <a className={`${styles.button} ${styles.check}`} onClick={toggleEditable}><FaPen/></a>
+              { editable ? 
+              <a className={`${styles.button} ${styles.check}`}><FaCheck/></a> 
+              : '' } 
             </section>
           </Box>
         </section>
@@ -95,7 +125,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
         <section className={styles.userList}>
         {users.map((row, index) => (
             <React.Fragment key={row.userno}>
-            <UserRow user={row} />
+            <UserRow user={row} permissionNames={permissionNames} editable={editable}/>
             {index < users.length-1 && <hr/>}
             
           </React.Fragment>
