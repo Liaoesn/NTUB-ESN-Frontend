@@ -1,8 +1,8 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/user/list.module.scss'
-import { Box, FormControl, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+import { Box, FormControl, Hidden, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import Link from 'next/link';
-import { FaAngleLeft, FaAngleRight,FaPen} from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight,FaPen,FaCheck,} from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
@@ -85,7 +85,10 @@ function UserManageList({ user }: { user: userI | undefined }) {
             <LuSearch />
           </Box>
           <Box className={styles.buttonBox}>
-            <FaPen/>
+            <section className={styles.setingButton}>
+              <a className={`${styles.button} ${styles.check}`}><FaPen/></a>
+              <a className={`${styles.button} ${styles.check}`}><FaCheck/></a>
+            </section>
           </Box>
         </section>
 

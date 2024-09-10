@@ -1,5 +1,5 @@
 
-import styles from "@/styles/components/popup/projectNamePopup.module.scss";
+import styles from "@/styles/components/popup/project/projectNamePopup.module.scss";
 import { Autocomplete, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
 import React from "react";
 import { MdOutlineCancel, MdArrowRight, MdArrowLeft} from "react-icons/md";
