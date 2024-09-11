@@ -48,7 +48,7 @@ function user( {user, permissionNames, editable} : proProps) {
                     <p>{user.permissionsName}</p>
                 </div>
                 { editable ?
-                    <div>
+                    <div className={styles.marginRight}>
                         <FormControl sx={{ m: 2, minWidth: 120 }} size="small">
                         <InputLabel id="demo-simple-select-label">職稱</InputLabel>
                         <Select 
@@ -69,7 +69,7 @@ function user( {user, permissionNames, editable} : proProps) {
                         </FormControl>
                     </div>
                 :
-                    <div></div>
+                    <div className={styles.marginRight}></div>
                 }
                 <div> { editable ? <FaMinusCircle /> : '' } </div>
             </article>

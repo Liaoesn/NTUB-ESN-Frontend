@@ -3,6 +3,7 @@ import styles from '@/styles/page/user/list.module.scss'
 import { Box, FormControl, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import Link from 'next/link';
 import { FaAngleLeft, FaAngleRight,FaPen,FaCheck,} from "react-icons/fa";
+import { VscChromeClose  } from "react-icons/vsc";
 import { LuSearch } from "react-icons/lu";
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
@@ -18,18 +19,15 @@ function UserManageList({ user }: { user: userI | undefined }) {
   const [permission, setPermission] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
   const [users, setUsers] = useState<userInterface[]>([]);
-  const [permissionNames, setPermissionNames] = useState<Record<string, string>>({
-      '0': '老師',
-      '1': '助教',
-      '2': '管理者'
-  });
+  const [permissionNames, setPermissionNames] = useState<Record<string, string>>({});
 
   // api 取得 permissions 的 mapping 清單
   useEffect(() => {
     const fetchPermissionNames = async () => {
       try {
-        const response = await axios.get('/api/user/permissionNames');
-        setPermissionNames(response.data);
+        const response = await axios.get('/api/user/getRole');
+        setPermissionNames(response.data.roleMap);
+        console.log('permissionNames:', response.data.roleMap);
 
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -114,10 +112,17 @@ function UserManageList({ user }: { user: userI | undefined }) {
           </Box>
           <Box className={styles.buttonBox}>
             <section className={styles.setingButton}>
-              <a className={`${styles.button} ${styles.check}`} onClick={toggleEditable}><FaPen/></a>
-              { editable ? 
-              <a className={`${styles.button} ${styles.check}`}><FaCheck/></a> 
-              : '' } 
+              {editable ? (
+                <>
+                  <a className={`${styles.button} ${styles.check} ${styles.close}`} onClick={toggleEditable}><VscChromeClose /></a>
+                  <a className={`${styles.button} ${styles.check}`}><FaCheck/></a>
+
+                </>
+              ) : (
+                <>
+                  <a className={`${styles.button} ${styles.check}`} onClick={toggleEditable}><FaPen/></a>
+                </>
+              )}
             </section>
           </Box>
         </section>
