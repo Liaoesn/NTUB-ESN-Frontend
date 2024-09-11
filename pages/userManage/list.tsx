@@ -16,7 +16,7 @@ import userI from '../userI';
 function UserManageList({ user }: { user: userI | undefined }) {
 
   const [editable, setEditable] = useState<Boolean>(false);
-  const [permission, setPermission] = React.useState('');
+  const [permissions, setPermissions] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
   const [users, setUsers] = useState<userInterface[]>([]);
   const [permissionNames, setPermissionNames] = useState<Record<string, string>>({});
@@ -43,26 +43,26 @@ function UserManageList({ user }: { user: userI | undefined }) {
       try {
         const response: { data: userInterface[] } = await axios.get('/api/user/list', {
           params: { 
-            permission: permission === 'all' ? '' : permission, 
+            permissions: permissions === 'all' ? '' : permissions, 
             page 
           }
         });
 
         setUsers(response.data);
+        console.log('users:', response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
     };
   
     fetchData();
-  }, [permission, page]);
+  }, [permissions, page]);
 
   const handleChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
   
-    if (name === 'permission') {
-      setPermission(value);  // 保持为 'all' 或者具体的年份
-      console.log('setPermission:', value);
+    if (name === 'permissions') {
+      setPermissions(value);  // 保持为 'all' 或者具体的年份
     }
 
   };
@@ -89,9 +89,9 @@ function UserManageList({ user }: { user: userI | undefined }) {
                 sx={{ borderRadius: 20 }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={permission}
-                label="permission"
-                name="permission"
+                value={permissions}
+                label="permissions"
+                name="permissions"
                 onChange={handleChange}
               >
                 <MenuItem value={'all'}>全部</MenuItem>
