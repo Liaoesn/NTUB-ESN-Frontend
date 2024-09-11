@@ -1,28 +1,34 @@
 import userInterface from './userInterface';
 import styles from '@/styles/page/user/list.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaMinusCircle } from "react-icons/fa";
-import { Box, FormControl, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
+
 interface proProps{
     user: userInterface;
     permissionNames: Record<string, string>;
     editable: Boolean;
+    onUpdate: (updatedUser: userInterface) => void;
 }
 
-function user( {user, permissionNames, editable} : proProps) {
-    //初始化 userData 的值 = user 的值
-    const [userData, setUserData] = useState<userInterface>({
-        userno: user.userno,
-        username: user.username,
-        permissions: user.permissions,
-        permissionsName: user.permissionsName,
-        email: user.email,
-        avatar_url: user.avatar_url
-    });
+function user( {user, permissionNames, editable, onUpdate} : proProps) {
+    const [userData, setUserData] = useState<userInterface>(user);
+
+    // 編輯的時候重新 setUserData
+
+    useEffect(() => {
+        setUserData(user);
+    },[editable]);
+
+    // 將資料 update 回 list
+    useEffect(() => {
+        onUpdate(userData)
+    },[userData]);
 
     const handleChange = (event: SelectChangeEvent) => {
         const { name, value } = event.target;
-
+        
         if (name === 'permission') {
             setUserData((userData) => ({
                 ...userData,

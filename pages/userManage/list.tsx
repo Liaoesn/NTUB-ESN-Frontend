@@ -37,26 +37,26 @@ function UserManageList({ user }: { user: userI | undefined }) {
     fetchPermissionNames();
   },[]);
 
-  // api 取得 user list
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response: { data: userInterface[] } = await axios.get('/api/user/list', {
-          params: { 
-            permissions: permissions === 'all' ? '' : permissions, 
-            page 
-          }
-        });
-
-        setUsers(response.data);
-        console.log('users:', response.data);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
-    };
-  
     fetchData();
   }, [permissions, page]);
+
+  // api 取得 user list
+  const fetchData = async () => {
+    try {
+      const response: { data: userInterface[] } = await axios.get('/api/user/list', {
+        params: { 
+          permissions: permissions === 'all' ? '' : permissions, 
+          page 
+        }
+      });
+
+      setUsers(response.data);
+      console.log('users:', response.data);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    }
+  };
 
   const handleChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
@@ -67,7 +67,6 @@ function UserManageList({ user }: { user: userI | undefined }) {
 
   };
 
-
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     console.log('Current Page:', value);
@@ -76,6 +75,53 @@ function UserManageList({ user }: { user: userI | undefined }) {
   const toggleEditable = () => {
     setEditable(prevEditable => !prevEditable);
   };
+
+  const handleUpdate = (updatedUser: userInterface) => {
+    console.log('Update:', updatedUser);
+
+    setUsers((preUsers) => preUsers.map(preUser => {
+      if(preUser.userno == updatedUser.userno) {
+        preUser.permissions = updatedUser.permissions;
+      }
+
+      return  preUser;
+    }));
+  }
+
+  const save = () => {
+    try {
+      /*
+      const response = axios.post('/api/user/update', {
+        params: { 
+          users
+        }
+      });
+      console.log(response);
+      */
+
+      setEditable(false);
+      fetchData();
+
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    }
+  };
+
+  const disabled = () => {
+    try {
+      /*
+      const response = axios.post('/api/user/update', {
+        params: { 
+          users
+        }
+      });
+      console.log(response);
+      */
+
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    }
+  }
 
   return (
     <Layout user={user}>
@@ -115,7 +161,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
               {editable ? (
                 <>
                   <a className={`${styles.button} ${styles.check} ${styles.close}`} onClick={toggleEditable}><VscChromeClose /></a>
-                  <a className={`${styles.button} ${styles.check}`}><FaCheck/></a>
+                  <a className={`${styles.button} ${styles.check}`} onClick={save}><FaCheck/></a>
 
                 </>
               ) : (
@@ -130,7 +176,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
         <section className={styles.userList}>
         {users.map((row, index) => (
             <React.Fragment key={row.userno}>
-            <UserRow user={row} permissionNames={permissionNames} editable={editable}/>
+            <UserRow user={row} permissionNames={permissionNames} editable={editable} onUpdate={handleUpdate}/>
             {index < users.length-1 && <hr/>}
             
           </React.Fragment>
