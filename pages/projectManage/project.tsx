@@ -12,7 +12,7 @@ function project({project} : proProps) {
         <div className={styles.projectItem}>
         <article>
         <div className={styles.projectLogo}>
-            <p>{project.prodescription}</p>
+            <p>{project.prono_prefix}</p>
         </div>
         <div className={styles.projectContent}>
             <b>{project.proname}</b>
