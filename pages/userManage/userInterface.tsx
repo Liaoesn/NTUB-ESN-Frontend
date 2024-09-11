@@ -3,8 +3,8 @@ interface userInterface{
     username: string;
     email: string;
     avatar_url: string;
-    permissions:string;
-    
+    permissions: string;
+    permissionsName: string;
 }
 
 export default userInterface;
