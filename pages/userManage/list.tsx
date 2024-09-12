@@ -17,6 +17,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
 
   const [editable, setEditable] = useState<Boolean>(false);
   const [permissions, setPermissions] = React.useState('');
+  const [username, setUserName] = React.useState<String>('');
   const [page, setPage] = React.useState<number>(1);
   const [users, setUsers] = useState<userInterface[]>([]);
   const [permissionNames, setPermissionNames] = useState<Record<string, string>>({});
@@ -38,21 +39,21 @@ function UserManageList({ user }: { user: userI | undefined }) {
   },[]);
 
   useEffect(() => {
-    fetchData();
-  }, [permissions, page]);
+      fetchData();
+  }, [permissions, username, page]);
 
   // api 取得 user list
   const fetchData = async () => {
     try {
-      const response: { data: userInterface[] } = await axios.get('/api/user/list', {
+      await axios.get('/api/user/list', {
         params: { 
           permissions: permissions === 'all' ? '' : permissions, 
+          username: username,
           page 
         }
+      }).then((response) => {
+        setUsers(response.data);
       });
-
-      setUsers(response.data);
-      console.log('users:', response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
@@ -64,12 +65,19 @@ function UserManageList({ user }: { user: userI | undefined }) {
     if (name === 'permissions') {
       setPermissions(value);  // 保持为 'all' 或者具体的年份
     }
+  };
 
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if(value == null) {
+      setUserName('');
+    } else {
+      setUserName(value);
+    }
   };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
-    console.log('Current Page:', value);
   };
 
   const toggleEditable = () => {
@@ -77,7 +85,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
   };
 
   const handleUpdate = (updatedUser: userInterface) => {
-    console.log('Update:', updatedUser);
+    console.log('Update:' + updatedUser.username + ", permissions: " +updatedUser.permissions);
 
     setUsers((preUsers) => preUsers.map(preUser => {
       if(preUser.userno == updatedUser.userno) {
@@ -88,16 +96,17 @@ function UserManageList({ user }: { user: userI | undefined }) {
     }));
   }
 
-  const save = () => {
+  const save = async () => {
     try {
-      /*
-      const response = axios.post('/api/user/update', {
-        params: { 
-          users
-        }
-      });
-      console.log(response);
-      */
+      const updateUser = users.map(preUser =>{
+        const url = '/api/user/update/' + preUser.userno;
+        return axios.put(url, {
+          permissions: preUser.permissions,
+          status: preUser.status
+        });
+      })
+
+      await Promise.all(updateUser);
 
       setEditable(false);
       fetchData();
@@ -107,21 +116,9 @@ function UserManageList({ user }: { user: userI | undefined }) {
     }
   };
 
-  const disabled = () => {
-    try {
-      /*
-      const response = axios.post('/api/user/update', {
-        params: { 
-          users
-        }
-      });
-      console.log(response);
-      */
+  const diisable = async () => {
 
-    } catch (error) {
-      console.error("Error fetching projects:", error);
-    }
-  }
+  };
 
   return (
     <Layout user={user}>
@@ -151,8 +148,10 @@ function UserManageList({ user }: { user: userI | undefined }) {
           </Box>
           <Box className={styles.searchBox}>
             <Input 
-              id="new-input"
+              id="queryUsername"
+              name="username"
               disableUnderline={true}
+              onChange={handleUsernameChange}
             />
             <LuSearch />
           </Box>

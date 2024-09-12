@@ -19,7 +19,7 @@ function user( {user, permissionNames, editable, onUpdate} : proProps) {
 
     useEffect(() => {
         setUserData(user);
-    },[editable]);
+    },[]);
 
     // 將資料 update 回 list
     useEffect(() => {
@@ -77,7 +77,7 @@ function user( {user, permissionNames, editable, onUpdate} : proProps) {
                 :
                     <div className={styles.marginRight}></div>
                 }
-                <div> { editable ? <FaMinusCircle /> : '' } </div>
+                <div> { editable ? <FaMinusCircle/> : '' } </div>
             </article>
         </div>
     );
