@@ -1,0 +1,120 @@
+@import "@/styles/base/variables";
+@import "@/styles/base/extends";
+
+.popupBG {
+    @extend %popup-area;
+
+    .mainShow {
+        width: 35vw;
+        height: 30vh;
+        display: flex;
+        padding: 20px;
+        align-items: center;
+        @extend %popup-mainShow;
+
+        .title {
+            width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid $mainColor ;
+            font-size: 20px;
+
+            a {
+                font-size: 25px;
+                color: $mainColorRed;
+                cursor: pointer;
+            }
+        }
+
+        .inputArea {
+            width: 90%;
+            height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+
+            input {
+                font-size: 20px;
+                padding: 0 20px;
+                width: 30%;
+                height: 50px;
+                border-radius: 5px;
+            }
+            p{
+                margin: 10px;
+            }
+        }
+
+        .showStep {
+            width: 90%;
+            border-top: 1px solid $mainColor;
+            @extend %flex-center;
+            padding: 10px 0;
+            font-size: 20px;
+
+            p {
+                line-height: 32px;
+                text-align: center;
+            }
+
+            a {
+                font-size: 32px;
+                @extend %flex-center;
+            }
+        }
+
+        .contentBox { 
+            width: 90%;
+            height: 50%;
+            font-size: 18px;
+            align-content: center;
+            text-align: center;
+        }
+
+        .btnBox { 
+            display: flex;
+            width: 40%;
+
+            .btnConfrim {
+                border: 2px solid $mainColor;
+                @extend %flex-center;
+                height: 32px;
+                width: 32px;
+                font-size: 14px;
+                border-radius: 100px;
+                margin: 0 10px;
+                margin-right: auto;
+                cursor: pointer;
+                &:hover{
+                    border: 0;
+                    color: white;
+                    box-shadow: 1px 1px 10px 3px $mainColorGreen ;
+                    border: 2px solid $mainColor;
+                    background-color: $mainColor;
+                }
+            }
+    
+            .btnCancel {
+                @extend %flex-center;
+                height: 32px;
+                width: 32px;
+                font-size: 14px;
+                border-radius: 100px;
+                margin: 0 10px;
+                cursor: pointer;
+                border: 2px solid $mainColor;
+                &:hover{
+                    border: 0;
+                    color: white;
+                    box-shadow: 1px 1px 10px 3px $mainColorGreen ;
+                    border: 2px solid $mainColor;
+                    background-color: $mainColor;
+                }
+            }
+        }
+    }
+}
