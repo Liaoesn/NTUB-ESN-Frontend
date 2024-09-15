@@ -1,6 +1,6 @@
 interface projectInterface{
     prono:number;
-    prodescription:string;
+    prono_prefix:string;
     proname: string;
     username:string;
     state:string;
