@@ -3,7 +3,7 @@ import styles from '@/styles/page/project/prono.module.scss';
 // npm install react-beautiful-dnd
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 
 // 示例數據
 const studentItems = [
@@ -27,6 +27,20 @@ const studentItems = [
 
 export default function About() {
   const [items, setItems] = useState(studentItems);
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+
+    return () => {
+      cancelAnimationFrame(animation); // 組件卸載時取消請求的動畫幀，以防止內存洩漏
+      setEnabled(false);
+    };
+  }, []);
+
+  if (!enabled) {
+    return null;
+  }
 
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) {
