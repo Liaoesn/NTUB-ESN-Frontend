@@ -34,15 +34,13 @@ export default function App({ Component, pageProps }: AppProps) {
     if (!user) {
       fetchUser();
     }
-  }, []); 
+  }, []);
 
   return (
     <UserContext.Provider value={user}>
-      <ProSidebarProvider>
-        <Layout user={user}>
-          <Component {...pageProps} />
-        </Layout>
-      </ProSidebarProvider>
+      <Layout user={user}>
+        <Component {...pageProps} />
+      </Layout>
     </UserContext.Provider>
   );
 }

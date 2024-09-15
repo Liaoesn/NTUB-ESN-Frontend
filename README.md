@@ -2,6 +2,7 @@
 
 - npm install 下載套件
 - npm run dev 開啟server
+-  npm install react-beautiful-dnd 拖移套件
 - npm install @mui/material @emotion/react @emotion/styled 下載Mui套件
 - npm install next-iron-session 後端用 
 - npm install mysql2 後端用
