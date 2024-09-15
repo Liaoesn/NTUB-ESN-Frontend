@@ -22,7 +22,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
   const [permissionNames, setPermissionNames] = useState<Record<string, string>>({});
 
   // 查詢參數
-  const [username, setUserName] = useState<String>('');
+  const [term, setTerm] = useState<String>('');
   const [permissions, setPermissions] = useState('');
   const [state, setState] = useState('1');
   const [page, setPage] = useState<number>(1);
@@ -59,7 +59,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
   // api 取得 user list
   useEffect(() => {
     fetchData();
-}, [permissions, state, username, page]);
+}, [permissions, state, term, page]);
 
   const fetchData = async () => {
     try {
@@ -67,7 +67,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
         params: { 
           permissions: permissions === 'all' ? '' : permissions, 
           state: state === 'all' ? '' : state, 
-          username: username,
+          term: term,
           page 
         }
       }).then((response) => {
@@ -96,8 +96,8 @@ function UserManageList({ user }: { user: userI | undefined }) {
     const name = event.target.name;
     const value = event.target.value;
 
-    if (name === 'username') {
-      setUserName(value != null ? value : '');
+    if (name === 'term') {
+      setTerm(value != null ? value : '');
     }
   };
 
@@ -219,8 +219,8 @@ function UserManageList({ user }: { user: userI | undefined }) {
           </Box>
           <Box className={styles.searchBox}>
             <Input 
-              id="queryUsername"
-              name="username"
+              id="queryTerm"
+              name="term"
               disableUnderline={true}
               onChange={handleInputChange}
             />
