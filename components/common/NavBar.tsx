@@ -32,7 +32,7 @@ const NavBar = React.memo(({ user }: NavbarProps) => {
         <div className={styles.buttonArea}>
           {user ? (
             <>
-              <Link href={"/user/about"} className={styles.linkUser}>
+              <Link href={"/aboutUser/list"} className={styles.linkUser}>
                 <>
                   <Image src={user.avatar_url} alt={"user"} width={110} height={110} priority />
                   <p>{user.username}</p>

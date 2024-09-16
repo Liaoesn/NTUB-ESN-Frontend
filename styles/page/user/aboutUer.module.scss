@@ -1,0 +1,206 @@
+@import "@/styles/base/variables";
+@import "@/styles/base/extends";
+
+.area {
+    @extend %list-area;
+
+    h2 {
+        color: $mainColor;
+        font-size: 24px;
+        font-weight: bold;
+        width: 100%;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $mainColor;
+    }
+
+    .dropdownArea {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid black;
+
+        .drop {
+        border-radius: 20px;
+        }
+    }
+
+    .leftEndBox {
+        margin-right: auto;
+        min-width: 120px;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: self-end;
+
+        .userLogo {
+            @extend %flex-center;
+            width: 60px;
+            height: 60px;
+            background-color: $mainColorLight;
+            border-radius: 100%;
+            color: white;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            margin-left: 50px;
+            
+        }
+
+        .userName {
+            margin-bottom: 15px;
+            font-size: larger;
+        }
+    }
+
+    .title {
+        margin-top: 40px;
+        margin-left: 3%;
+        font-size: large;
+    }
+
+    .row {
+        display: flex;
+        justify-content:center;
+    }
+
+    .fieldCenter {
+        letter-spacing: 3px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 17px;
+        padding-bottom: 17px;
+        background: #F4F5F5;
+        border-radius: 10px;
+        text-align: left;
+        display: flex;
+        margin: 20px;
+
+        .label {
+            min-width: 120px;
+            b {
+                font-weight: bold;
+                margin: 5px;
+            }
+    
+            p {
+                margin: 5px;    
+                span {
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .value {
+            white-space: nowrap;
+            width: 69%;
+            text-align: center;
+            b {
+                font-weight: bold;
+                margin: 5px;
+            }
+    
+            p {
+                margin: 5px;    
+                span {
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .fieldItem {
+        letter-spacing: 3px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 17px;
+        padding-bottom: 17px;
+        background: #F4F5F5;
+        border-radius: 10px;
+        text-align: left;
+        display: flex;
+        margin: 20px;
+        width: min-content;
+
+        .label {
+            min-width: 120px;
+            b {
+                font-weight: bold;
+                margin: 5px;
+            }
+    
+            p {
+                margin: 5px;    
+                span {
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .value {
+            white-space: nowrap;
+
+            b {
+                font-weight: bold;
+                margin: 5px;
+            }
+    
+            p {
+                margin: 5px;    
+                span {
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .fieldButton {
+        letter-spacing: 3px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 17px;
+        padding-bottom: 17px;
+        background: #F4F5F5;
+        border-radius: 40px;
+        text-align: left;
+        display: flex;
+        margin: 20px;
+        width: min-content;
+
+        svg {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    hr {
+        width: 100%;
+        height: 1px;
+        background-color: #00000015;
+        border:none;
+    }
+}
+
+
+.col2 {
+    width: 20%;
+}
+
+.col3 {
+    width: 30%;
+}
+
+.col4 {
+    width: 40%;
+}
+
+.col45 {
+    width: 45%;
+}
+
+.col55 {
+    width: 55%;
+}
