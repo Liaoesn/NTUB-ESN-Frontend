@@ -2,14 +2,12 @@ import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare } from "react-icons/fa";
-import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import Project from './project';
 import projectInterface from './projectInterface'
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
 import userI from '../userI';
-import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 function ProjectManage({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');
@@ -100,17 +98,14 @@ function ProjectManage({ user }: { user: userI | undefined }) {
           </Box>
           <a><FaRegPlusSquare/></a>
         </section>
-
         <section className={styles.projectList}>
         {projects.map((project, index) => (
             <React.Fragment key={project.prono}>
             <Project project={project} />
             {index < projects.length-1 && <hr/>}
-            
           </React.Fragment>
           ))}
         </section>
-        
         <section className={styles.projectPage}>
           <Stack spacing={2}>
             <Pagination

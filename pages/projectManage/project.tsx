@@ -1,34 +1,53 @@
 import projectInterface from './projectInterface';
 import styles from '@/styles/page/project/list.module.scss';
 import Link from 'next/link';
-import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
+import { FaCog, FaRegTrashAlt } from "react-icons/fa";
 
 interface proProps {
     project: projectInterface;
 }
+
 function project({ project }: proProps) {
     const edate = new Date(project.enddate);
+    const phase2 = new Date(project.phase2);
+
     return (
-        <a href={`/projectManage/${project.prono}`} className={styles.projectItem}>
-            <article>
-                <div className={styles.projectLogo}>
-                    <p>{project.prodescription}</p>
+        <div className={styles.projectMain}>
+            {project.state == '已關閉' ?
+                <div className={styles.cover} >
+                    <a>合併排序</a>
+                </div > : checkDate(phase2) ?
+                    <div className={styles.cover}>
+                        <a>產生名單</a>
+                    </div> : ''
+            }
+            <a href={`/projectManage/${project.prono}`} className={styles.projectItem}>
+                <article>
+                    <div className={styles.projectLogo}>
+                        <p>{project.prodescription}</p>
+                    </div>
+                    <div className={styles.projectContent}>
+                        <b>{project.proname}</b>
+                        <p>專案建立者: <span>{project.username}</span></p>
+                        <p>排序進度: {project.state}</p>
+                    </div>
+                </article>
+                <div className={styles.projectAbout}>
+                    <div className={styles.projectButton}>
+                        <Link className={styles.projectSet} href={'/projectManage/edit'}><FaCog /></Link>
+                        <Link className={styles.projectDel} href={'/projectManage/edit'}><FaRegTrashAlt /></Link>
+                    </div>
+                    <p>結案日期：{formatDate(edate)}</p>
                 </div>
-                <div className={styles.projectContent}>
-                    <b>{project.proname}</b>
-                    <p>專案建立者: <span>{project.username}</span></p>
-                    <p>排序進度: {project.state}</p>
-                </div>
-            </article>
-            <div className={styles.projectAbout}>
-                <div className={styles.projectButton}>
-                    <Link className={styles.projectSet} href={'/projectManage/edit'}><FaCog /></Link>
-                    <Link className={styles.projectDel} href={'/projectManage/edit'}><FaRegTrashAlt /></Link>
-                </div>
-                <p>結案日期：{formatDate(edate)}</p>
-            </div>
-        </a>
+            </a>
+        </div>
     );
+}
+
+function checkDate(date: Date) {
+    if (date < new Date()) {
+        return true;
+    } else { return false; }
 }
 
 function formatDate(date: Date) {
