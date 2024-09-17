@@ -7,19 +7,21 @@ interface proProps {
 function project({ project }: proProps) {
     const edate = new Date(project.enddate);
     return (
-        <div className={styles.projectItem}>
-            <article>
-                <div className={styles.projectLogo}>
-                    <p>{project.prono_prefix}</p>
+        <div className={styles.projectMain}>
+            <div className={styles.projectItem}>
+                <article>
+                    <div className={styles.projectLogo}>
+                        <p>{project.prono_prefix}</p>
+                    </div>
+                    <div className={styles.projectContent}>
+                        <b>{project.proname}</b>
+                        <p>專案建立者: <span>{project.username}</span></p>
+                        <p>排序進度: {project.state}</p>
+                    </div>
+                </article>
+                <div className={styles.projectTime}>
+                    <p>結案日期：{formatDate(edate)}</p>
                 </div>
-                <div className={styles.projectContent}>
-                    <b>{project.proname}</b>
-                    <p>專案建立者: <span>{project.username}</span></p>
-                    <p>排序進度: {project.state}</p>
-                </div>
-            </article>
-            <div className={styles.projectTime}>
-                <p>結案日期：{formatDate(edate)}</p>
             </div>
         </div>
     );
