@@ -5,7 +5,8 @@ interface userInterface{
     avatar_url: string;
     permissions: string;
     permissionsName: string;
-    state: string
+    state: string;
+    create_at: string;
 }
 
 export default userInterface;

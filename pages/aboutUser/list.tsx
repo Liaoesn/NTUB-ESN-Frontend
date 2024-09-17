@@ -6,7 +6,7 @@ import axios from 'axios';
 import PrivateRoute from '../privateRoute';
 import userI from '../userI';
 import userInterface from './userInterface';
-
+import DisableConfirm from '@/components/popup/confirmPopup';
 
 function AboutUser({ user }: { user: userI | undefined }) {
   const [userData, setUserData] = useState<userInterface>({
@@ -16,8 +16,12 @@ function AboutUser({ user }: { user: userI | undefined }) {
     avatar_url: '',
     permissions: '',
     permissionsName: '',
-    state: ''
+    state: '',
+    create_at: '',
   });
+
+  const [showConfirm, setShowConfirm] = useState<Boolean>(false);
+  const disableConfirmMsg = '確定要停用嗎?';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +33,7 @@ function AboutUser({ user }: { user: userI | undefined }) {
         }).then(response => {
           // 這裡處理結果
           console.log(response.data);
-          setUserData(response.data);
+          setUserData(response.data)
         });
   
       } catch (error) {
@@ -40,8 +44,45 @@ function AboutUser({ user }: { user: userI | undefined }) {
     fetchData();
   }, []);
 
+  const toggleShowConfirm = () => {
+    setShowConfirm(!showConfirm);
+  }
+
+  const disableUser = async () => {
+    const url = '/api/user/update/' + user?.userno;
+    await axios.put(url, {
+      state: "0"
+    }).then((response) => {
+      if(response.status == 200) {
+        window.location.href="http://localhost:5000/api/auth/logout";
+      }
+    });
+  };
+
+  const logout = () => {
+    window.location.href="http://localhost:5000/api/auth/logout";
+  }
+
+  function formatDate(temp: string) {
+    var result = '';
+
+    if(temp.length > 0 ) {
+      const date = new Date(temp);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份是從 0 開始的
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      result = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+    }
+    return result;
+  }
+
   return (
     <Layout>
+      {showConfirm && <DisableConfirm content={disableConfirmMsg} onConfirm={disableUser} onClose={toggleShowConfirm}/>}
       <main className={styles.area}>
         <div className={`${styles.header}`}>
           <div className={styles.userLogo}>
@@ -53,52 +94,60 @@ function AboutUser({ user }: { user: userI | undefined }) {
           </div>
         </div>
         <section className={styles.dropdownArea}></section>
+        <div className={`${styles.content}`}>
+          <div className={`${styles.title}`}>
+            <p>關於你</p>
+          </div>
 
-        <div className={`${styles.title}`}>
-          <p>關於你</p>
+          <div className={`${styles.row}`}>
+            <div className={`${styles.fieldCenter} ${styles.col55}`}>
+              <div className={styles.label}>
+                <p>使用者帳號:</p>
+              </div>
+              <div className={styles.value}>
+                <p>{userData.email}</p>
+              </div>
+            </div>
+
+            <div className={`${styles.fieldItem}`}>
+              <div className={styles.label}>
+                <p>登入狀態:</p>
+              </div>
+              <div className={styles.value}>
+                <p>GOOGLE</p>
+              </div>
+            </div>
+          </div>
+          <div className={`${styles.row}`}>
+            <div className={`${styles.fieldItem}`}>
+              <div className={styles.label}>
+                <p>系統權限:</p>
+              </div>
+              <div className={styles.value}>
+                <p>{userData.permissionsName}</p>
+              </div>
+            </div>
+
+            <div className={`${styles.fieldItem} ${styles.col2}`}>
+              <div className={styles.label}>
+                <p>註冊日期:</p>
+              </div>
+              <div className={styles.value}>
+                <p>{formatDate(userData.create_at)}</p>
+              </div>
+            </div>
+
+            <div className={`${styles.fieldButton}`} onClick={toggleShowConfirm}>
+              <FaMinusCircle/>
+            </div>
+          </div>
         </div>
-
-        <div className={`${styles.row}`}>
-          <div className={`${styles.fieldCenter} ${styles.col55}`}>
-            <div className={styles.label}>
-              <p>使用者帳號:</p>
-            </div>
-            <div className={styles.value}>
-              <p>10956029@ntub.edu.tw</p>
-            </div>
-          </div>
-
-          <div className={`${styles.fieldItem}`}>
-            <div className={styles.label}>
-              <p>登入狀態:</p>
-            </div>
-            <div className={styles.value}>
-              <p>GOOGLE</p>
-            </div>
-          </div>
-        </div>
-        <div className={`${styles.row}`}>
-          <div className={`${styles.fieldItem}`}>
-            <div className={styles.label}>
-              <p>系統權限:</p>
-            </div>
-            <div className={styles.value}>
-              <p>助教</p>
-            </div>
-          </div>
-
-          <div className={`${styles.fieldItem} ${styles.col2}`}>
-            <div className={styles.label}>
-              <p>註冊日期:</p>
-            </div>
-            <div className={styles.value}>
-              <p>2024/00/00</p>
-            </div>
-          </div>
-
-          <div className={`${styles.fieldButton}`}>
-            <FaMinusCircle/>
-          </div>
+        <div className={`${styles.floor}`}>
+          <label className={`${styles.logout}`} onClick={logout}>
+            <a className={styles.linkLogout}>
+              <p>登出</p>
+            </a>
+          </label>
         </div>
       </main>
     </Layout>
