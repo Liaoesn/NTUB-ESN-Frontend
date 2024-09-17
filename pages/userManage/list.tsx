@@ -123,14 +123,14 @@ function UserManageList({ user }: { user: userI | undefined }) {
 
   //Popup 相關
   const showEnablePopup = (userno: number, username: string) => {
-    setConfirmMsg('是否確定停用' + username + '?');
+    setConfirmMsg('是否確定啟用' + username + '?');
     setTargetUser(userno);
     setTargetState('1');
     setShowConfirm(true);
   }
 
   const showDisablePopup = (userno: number, username: string) => {
-    setConfirmMsg('是否確定啟用' + username + '?');
+    setConfirmMsg('是否確定停用' + username + '?');
     setTargetUser(userno);
     setTargetState('0');
     setShowConfirm(true);
