@@ -1,5 +1,5 @@
 interface projectInterface{
-    prodescription: ReactNode;
+    prodescription: string;
     prono:number;
     prono_prefix:string;
     proname: string;
