@@ -5,7 +5,7 @@ interface projectInterface{
     proname: string;
     username:string;
     state:string;
-    phase2:string;
+    phase1:string;
     enddate: string;
 }
 

@@ -6,8 +6,8 @@ import ProjectFilePopuo from '@/components/popup/project/projectFilePopup';
 import styles from '@/styles/page/project/seting.module.scss'
 import { SelectChangeEvent } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { FaRegTrashAlt, FaCheck, FaPen, FaFolder } from "react-icons/fa";
-import { useRouter } from 'next/router';
+import { FaSignOutAlt, FaCheck, FaPen, FaFolder } from "react-icons/fa";
+import router, { useRouter } from 'next/router';
 
 interface User {
   username: string;
@@ -22,6 +22,8 @@ function ProjectList({ user }: { user: User | undefined }) {
   const [showPeople, setShowPeople] = React.useState(false);
   const [showChoose, setShowChoose] = React.useState(false);
   const [showFile, setShowFile] = React.useState(false);
+  const router = useRouter();
+  const { prono } = router.query;
 
   const handleChange = (event: SelectChangeEvent) => {
 
@@ -117,12 +119,12 @@ function ProjectList({ user }: { user: User | undefined }) {
                     <p>葉明貴</p>
                   </div>
                 </div>
-                <a onClick={() => handlePopup('File')}><FaPen/></a>
+                <a onClick={() => router.push(`/projectManage/${prono}/teacher`)}><FaPen/></a>
             </div>
         </section>
         <section className={styles.setingButton}>
           <a className={`${styles.button} ${styles.check}`}><FaCheck/></a>
-          <a className={`${styles.button} ${styles.delete}`}><FaRegTrashAlt/></a>
+          <a className={`${styles.button} ${styles.delete}`}><FaSignOutAlt/></a>
         </section>
       </main>
     </Layout>

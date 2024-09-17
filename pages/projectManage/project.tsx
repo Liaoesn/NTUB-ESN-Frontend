@@ -9,16 +9,16 @@ interface proProps {
 
 function project({ project }: proProps) {
     const edate = new Date(project.enddate);
-    const phase2 = new Date(project.phase2);
+    const phase1 = new Date(project.phase1);
 
     return (
         <div className={styles.projectMain}>
             {project.state == '已關閉' ?
                 <div className={styles.cover} >
-                    <a>合併排序</a>
-                </div > : checkDate(phase2) ?
+                    <a>產生名單</a>
+                </div > : checkDate(phase1) ?
                     <div className={styles.cover}>
-                        <a>產生名單</a>
+                        <a>合併排序</a>
                     </div> : ''
             }
             <a href={`/projectManage/${project.prono}`} className={styles.projectItem}>
@@ -34,7 +34,7 @@ function project({ project }: proProps) {
                 </article>
                 <div className={styles.projectAbout}>
                     <div className={styles.projectButton}>
-                        <Link className={styles.projectSet} href={'/projectManage/edit'}><FaCog /></Link>
+                        <Link className={styles.projectSet} href={`/projectManage/${project.prono}/edit`}><FaCog /></Link>
                         <Link className={styles.projectDel} href={'/projectManage/edit'}><FaRegTrashAlt /></Link>
                     </div>
                     <p>結案日期：{formatDate(edate)}</p>

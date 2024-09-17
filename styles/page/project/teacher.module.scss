@@ -1,0 +1,113 @@
+@import "@/styles/base/variables";
+@import "@/styles/base/extends";
+
+.teacherArea {
+    @extend %list-area;
+    letter-spacing: 5px;
+    color: $mainColor;
+
+    h2 {
+        color: $mainColor;
+        font-size: 24px;
+        font-weight: bold;
+        width: 100%;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $mainColor;
+    }
+
+    .allArea {
+        height: 65%;
+        padding: 3%;
+        border-bottom: 1px solid $mainColor ;
+        display: flex;
+        flex-wrap: wrap;
+        align-content:flex-start;
+        // grid-row: ;
+        .nameArea {
+            width: 100px;
+            height: 40px;
+            margin: 10px 20px;
+            position: relative;
+            @extend %flex-center;
+
+            .name {
+                @extend %flex-center;
+                border-radius: 20px;
+                width: 120px;
+                height: 40px;
+                position: absolute;
+            }
+
+            .colorTRUE{
+                transition: 0.4s;
+                color: $subColor;
+                background-color: $mainColor;
+            }
+            .colorFALSE{
+                transition: 0.4s;
+                color: $mainColor;
+                background-color: $mainColorGreen;
+            }
+        }
+    }
+
+    .chooseArea {
+        height: 10%;
+        border-bottom: 1px solid $mainColor ;
+        @extend %flex-center;
+        p{
+            margin: 20px;
+            letter-spacing: 3px;
+        }
+        h5{
+            font-size: 20px;
+            font-weight: 700;
+            margin: 20px;
+        }
+        h6{
+            font-size: 18px;
+            margin: 20px;
+        }
+    }
+
+    .setingButton {
+        padding-top: 10px;
+        @extend %flex-center;
+
+        .button {
+            @extend %flex-center;
+            height: 50px;
+            width: 50px;
+            border-radius: 100px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .delete {
+            height: 40px;
+            width: 40px;
+            color: $mainColorRed;
+            border: 2px solid $mainColorRed;
+
+            &:hover {
+                border: 0;
+                color: white;
+                box-shadow: 1px 1px 10px 3px $mainColorRed ;
+                border: 2px solid $mainColorRed;
+                background-color: $mainColorRed;
+            }
+        }
+
+        .check {
+            border: 2px solid $mainColor;
+
+            &:hover {
+                border: 0;
+                color: white;
+                box-shadow: 1px 1px 10px 3px $mainColorGreen ;
+                border: 2px solid $mainColor;
+                background-color: $mainColor;
+            }
+        }
+    }
+}
