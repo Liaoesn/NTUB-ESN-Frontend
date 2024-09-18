@@ -2,12 +2,12 @@ import Layout from '@/components/Layout/Layout';
 import ProjectNamePopup from '@/components/popup/project/projectNamePopup';
 import ProjectPeoplePopup from '@/components/popup/project/projectPeoplePopup';
 import ProjectChoosePopup from '@/components/popup/project/projectChoosePopup';
-import ProjectFilePopuo from '@/components/popup/project/projectFilePopup';
+import ProjectFilePopup from '@/components/popup/project/projectFilePopup';
 import styles from '@/styles/page/project/seting.module.scss'
 import { SelectChangeEvent } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { FaSignOutAlt, FaCheck, FaPen, FaFolder } from "react-icons/fa";
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 interface User {
   username: string;
@@ -17,58 +17,47 @@ interface User {
 function ProjectList({ user }: { user: User | undefined }) {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
+  const router = useRouter();
+  const [prono, setProno] = React.useState('');
   //PopupShowOut 各種Popup的值
   const [showName, setShowName] = React.useState(false);
   const [showPeople, setShowPeople] = React.useState(false);
   const [showChoose, setShowChoose] = React.useState(false);
   const [showFile, setShowFile] = React.useState(false);
-  const router = useRouter();
-  const { prono } = router.query;
 
-  const handleChange = (event: SelectChangeEvent) => {
-
-    if (event.target.name == 'year') {
-      setYear(event.target.value);
-    };
-    if (event.target.name == 'academic') {
-      setAcademic(event.target.value);
-    };
+  useEffect(() => {
+    if (router.isReady) {
+      const { prono } = router.query;
+      setProno(prono as string);
+    }
+  }, [router.isReady, router.query]);
+  
+  const handlePopup = (popupName: string) => {
+    switch (popupName) {
+      case 'Chose':
+        setShowChoose(prev => !prev);
+        break;
+      case 'Name':
+        setShowName(prev => !prev);
+        break;
+      case 'People':
+        setShowPeople(prev => !prev);
+        break;
+      case 'File':
+        setShowFile(prev => !prev);
+        break;
+      default:
+        break;
+    }
   };
   
-  const  handlePopup = ( popupName: string ) => {
-    if (popupName == 'Chose') { 
-      if (showChoose == true) {
-        setShowChoose(false);
-      } else {
-        setShowChoose(true);
-      }
-    } else if (popupName == 'Name'){
-      if (showName == true) {
-        setShowName(false);
-      } else {
-        setShowName(true);
-      }
-    } else if (popupName == 'People'){
-      if (showPeople == true) {
-        setShowPeople(false);
-      } else {
-        setShowPeople(true);
-      }
-    } else if (popupName == 'File'){
-      if (showFile == true) {
-        setShowFile(false);
-      } else {
-        setShowFile(true);
-      }
-    }
-  }
 
   return (
     <Layout user={user}>
       {showName && <ProjectNamePopup onClose={() => handlePopup('Name')} />}
       {showPeople && <ProjectPeoplePopup onClose={() => handlePopup('People')} />}
       {showChoose && <ProjectChoosePopup onClose={() => handlePopup('Chose')} />}
-      {showFile && <ProjectFilePopuo onClose={() => handlePopup('File')} />}
+      {showFile && <ProjectFilePopup onClose={() => handlePopup('File')} />}
       <main className={styles.listArea}>
         <h2>專案設定</h2>
         <section className={styles.aboutArea}>
