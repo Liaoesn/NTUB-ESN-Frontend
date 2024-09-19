@@ -1,0 +1,166 @@
+@import "@/styles/base/variables";
+@import "@/styles/base/extends";
+
+.main {
+  @extend %list-area;
+  width: 90%;
+  height: 90%;
+  border: 1px solid $fontColor;
+  border-radius: 30px 30px 20px 20px;
+  padding: 0;
+
+  .title {
+    border-radius: 30px 30px 0px 0px;
+    height: 8%;
+    background-color: $fontColor;
+    display: flex;
+    justify-content: space-between;
+    color: $mainColor;
+    font-size: $mediumSize;
+    letter-spacing: 3px;
+    font-weight: 800;
+    text-align: center;
+
+    button {
+      border-radius: 10PX;
+      height: 35PX;
+      width: 100px;
+      margin-right: 20px;
+      border: 3PX solid $mainColor;
+      background-color: rgba(250, 235, 215, 0);
+
+      &:hover {
+        transition: 0.6s;
+        background-color: $mainColor;
+        color: white;
+      }
+    }
+
+    article {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+    }
+
+    .nameShow {
+      width: 60%;
+
+      p {
+        width: 85%;
+      }
+
+    }
+
+    .about {
+      width: 40%;
+
+      p {
+        width: 100%;
+      }
+    }
+  }
+
+  .mainArea {
+    height: 90%;
+    display: flex;
+    .nameArea {
+      width: 60%;
+      margin-top: 10px;
+      overflow-y:scroll;
+      .context {
+        width: 90%;
+        height: 25px;
+        padding: 10px;
+        margin: 5px auto;
+        border: 2px solid $fontColor;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        &.coverBack{
+          background-color: $mainColorGreen;
+        }
+
+    
+        button{
+          color: $mainColor;
+          height: 100%;
+          border: 1px solid $fontColor;
+          border-radius: 5px;
+          background-color: $fontColor;
+          cursor: pointer;
+          &:hover{
+            transition: 0.3s;
+            box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        .name,
+        .school {
+          width: 20%;
+          text-align: center;
+        }
+      }
+    }
+
+    .aboutArea {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 40%;
+      height: 100%;
+      margin: 10px;
+
+      .aboutContext {
+        width: 90%;
+        height: 75%;
+        color: $mainColor;
+        font-size: 18px;
+        line-height: 25px;
+        text-align: justify;
+        padding: 5%;
+        letter-spacing: 5px;
+        border-radius: 20px;
+        border: 1px solid $mainColorGreen;
+      }
+
+      .aboutProject {
+        display: flex;
+        flex-direction: column;
+        height: 15%;
+        margin: 10px;
+        border: 1px solid $mainColor;
+
+        .title {
+          height: fit-content;
+          font-size: 16px;
+          display: flex;
+          text-align: center;
+
+          h5 {
+            height: fit-content;
+            padding: 10px 5px;
+            color: white;
+            width: 100%;
+            background-color: $mainColor;
+          }
+        }
+
+        .context {
+          height: 70%;
+          text-align: center;
+          @extend %flex-center;
+
+          p {
+            @extend %flex-center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            border: 1px solid $mainColor;
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,17 +4,13 @@ import ProjectPeoplePopup from '@/components/popup/project/projectPeoplePopup';
 import ProjectChoosePopup from '@/components/popup/project/projectChoosePopup';
 import ProjectFilePopup from '@/components/popup/project/projectFilePopup';
 import styles from '@/styles/page/project/seting.module.scss'
-import { SelectChangeEvent } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { FaSignOutAlt, FaCheck, FaPen, FaFolder } from "react-icons/fa";
 import { useRouter } from 'next/router';
+import userI from '@/pages/userI';
+import PrivateRoute from '@/pages/privateRoute';
 
-interface User {
-  username: string;
-  avatar_url: string;
-}
-
-function ProjectList({ user }: { user: User | undefined }) {
+function ProjectEdit({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
   const router = useRouter();
@@ -119,27 +115,12 @@ function ProjectList({ user }: { user: User | undefined }) {
     </Layout>
   );
 }
-export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
-  const router = useRouter();
+export default function Init() {
+  const [user, setUser] = useState<userI>();
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch('/api/auth/user');
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-        } else {
-          router.push('/user/login'); // 如果沒有用戶登錄，導向登錄頁面
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        router.push('/user/login');
-      }
-    }
-    fetchUser();
-  }, [router]);
-
-  return user ? <ProjectList user={user} /> : <p>Loading...</p>;
+  return (
+    <PrivateRoute>
+      <ProjectEdit user={user} />
+    </PrivateRoute>
+  );
 }

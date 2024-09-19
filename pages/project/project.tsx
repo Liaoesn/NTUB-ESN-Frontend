@@ -1,13 +1,15 @@
-import projectInterface from './projectInterface'
-import styles from '@/styles/page/project/list.module.scss'
+import router from 'next/router';
+import projectInterface from './projectInterface';
+import styles from '@/styles/page/project/list.module.scss';
 
 interface proProps {
     project: projectInterface;
 }
+
 function project({ project }: proProps) {
     const edate = new Date(project.enddate);
     return (
-        <div className={styles.projectMain}>
+        <div onClick={() => router.push(`/project/${project.prono}`)} className={styles.projectMain}>
             <div className={styles.projectItem}>
                 <article>
                     <div className={styles.projectLogo}>
