@@ -3,7 +3,6 @@ import styles from '@/styles/page/project/prono.module.scss';
 // npm install react-beautiful-dnd
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useEffect, useState } from 'react';
-import router, { useRouter } from 'next/router';
 
 // 示例數據
 const studentItems = [
@@ -18,14 +17,10 @@ const studentItems = [
   { "id": "9", "name": "志傑", "sex": "男", "school": "國立中山大學" },
   { "id": "10", "name": "婷婷", "sex": "女", "school": "國立中央大學" },
   { "id": "11", "name": "建華", "sex": "男", "school": "國立台北商業大學" },
-  { "id": "12", "name": "怡君", "sex": "女", "school": "湖尾科大" },
-  { "id": "13", "name": "俊傑", "sex": "男", "school": "國立台灣大學" },
-  { "id": "14", "name": "雅婷", "sex": "女", "school": "國立清華大學" },
-  { "id": "15", "name": "志玲", "sex": "女", "school": "國立成功大學" },
-  { "id": "16", "name": "美君", "sex": "女", "school": "國立交通大學" },
+  { "id": "12", "name": "怡君", "sex": "女", "school": "湖尾科大" }
 ];
 
-export default function About() {
+export default function ProjectManageMain() {
   const [items, setItems] = useState(studentItems);
   const [enabled, setEnabled] = useState(false);
 
@@ -57,7 +52,6 @@ export default function About() {
   return (
     <Layout>
       <main className={styles.main}>
-
         <section className={styles.title}>
           <article className={styles.nameShow}>
             <p>履歷列表(拖動可以排序)</p>
