@@ -6,6 +6,23 @@
   align-items: center;
 }
 
+%popup-button{
+  .button {
+    @extend %flex-center;
+    height: 30px;
+    width: 50px;
+    border: 2px solid $mainColor;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    &:hover{
+        transition: 0.4s;
+        background-color: $mainColor;
+        color: white;
+    }
+}
+}
+
 %list-area {
   width: 55vw;
   height: 85vh;

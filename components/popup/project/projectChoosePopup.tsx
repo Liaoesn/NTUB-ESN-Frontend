@@ -4,6 +4,7 @@ import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { FaCheck } from "react-icons/fa";
 
 interface ProjectChoosePopup {
     onClose: () => void;
@@ -14,10 +15,10 @@ const ProjectChoosePopup: React.FC<ProjectChoosePopup> = ({ onClose }) => {
     const handleChange = (
         _event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
-      ) => {
+    ) => {
         setAlignment(newAlignment);
-      };
-    
+    };
+
 
     return (
         <div className={styles.popupBG}>
@@ -38,8 +39,10 @@ const ProjectChoosePopup: React.FC<ProjectChoosePopup> = ({ onClose }) => {
                     >
                         <ToggleButton size="large" value="web">全部分配</ToggleButton>
                         <ToggleButton size="large" value="android">平均分配</ToggleButton>
+
                     </ToggleButtonGroup>
                 </section>
+                <a className={`${styles.button} ${styles.check}`}><FaCheck /></a>
             </div>
         </div>
     );

@@ -22,8 +22,6 @@ export default function ShowHistory({ user }: { user: userI | undefined }) {
     { "id": "15", "name": "志玲", "sex": "女", "school": "國立成功大學" },
     { "id": "16", "name": "美君", "sex": "女", "school": "國立交通大學" },
   ];
-
-  const [enabled, setEnabled] = useState(true);
   const [isVisible, setIsVisible] = useState<string>();
 
   const handleClick = ( id : string ) => {

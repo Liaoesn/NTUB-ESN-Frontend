@@ -31,14 +31,15 @@
 
         .inputArea {
             width: 90%;
-            height: 90%;
+            height: 70%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             font-size: 32px;
-            
-            .donloadicon{
+            border-bottom: 1px solid $mainColor;
+
+            .donloadicon {
                 position: absolute;
                 width: 60px;
                 height: auto;
@@ -52,10 +53,13 @@
                 height: 120px;
                 border-radius: 20px;
             }
-            p{
+
+            p {
                 margin: 10px;
             }
         }
+
+        @extend %popup-button;
 
         .showStep {
             width: 90%;

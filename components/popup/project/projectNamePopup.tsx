@@ -2,6 +2,7 @@
 import styles from "@/styles/components/popup/project/projectNamePopup.module.scss";
 import { Autocomplete, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
 import React from "react";
+import { FaCheck } from "react-icons/fa";
 import { MdOutlineCancel, MdArrowRight, MdArrowLeft} from "react-icons/md";
 
 interface ProjectNamePopupProps {
@@ -33,16 +34,8 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
                         freeSolo options={[]}
                         renderInput={(params) => <TextField {...params} label="輸入專案名稱" />}
                     />
-                    <article className={styles.year}>
-                        <Stack spacing={2} sx={{ width: 300 }}>
-                            <Autocomplete
-                                className={styles.Input}
-                                id="free-solo-demo"
-                                freeSolo options={[]}
-                                renderInput={(params) => <TextField {...params} label="輸入學年度" />}
-                            />
-                        </Stack>
-                        <FormControl sx={{ minWidth: 250 }}>
+                    <article className={styles.type}>
+                        <FormControl sx={{ minWidth: 575}}>
                             <InputLabel id="demo-simple-select-label">學制</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
@@ -60,6 +53,7 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
                         </FormControl>
                     </article>
                 </section>
+                <a className={`${styles.button} ${styles.check}`}><FaCheck /></a>
             </div>
         </div>
     );

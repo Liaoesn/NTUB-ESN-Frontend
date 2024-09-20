@@ -6,7 +6,7 @@
 
     .mainShow {
         width: 35vw;
-        height: 30vh;
+        height: 40vh;
         display: flex;
         padding: 20px;
         align-items: center;
@@ -33,22 +33,28 @@
             width: 90%;
             height: 80%;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
+            flex-direction: column;
             border-bottom: 1px solid $mainColor;
+            @extend %flex-center;
 
-            input {
-                font-size: 20px;
-                padding: 0 20px;
-                width: 30%;
-                height: 50px;
-                border-radius: 5px;
-            }
-            p{
-                margin: 10px;
+            .time {
+                height: 30%;
+                width: 80%;
+                @extend %flex-center;
+                label{
+                    font-size: 20px;
+                }
+                input{
+                    border: 1px solid $mainColor;
+                    border-radius: 10px;
+                    width: 50%;
+                    height: 40px;
+                    padding:0 10px;
+                    margin-left: 20px
+                }
             }
         }
+
         @extend %popup-button;
 
         .showStep {

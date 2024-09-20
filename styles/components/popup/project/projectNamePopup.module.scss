@@ -31,18 +31,21 @@
 
         .inputArea {
             width: 90%;
-            height: 90%;
+            height: 80%;
             display: flex;
             flex-direction: column;
-            .year{
+            border-bottom: 1px solid $mainColor;
+            .type{
+                width: 100%;
                 padding: 0 15px;
                 margin-top: 10%;
                 justify-content: space-between;
                 align-items: center;
                 display: flex;
-
             }
         }
+
+        @extend %popup-button;
 
         .showStep{
             width: 90%;
