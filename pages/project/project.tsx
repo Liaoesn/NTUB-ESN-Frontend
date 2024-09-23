@@ -1,5 +1,5 @@
 import router from 'next/router';
-import projectInterface from './projectInterface';
+import projectInterface from '../../type/projectinterface';
 import styles from '@/styles/page/project/list.module.scss';
 
 interface proProps {

@@ -12,8 +12,6 @@ import userI from '@/pages/userI';
 import PrivateRoute from '@/pages/privateRoute';
 
 function ProjectEdit({ user }: { user: userI | undefined }) {
-  const [year, setYear] = React.useState('');
-  const [academic, setAcademic] = React.useState('');
   const router = useRouter();
   const [prono, setProno] = React.useState('');
   //PopupShowOut 各種Popup的值
@@ -26,10 +24,14 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
   useEffect(() => {
     if (router.isReady) {
       const { prono } = router.query;
-      setProno(prono as string);
+      if (prono) {
+        setProno(prono as string);
+        console.log('prono:', prono);  // 添加日志查看 prono 值
+      } else {
+        console.log('No prono found in query.');
+      }
     }
   }, [router.isReady, router.query]);
-
   const handlePopup = (popupName: string) => {
     switch (popupName) {
       case 'Chose':

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Project from './project';
-import projectInterface from './projectInterface'
+import projectInterface from '../../type/projectinterface'
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
 import userI from '../userI';

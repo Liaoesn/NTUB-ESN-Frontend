@@ -1,11 +1,9 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/user/list.module.scss'
 import { Box, FormControl, Input, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
-import Link from 'next/link';
 import { FaAngleLeft, FaAngleRight,FaPen,FaCheck,} from "react-icons/fa";
 import { VscChromeClose  } from "react-icons/vsc";
 import { LuSearch } from "react-icons/lu";
-import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import UserRow from './user';
 import userInterface from './userInterface';
@@ -28,7 +26,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
   const [page, setPage] = useState<number>(1);
   
   // 是否為修改狀態
-  const [editable, setEditable] = useState<Boolean>(false);
+  const [editable, setEditable] = useState<boolean>(false);
 
   // 用於修改使用者狀態
   const [confirmMsg, setConfirmMsg] = useState<string>();
@@ -36,7 +34,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
   const [targetState, setTargetState] = useState<string>();
 
   // 彈出視窗
-  const [showConfirm, setShowConfirm] = useState<Boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
   
 
 
@@ -246,7 +244,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
         <section className={styles.userList}>
         {users.map((row, index) => (
             <React.Fragment key={row.userno}>
-            <UserRow user={row} permissionNames={permissionNames} editable={editable} onUpdate={handleUpdate} onEnable={showEnablePopup} onDisble={showDisablePopup}/>
+            <UserRow user={row} permissionNames={permissionNames} editable={editable} onUpdate={handleUpdate} onEnable={showEnablePopup} onDisable={showDisablePopup}/>
             {index < users.length-1 && <hr/>}
             
           </React.Fragment>

@@ -1,4 +1,4 @@
-interface projectInterface{
+interface projectManageInterface{
     prodescription: string;
     prono:number;
     prono_prefix:string;
@@ -9,4 +9,4 @@ interface projectInterface{
     enddate: string;
 }
 
-export default projectInterface;
+export default projectManageInterface;

@@ -1,10 +1,10 @@
-import projectInterface from './projectInterface';
+import projectManageInterface from '../../type/projectManageInterface';
 import styles from '@/styles/page/project/list.module.scss';
 import Link from 'next/link';
 import { FaCog, FaRegTrashAlt } from "react-icons/fa";
 
 interface proProps {
-    project: projectInterface;
+    project: projectManageInterface;
 }
 
 function project({ project }: proProps) {

@@ -4,7 +4,7 @@ import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Sel
 import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare } from "react-icons/fa";
 import React, { useState, useEffect } from 'react';
 import Project from './project';
-import projectInterface from './projectInterface'
+import projectManageInterface from '../../type/projectManageInterface'
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
 import userI from '../userI';
@@ -13,7 +13,7 @@ function ProjectManage({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
-  const [projects, setProjects] = useState<projectInterface[]>([]);
+  const [projects, setProjects] = useState<projectManageInterface[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

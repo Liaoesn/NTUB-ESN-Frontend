@@ -1,6 +1,5 @@
 import { useEffect, useState, createContext, useContext } from 'react';
 import type { AppProps } from 'next/app';
-import { ProSidebarProvider } from 'react-pro-sidebar';
 import '../styles/main.scss';
 import Layout from '../components/Layout/Layout';
 
