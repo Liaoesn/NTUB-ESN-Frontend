@@ -1,4 +1,4 @@
-import userInterface from './userInterface';
+import userInterface from '../../type/userInterface';
 import styles from '@/styles/page/user/list.module.scss';
 import React, { useState, useEffect } from 'react';
 import { FaMinusCircle } from "react-icons/fa";

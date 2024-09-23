@@ -8,8 +8,8 @@ import styles from '@/styles/page/project/seting.module.scss'
 import React, { useState, useEffect } from 'react';
 import { FaSignOutAlt, FaPen, FaFolder, FaRegCalendarAlt } from "react-icons/fa";
 import { useRouter } from 'next/router';
-import userI from '@/pages/userI';
 import PrivateRoute from '@/pages/privateRoute';
+import userI from '@/type/userI';
 
 function ProjectEdit({ user }: { user: userI | undefined }) {
   const router = useRouter();

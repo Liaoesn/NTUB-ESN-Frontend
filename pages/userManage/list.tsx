@@ -6,10 +6,10 @@ import { VscChromeClose  } from "react-icons/vsc";
 import { LuSearch } from "react-icons/lu";
 import React, { useState, useEffect } from 'react';
 import UserRow from './user';
-import userInterface from './userInterface';
+import userInterface from '../../type/userInterface';
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
-import userI from '../userI';
+import userI from '../../type/userI';
 import DisableConfirm from '@/components/popup/confirmPopup';
 
 function UserManageList({ user }: { user: userI | undefined }) {

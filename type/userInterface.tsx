@@ -6,7 +6,7 @@ interface userInterface{
     permissions: string;
     permissionsName: string;
     state: string;
-    create_at: string;
+    create_at?: string;
 }
 
 export default userInterface;

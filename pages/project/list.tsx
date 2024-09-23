@@ -8,7 +8,7 @@ import Project from './project';
 import projectInterface from '../../type/projectinterface'
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
-import userI from '../userI';
+import userI from '../../type/userI';
 
 
 

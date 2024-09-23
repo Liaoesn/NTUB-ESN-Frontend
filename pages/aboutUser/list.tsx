@@ -4,9 +4,9 @@ import { FaMinusCircle } from "react-icons/fa";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
-import userI from '../userI';
-import userInterface from './userInterface';
+import userI from '../../type/userI';
 import DisableConfirm from '@/components/popup/confirmPopup';
+import userInterface from '@/type/userInterface';
 
 function AboutUser({ user }: { user: userI | undefined }) {
   const [userData, setUserData] = useState<userInterface>({
@@ -133,7 +133,7 @@ function AboutUser({ user }: { user: userI | undefined }) {
                 <p>註冊日期:</p>
               </div>
               <div className={styles.value}>
-                <p>{formatDate(userData.create_at)}</p>
+                <p>{formatDate(userData.create_at as string)}</p>
               </div>
             </div>
 

@@ -3,8 +3,8 @@ import styles from '@/styles/page/project/teacher.module.scss'
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaSignOutAlt,FaTimes } from "react-icons/fa";
 import { useRouter } from 'next/router';
-import userI from '@/pages/userI';
 import PrivateRoute from '@/pages/privateRoute';
+import userI from '@/type/userI';
 
 function SetTeacher({ user }: { user: userI | undefined }) {
   const router = useRouter();

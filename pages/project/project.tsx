@@ -6,7 +6,7 @@ interface proProps {
     project: projectInterface;
 }
 
-function project({ project }: proProps) {
+function Project({ project }: proProps) {
     const edate = new Date(project.enddate);
     return (
         <div onClick={() => router.push(`/project/${project.prono}`)} className={styles.projectMain}>
@@ -39,4 +39,4 @@ function formatDate(date: Date) {
 
     return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 }
-export default project;
+export default Project;

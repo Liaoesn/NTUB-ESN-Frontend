@@ -7,7 +7,7 @@ interface proProps {
     project: projectManageInterface;
 }
 
-function project({ project }: proProps) {
+function Manageproject({ project }: proProps) {
     const edate = new Date(project.enddate);
     const phase1 = new Date(project.phase1);
 
@@ -60,4 +60,4 @@ function formatDate(date: Date) {
 
     return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 }
-export default project;
+export default Manageproject;

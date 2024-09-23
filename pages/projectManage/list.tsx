@@ -7,7 +7,7 @@ import Project from './project';
 import projectManageInterface from '../../type/projectManageInterface'
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
-import userI from '../userI';
+import userI from '../../type/userI';
 
 function ProjectManage({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');

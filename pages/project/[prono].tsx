@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/memo.module.scss';
 import React, { useState } from 'react';
-import userI from '../userI';
+import userI from '../../type/userI';
 
 export default function ShowHistory({ user }: { user: userI | undefined }) {
   const studentItems = [

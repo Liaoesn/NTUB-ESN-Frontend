@@ -1,7 +1,7 @@
 import styles from "@/styles/components/popup/project/projectFilePopup.module.scss";
 import React from "react";
 import { MdOutlineCancel, MdFileUpload } from "react-icons/md";
-import { MuiFileInput } from 'mui-file-input'
+// import { MuiFileInput } from 'mui-file-input'
 import { FaCheck } from "react-icons/fa";
 
 interface ProjectFileInputProps {
@@ -30,7 +30,7 @@ const ProjectFileInput: React.FC<ProjectFileInputProps> = ({ onClose }) => {
                 </section>
                 <section className={styles.inputArea}>
                     <MdFileUpload className={styles.donloadicon}/>
-                    <MuiFileInput value={file} onChange={handleChange} />
+                    {/* <MuiFileInput value={file} onChange={handleChange} /> */}
                 </section>
                 <a className={`${styles.button} ${styles.check}`}><FaCheck /></a>
             </div>
