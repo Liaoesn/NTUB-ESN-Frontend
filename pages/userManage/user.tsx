@@ -5,6 +5,7 @@ import { FaMinusCircle } from "react-icons/fa";
 import { TbProgressBolt } from "react-icons/tb";
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
+import { useRouter } from 'next/router';
 
 interface proProps {
   user: userInterface;
@@ -16,6 +17,7 @@ interface proProps {
 }
 
 function User({ user, permissionNames, editable, onUpdate, onEnable, onDisable }: proProps) { // 改为大写的 User
+  const router = useRouter();
   const [userData, setUserData] = useState<userInterface>({
     userno: 0,
     username: '',
@@ -27,17 +29,14 @@ function User({ user, permissionNames, editable, onUpdate, onEnable, onDisable }
   });
 
   useEffect(() => {
-    setUserData(user);
-  }, [user]);
-
-  useEffect(() => {
     onUpdate(userData);
+    setUserData(user);
   }, [userData]);
 
   const handleChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
 
-    if (name === 'permission') {
+    if (name === 'permission' && router.isReady && userData) {
       setUserData((userData) => ({
         ...userData,
         permissions: value,
@@ -67,7 +66,7 @@ function User({ user, permissionNames, editable, onUpdate, onEnable, onDisable }
           <b>{userData.email}</b>
         </div>
         <div className={styles.itemRadius}>
-          <p>{user.permissionsName}</p>
+          <p>{user?.permissionsName}</p>
         </div>
         {editable ? (
           <div className={styles.marginRight}>

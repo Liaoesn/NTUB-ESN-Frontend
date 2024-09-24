@@ -1,63 +1,78 @@
 import projectManageInterface from '../../type/projectManageInterface';
 import styles from '@/styles/page/project/list.module.scss';
 import Link from 'next/link';
-import { FaCog, FaRegTrashAlt } from "react-icons/fa";
+import router from 'next/router';
+import { useEffect, useState } from 'react';
+import { FaCog, FaRegTrashAlt } from 'react-icons/fa';
 
 interface proProps {
-    project: projectManageInterface;
+  project: projectManageInterface;
 }
 
 function Manageproject({ project }: proProps) {
-    const edate = new Date(project.enddate);
-    const phase1 = new Date(project.phase1);
+  const [edate, setEdata] = useState<Date>();
+  const [phase1, setPhase1] = useState<Date>();
+  const [proItem, setProItem] = useState<projectManageInterface>();
 
-    return (
-        <div className={styles.projectMain}>
-            {project.state == '已關閉' ?
-                <div className={styles.cover} >
-                    <a>產生名單</a>
-                </div > : checkDate(phase1) ?
-                    <div className={styles.cover}>
-                        <a>合併排序</a>
-                    </div> : ''
-            }
-            <a href={`/projectManage/${project.prono}`} className={styles.projectItem}>
-                <article>
-                    <div className={styles.projectLogo}>
-                        <p>{project.prodescription}</p>
-                    </div>
-                    <div className={styles.projectContent}>
-                        <b>{project.proname}</b>
-                        <p>專案建立者: <span>{project.username}</span></p>
-                        <p>排序進度: {project.state}</p>
-                    </div>
-                </article>
-                <div className={styles.projectAbout}>
-                    <div className={styles.projectButton}>
-                        <Link className={styles.projectSet} href={`/projectManage/${project.prono}/edit`}><FaCog /></Link>
-                        <Link className={styles.projectDel} href={'/projectManage/edit'}><FaRegTrashAlt /></Link>
-                    </div>
-                    <p>結案日期：{formatDate(edate)}</p>
-                </div>
-            </a>
+  useEffect(() => {
+    if (router.isReady) {
+      if (project) {
+        setEdata(new Date(project?.enddate));
+        setPhase1(new Date(project?.phase1));
+        setProItem(project);
+      } else {
+        console.log('No project found in query.');
+      }
+    }
+  }, [project]);
+
+  return (
+    <div className={styles.projectMain}>
+      {proItem?.state == '已關閉' ?
+        <div className={styles.cover} >
+          <a>產生名單</a>
+        </div > : checkDate(phase1 as Date) ?
+          <div className={styles.cover}>
+            <a>合併排序</a>
+          </div> : ''
+      }
+      <a href={`/projectManage/${proItem?.prono}`} className={styles.projectItem}>
+        <article>
+          <div className={styles.projectLogo}>
+            <p>{proItem?.prodescription}</p>
+          </div>
+          <div className={styles.projectContent}>
+            <b>{proItem?.proname}</b>
+            <p>專案建立者: <span>{proItem?.username}</span></p>
+            <p>排序進度: {proItem?.state}</p>
+          </div>
+        </article>
+        <div className={styles.projectAbout}>
+          <div className={styles.projectButton}>
+            <Link className={styles.projectSet} href={`/projectManage/${proItem?.prono}/edit`}><FaCog /></Link>
+            <Link className={styles.projectDel} href={'/projectManage/edit'}><FaRegTrashAlt /></Link>
+          </div>
+          <p>結案日期：{formatDate(edate as Date)}</p>
         </div>
-    );
+      </a>
+    </div>
+  );
 }
 
 function checkDate(date: Date) {
-    if (date < new Date()) {
-        return true;
-    } else { return false; }
+  if (date < new Date()) {
+    return true;
+  } else { return false; }
 }
 
 function formatDate(date: Date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份是從 0 開始的
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+  const year = date?.getFullYear();
+  const month = String(date?.getMonth() + 1).padStart(2, '0'); // 月份是從 0 開始的
+  const day = String(date?.getDate()).padStart(2, '0');
+  const hours = String(date?.getHours()).padStart(2, '0');
+  const minutes = String(date?.getMinutes()).padStart(2, '0');
+  const seconds = String(date?.getSeconds()).padStart(2, '0');
 
-    return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 }
 export default Manageproject;
