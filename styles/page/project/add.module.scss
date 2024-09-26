@@ -1,0 +1,9 @@
+@import "@/styles/base/variables";
+@import "@/styles/base/extends";
+
+.coverBg{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+}

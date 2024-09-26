@@ -11,7 +11,7 @@ interface ProjectPeoplePopup {
     onConfirm: () => void;
 }
 
-const ProjectPeoplePopup: React.FC<ProjectPeoplePopup> = ({ content, onConfirm, onClose }) => {
+const ConfirmPopup: React.FC<ProjectPeoplePopup> = ({ content, onConfirm, onClose }) => {
     return(
         <div className={styles.popupBG} onClick={onClose}>
             <div className={styles.mainShow} onClick={(e) => e.stopPropagation()}>
@@ -37,4 +37,4 @@ const ProjectPeoplePopup: React.FC<ProjectPeoplePopup> = ({ content, onConfirm, 
     );
 }
 
-export default ProjectPeoplePopup;
+export default ConfirmPopup;

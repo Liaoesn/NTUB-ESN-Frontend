@@ -96,7 +96,7 @@ function ProjectManage({ user }: { user: userI | undefined }) {
               </Select>
             </FormControl>
           </Box>
-          <a><FaRegPlusSquare/></a>
+          <a href={'/projectManage/add'}><FaRegPlusSquare/></a>
         </section>
         <section className={styles.projectList}>
         {projects.map((project, index) => (
