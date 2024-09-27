@@ -24,6 +24,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
   const [permissions, setPermissions] = useState('');
   const [state, setState] = useState('1');
   const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = React.useState<number>(1);
   
   // 是否為修改狀態
   const [editable, setEditable] = useState<boolean>(false);
@@ -61,16 +62,26 @@ function UserManageList({ user }: { user: userI | undefined }) {
 
   const fetchData = async () => {
     try {
-      await axios.get('/api/user/list', {
-        params: { 
-          permissions: permissions === 'all' ? '' : permissions, 
+      const [listResponse, sizeResponse] = await Promise.all([
+        axios.get('/api/user/list', {
+          params: {
+            permissions: permissions === 'all' ? '' : permissions, 
           state: state === 'all' ? '' : state, 
           term: term,
           page 
-        }
-      }).then((response) => {
-        setUsers(response.data);
-      });
+          }
+        }),
+        axios.get('/api/user/page', {
+          params: {
+            permissions: permissions === 'all' ? '' : permissions, 
+            state: state === 'all' ? '' : state, 
+            term: term,
+          }
+        })
+      ]);
+
+      setUsers(listResponse.data);
+      setPageSize(Number(sizeResponse.data.page));
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
@@ -254,7 +265,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
         <section className={styles.userPage}>
           <Stack spacing={2}>
             <Pagination
-              count={5}
+              count={pageSize}
               onChange={handlePageChange}
               renderItem={(item) => (
                 <PaginationItem

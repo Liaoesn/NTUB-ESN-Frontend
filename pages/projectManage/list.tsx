@@ -13,26 +13,37 @@ function ProjectManage({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');
   const [academic, setAcademic] = React.useState('');
   const [page, setPage] = React.useState<number>(1);
+  const [pageSize, setPageSize] = React.useState<number>(1);
   const [projects, setProjects] = useState<projectManageInterface[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get('/api/project/data', {
-          params: {
-            year: year === 'all' ? '' : year,
-            academic: academic === 'all' ? '' : academic,
-            page
-          }
-        });
-        setProjects(data);
+        const [listResponse, sizeResponse] = await Promise.all([
+          axios.get('/api/project/data', {
+            params: {
+              year: year === 'all' ? '' : year,
+              academic: academic === 'all' ? '' : academic,
+              page
+            }
+          }),
+          axios.get('/api/project/dataPage', {
+            params: {
+              year: year === 'all' ? '' : year,
+              academic: academic === 'all' ? '' : academic,
+            }
+          })
+        ]);
+
+        setProjects(listResponse.data);
+        setPageSize(Number(sizeResponse.data.page));
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
     };
   
     fetchData();
-  }, [year, academic, page]); 
+  }, [year, academic, page]);
 
   const handleChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
@@ -109,7 +120,7 @@ function ProjectManage({ user }: { user: userI | undefined }) {
         <section className={styles.projectPage}>
           <Stack spacing={2}>
             <Pagination
-              count={5}
+              count={pageSize}
               onChange={handlePageChange}
               renderItem={(item) => (
                 <PaginationItem
