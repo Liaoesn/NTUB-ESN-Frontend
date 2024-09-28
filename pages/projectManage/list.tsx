@@ -8,6 +8,7 @@ import projectManageInterface from '../../type/projectManageInterface'
 import axios from 'axios';
 import PrivateRoute from '../privateRoute';
 import userI from '../../type/userI';
+import DelConfirm from '@/components/popup/confirmPopup';
 
 function ProjectManage({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');
@@ -15,6 +16,13 @@ function ProjectManage({ user }: { user: userI | undefined }) {
   const [page, setPage] = React.useState<number>(1);
   const [pageSize, setPageSize] = React.useState<number>(1);
   const [projects, setProjects] = useState<projectManageInterface[]>([]);
+
+  // 用於修改使用者狀態
+  const [confirmMsg, setConfirmMsg] = useState<string>();
+  const [targetPro, setTargetPro] = useState<number>();
+    // 彈出視窗
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [rePro, setRePro] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +51,11 @@ function ProjectManage({ user }: { user: userI | undefined }) {
     };
   
     fetchData();
-  }, [year, academic, page]);
+  }, [year, academic, page, rePro]);
+
+  const refleshData = () => {
+    setRePro(!rePro);
+  }
 
   const handleChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
@@ -65,8 +77,32 @@ function ProjectManage({ user }: { user: userI | undefined }) {
     console.log('Current Page:', value);
   };
 
+  //Popup 相關
+  const showDelPopup = (prono: number, proname: string) => {
+    setConfirmMsg('是否確定刪除' + proname + '?');
+    setTargetPro(prono);
+    setShowConfirm(true);
+  }
+
+  const closePopup = () => {
+    setTargetPro(0);
+    setShowConfirm(false);
+  }
+
+  const delProject = async () => {
+    const url = '/api/project/delete';
+    await axios.put(url, {
+        prono: targetPro
+    }).then((response) => {
+      closePopup();
+      refleshData();
+    });
+  };
+
+
   return (
     <Layout user={user}>
+      {showConfirm && <DelConfirm content={confirmMsg} onConfirm={delProject} onClose={closePopup}/>}
       <main className={styles.listArea}>
         <h2>{user?.username}的專案總覽</h2>
         <section className={styles.dropdownArea}>
@@ -111,8 +147,8 @@ function ProjectManage({ user }: { user: userI | undefined }) {
         </section>
         <section className={styles.projectList}>
         {projects.map((project, index) => (
-            <React.Fragment key={project.prono}>
-            <Project project={project} />
+          <React.Fragment key={project.prono}>
+            <Project project={project} onDel={showDelPopup} />
             {index < projects.length-1 && <hr/>}
           </React.Fragment>
           ))}
