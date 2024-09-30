@@ -7,9 +7,10 @@ import { FaCog, FaRegTrashAlt } from 'react-icons/fa';
 
 interface proProps {
   project: projectManageInterface;
+  onDel: (prono: number, proname: string) => void;
 }
 
-function Manageproject({ project }: proProps) {
+function Manageproject({ project, onDel }: proProps) {
   const [edate, setEdata] = useState<Date>();
   const [phase1, setPhase1] = useState<Date>();
   const [proItem, setProItem] = useState<projectManageInterface>();
@@ -26,6 +27,18 @@ function Manageproject({ project }: proProps) {
     }
   }, [project]);
 
+  const Del = () => {
+    onDel(project.prono, project.proname);
+  };
+
+  const ViewPage = (prono: number) => {
+    window.location.href='/projectManage/' + prono;
+  }
+
+  const EditPage = (prono: number) => {
+    window.location.href='/projectManage/' + prono + '/edit';
+  }
+
   return (
     <div className={styles.projectMain}>
       {proItem?.state == '已關閉' ?
@@ -36,7 +49,7 @@ function Manageproject({ project }: proProps) {
             <a>合併排序</a>
           </div> : ''
       }
-      <a href={`/projectManage/${proItem?.prono}`} className={styles.projectItem}>
+      <div onClick={() => ViewPage(project.prono)} className={styles.projectItem}>
         <article>
           <div className={styles.projectLogo}>
             <p>{proItem?.prodescription}</p>
@@ -48,13 +61,13 @@ function Manageproject({ project }: proProps) {
           </div>
         </article>
         <div className={styles.projectAbout}>
-          <div className={styles.projectButton}>
-            <Link className={styles.projectSet} href={`/projectManage/${proItem?.prono}/edit`}><FaCog /></Link>
-            <Link className={styles.projectDel} href={'/projectManage/edit'}><FaRegTrashAlt /></Link>
+          <div className={styles.projectButton} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.projectSet} onClick={() => EditPage(project.prono)}><FaCog /></div>
+            <div className={styles.projectDel} onClick={() => Del()}><FaRegTrashAlt /></div>
           </div>
           <p>結案日期：{formatDate(edate as Date)}</p>
         </div>
-      </a>
+      </div>
     </div>
   );
 }
