@@ -10,13 +10,13 @@ interface ProjectChoosePopup {
     onClose: () => void;
 }
 const ProjectChoosePopup: React.FC<ProjectChoosePopup> = ({ onClose }) => {
-    const [alignment, setAlignment] = React.useState('web');
+    const [college, setCollege] = React.useState('web');
 
     const handleChange = (
         _event: React.MouseEvent<HTMLElement>,
-        newAlignment: string,
+        newCollege: string,
     ) => {
-        setAlignment(newAlignment);
+        setCollege(newCollege);
     };
 
 
@@ -32,7 +32,7 @@ const ProjectChoosePopup: React.FC<ProjectChoosePopup> = ({ onClose }) => {
                 <section className={styles.inputArea}>
                     <ToggleButtonGroup
                         color="success"
-                        value={alignment}
+                        value={college}
                         exclusive
                         onChange={handleChange}
                         aria-label="Platform"

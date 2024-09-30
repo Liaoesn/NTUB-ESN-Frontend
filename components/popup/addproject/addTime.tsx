@@ -1,10 +1,19 @@
 
 import styles from "@/styles/components/popup/project/projectTimeSetPopup.module.scss";
 import React, { useState } from "react";
-import { FaCheck } from "react-icons/fa";
 import { MdArrowRight, MdArrowLeft } from "react-icons/md";
 
-const ProjectTimeSet = () => {
+interface ProjectTimePopupProps { 
+    StartTime: (value: string) => void;
+    EndTime: (value: string) => void;
+    StartTimeValue: string | undefined;
+    EndTimeValue : string | undefined;
+    onNext: () => void;
+    onBack: () => void;
+}
+
+const ProjectTimeSet: React.FC<ProjectTimePopupProps> = ({ 
+    StartTime, EndTime, StartTimeValue, EndTimeValue, onNext, onBack}) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const today = new Date().toISOString().split('T')[0];
@@ -20,6 +29,13 @@ const ProjectTimeSet = () => {
     const handleEndDateChange = (e: any) => {
         setEndDate(e.target.value);
     };
+
+    const handleClick = () => {
+        StartTime(startDate);
+        EndTime(endDate);
+        onNext();
+    };
+
     return (
         <div className={styles.popupBG}>
             <div className={styles.mainShow}>
@@ -32,7 +48,7 @@ const ProjectTimeSet = () => {
                         <input
                             type="date"
                             id="start-date"
-                            value={startDate}
+                            value={StartTimeValue}
                             onChange={handleStartDateChange}
                             min={today} // 第一個日期只能選今天或之後
                         />
@@ -42,12 +58,17 @@ const ProjectTimeSet = () => {
                         <input
                             type="date"
                             id="end-date"
-                            value={endDate}
+                            value={EndTimeValue}
                             onChange={handleEndDateChange}
                             min={startDate || today} // 第二個日期只能選擇第一個日期之後
                             disabled={!startDate} // 如果未選擇開始日期，禁用第二個日期選擇器
                         />
                     </div>
+                </section>
+                <section className={styles.showStep}>
+                    <a onClick={onBack}><MdArrowLeft /></a>
+                    <p>2/5</p>
+                    <a onClick={handleClick}><MdArrowRight /></a>
                 </section>
             </div>
         </div>

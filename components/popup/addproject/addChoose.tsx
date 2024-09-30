@@ -5,16 +5,28 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { MdArrowRight, MdArrowLeft } from "react-icons/md";
 
-const ProjectChoosePopup = () => {
-  const [alignment, setAlignment] = React.useState('web');
+interface ProjectChoosePopupProps {
+  Type: (value: string) => void;
+  submit: () => void;
+  onNext: () => void;
+  onBack: () => void;
+}
+
+const ProjectChoosePopup: React.FC<ProjectChoosePopupProps> = ({ Type, submit, onNext, onBack }) => {
+  const [type, setType] = React.useState('all');
 
   const handleChange = (
     _event: React.MouseEvent<HTMLElement>,
-    newAlignment: string,
+    newType: string,
   ) => {
-    setAlignment(newAlignment);
+    setType(newType);
   };
 
+  const handleClick = () => {
+    Type(type);
+    onNext();submit
+    console.log(`People: ${type}`);
+};
 
   return (
     <div className={styles.popupBG}>
@@ -25,15 +37,21 @@ const ProjectChoosePopup = () => {
         <section className={styles.inputArea}>
           <ToggleButtonGroup
             color="success"
-            value={alignment}
+            value={type}
             exclusive
             onChange={handleChange}
             aria-label="Platform"
           >
-            <ToggleButton size="large" value="web">全部分配</ToggleButton>
-            <ToggleButton size="large" value="android">平均分配</ToggleButton>
+            <ToggleButton size="large" value="all">全部分配</ToggleButton>
+            <ToggleButton size="large" value="average">平均分配</ToggleButton>
 
           </ToggleButtonGroup>
+        </section>
+
+        <section className={styles.showStep}>
+          <a onClick={onBack}><MdArrowLeft /></a>
+          <p>5/5</p>
+          <a onClick={handleClick}><MdArrowRight /></a>
         </section>
       </div>
     </div>

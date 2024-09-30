@@ -6,7 +6,7 @@
 
     .mainShow {
         width: 35vw;
-        height: 40vh;
+        height: 30vh;
         display: flex;
         padding: 20px;
         align-items: center;
@@ -30,6 +30,7 @@
         }
 
         .inputArea {
+            padding: 10px;
             width: 90%;
             height: 80%;
             display: flex;
@@ -47,20 +48,7 @@
 
         @extend %popup-button;
 
-        .showStep{
-            width: 90%;
-            border-top:1px solid $mainColor; 
-            @extend %flex-center;
-            padding: 10px 0 ;
-            font-size: 20px;
-            p{
-                line-height: 32px;
-                text-align: center;
-            }
-            a{
-                font-size: 32px;
-                @extend %flex-center;
-            }
-        }
+        @extend %page-button;
     }
+
 }
