@@ -85,9 +85,11 @@
         button{
           color: $mainColor;
           height: 100%;
-          border: 1px solid $fontColor;
-          border-radius: 5px;
-          background-color: $fontColor;
+          border: 2px solid $mainColor;
+          border-radius: 5px; 
+          background-color: $subColor;
+          font-size: 0.9em;
+          font-weight: 900;
           cursor: pointer;
           &:hover{
             transition: 0.3s;
