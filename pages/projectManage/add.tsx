@@ -10,11 +10,10 @@ import ProjectFile from '@/components/popup/addproject/addFile';
 import ProjectTime from '@/components/popup/addproject/addTime';
 import { FaCheck } from 'react-icons/fa';
 import { useRouter } from 'next/router';
-
 function CreateProject({ user }: { user: userI | undefined }) {
   const router = useRouter();
-  const [college, setCollege] = useState('碩士');
-  const [projectName, setProjectName] = useState<string>('好棒棒');
+  const [college, setCollege] = useState('');
+  const [projectName, setProjectName] = useState<string>('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [files, setFiles] = useState<FileList | null>(null);
@@ -30,7 +29,6 @@ function CreateProject({ user }: { user: userI | undefined }) {
       endDate,
     });
   };
-  //popup
   const [showName, setShowName] = React.useState(true);
   const [showTime, setShowTime] = React.useState(false);
   const [showFile, setShowFile] = React.useState(false);
