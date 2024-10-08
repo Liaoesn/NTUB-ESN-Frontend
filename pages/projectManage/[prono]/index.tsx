@@ -17,9 +17,12 @@ export default function ProjectManageMain() {
       var prono = path.substring(path.lastIndexOf('/') + 1);
       
       try {
-        const response = await axios.get('/api/score/student/' + prono);
-        console.log('data:', response.data);
-        setItems(response.data);
+        await axios.post('/api/score/student/' + prono, {
+          userno: 11305001
+        }).then((response) => {
+          console.log('data:', response.data.rows);
+          setItems(response.data.rows);
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -27,6 +30,12 @@ export default function ProjectManageMain() {
 
     fetchData();
   },[]);
+
+  useEffect(() => {
+    items.map((item) => {
+      console.log(item);
+    })
+  },[items]);
 
   const [enabled, setEnabled] = useState(false);
 
@@ -82,8 +91,8 @@ export default function ProjectManageMain() {
                     }}
                     {...provided.droppableProps}
                   >
-                    {items.map((item, index) => (
-                      <Draggable key={item.evano} draggableId={item.evano.toString()} index={index}>
+                    {items?.map((item, index) => (
+                      <Draggable key={item.evano} draggableId={item.evano?.toString()} index={index}>
                         {(provided) => (
                           <div
                             className={styles.item}
