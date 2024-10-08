@@ -2,26 +2,32 @@ import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/prono.module.scss';
 // npm install react-beautiful-dnd
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useEffect, useState } from 'react';
-
-// 示例數據
-const studentItems = [
-  { "id": "1", "name": "湖尾號", "sex": "男", "school": "國立台北商業大學" },
-  { "id": "2", "name": "廳前程", "sex": "男", "school": "湖尾科大" },
-  { "id": "3", "name": "志明", "sex": "女", "school": "國立台灣大學" },
-  { "id": "4", "name": "小華", "sex": "男", "school": "國立清華大學" },
-  { "id": "5", "name": "美玲", "sex": "女", "school": "國立成功大學" },
-  { "id": "6", "name": "雅惠", "sex": "女", "school": "國立交通大學" },
-  { "id": "7", "name": "志強", "sex": "男", "school": "國立政治大學" },
-  { "id": "8", "name": "麗珍", "sex": "女", "school": "國立中興大學" },
-  { "id": "9", "name": "志傑", "sex": "男", "school": "國立中山大學" },
-  { "id": "10", "name": "婷婷", "sex": "女", "school": "國立中央大學" },
-  { "id": "11", "name": "建華", "sex": "男", "school": "國立台北商業大學" },
-  { "id": "12", "name": "怡君", "sex": "女", "school": "湖尾科大" }
-];
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import proItemInterface from '@/type/proItemInterface';
 
 export default function ProjectManageMain() {
-  const [items, setItems] = useState(studentItems);
+  const [items, setItems] = useState<proItemInterface[]>([]);
+  const [description, setDescription] = useState<string>("");
+
+  // api 取得 permissions 的 mapping 清單
+  useEffect(() => {
+    const fetchData = async () => {
+      var path = window.location.href;
+      var prono = path.substring(path.lastIndexOf('/') + 1);
+      
+      try {
+        const response = await axios.get('/api/score/student/' + prono);
+        console.log('data:', response.data);
+        setItems(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  },[]);
+
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -77,7 +83,7 @@ export default function ProjectManageMain() {
                     {...provided.droppableProps}
                   >
                     {items.map((item, index) => (
-                      <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                      <Draggable key={item.evano} draggableId={item.evano.toString()} index={index}>
                         {(provided) => (
                           <div
                             className={styles.item}
@@ -93,7 +99,7 @@ export default function ProjectManageMain() {
                           >
                             <div className={styles.context}>
                               <p>#{index}</p>
-                              <p className={styles.name}>{item.name}</p>
+                              <p className={styles.name}>{item.stuname}</p>
                               <p>{item.sex}</p>
                               <p className={styles.school}>{item.school}</p>
                             </div>
