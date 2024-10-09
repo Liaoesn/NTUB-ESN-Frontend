@@ -10,28 +10,52 @@ import { FaSignOutAlt, FaPen, FaFolder, FaRegCalendarAlt } from "react-icons/fa"
 import { useRouter } from 'next/router';
 import PrivateRoute from '@/pages/privateRoute';
 import userI from '@/type/userI';
+import axios from 'axios';
+import { strict } from 'assert';
+
+type projectProp = {
+  prono: string;
+  proname: string;
+  share_type: string;
+  prodescription: string;
+  phase1: string;
+  endDate: string;
+  admissions: number;
+}
 
 function ProjectEdit({ user }: { user: userI | undefined }) {
   const router = useRouter();
-  const [prono, setProno] = React.useState('');
-  //PopupShowOut 各種Popup的值
+  const { prono } = router.query;
+  const [projectData, setProjectData] = useState<projectProp>();
   const [showName, setShowName] = React.useState(false);
   const [showPeople, setShowPeople] = React.useState(false);
   const [showChoose, setShowChoose] = React.useState(false);
   const [showFile, setShowFile] = React.useState(false);
   const [showTime, setShowTime] = React.useState(false);
+  const [fileNumber, setFileNumber] = useState<{total_students:''}>();
+  const [teachers, setTeachers] = useState<{teachers:[{username:string}]}>();
 
   useEffect(() => {
-    if (router.isReady) {
-      const { prono } = router.query;
-      if (prono) {
-        setProno(prono as string);
-        console.log('prono:', prono);  // 添加日志查看 prono 值
-      } else {
-        console.log('No prono found in query.');
+    const fetchProjectData = async () => {
+      try {
+        const response = await axios.get(`/api/project/update/prono`, {
+          params: { prono }
+        });
+
+        setProjectData(response.data[0]);
+        setFileNumber(response.data[1]);
+        setTeachers(response.data[2])
+
+      } catch (error) {
+        console.error('Error fetching project data:', error);
       }
-    }
-  }, [router.isReady, router.query]);
+    };
+
+    fetchProjectData();
+  }, [prono]);
+
+  console.log(projectData)
+
   const handlePopup = (popupName: string) => {
     switch (popupName) {
       case 'Chose':
@@ -68,31 +92,31 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
           <div className={styles.setingList}>
             <div className={styles.content}>
               <h3>專案名稱</h3>
-              <p>金美麗招生</p>
+              <p>{projectData ? projectData.proname : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('Name')}><FaPen /></a>
           </div>
           <div className={styles.setingList}>
             <div className={styles.contentShort}>
               <h3>學制</h3>
-              <p>二技</p>
+              <p>{projectData ? projectData.prodescription : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('Name')}><FaPen /></a>
             <div className={styles.contentShort}>
               <h3>審核方式</h3>
-              <p>全部分配</p>
+              <p>{projectData ? projectData.share_type == '1' ? '全部分配' : '平均分配' : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('Chose')}><FaPen /></a>
           </div>
           <div className={styles.setingList}>
             <div className={styles.contentShort}>
               <h3>資料數量</h3>
-              <p>120筆</p>
+              <p>{fileNumber ? fileNumber.total_students : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('File')}><FaFolder /></a>
             <div className={styles.contentShort}>
               <h3>錄取人數</h3>
-              <p>20</p>
+              <p>{projectData ? projectData.admissions : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('People')}><FaPen /></a>
           </div>
@@ -112,9 +136,8 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
             <div className={styles.contentTeacher}>
               <h3>協作老師</h3>
               <div>
-                <p>葉明貴</p>
-                <p>葉明貴</p>
-                <p>葉明貴</p>
+                {teachers ? teachers?.teachers.map((teacher, index) => (
+                  <p key={index}>{teacher.username}</p>)) : "Loading..."}
               </div>
             </div>
             <a onClick={() => router.push(`/projectManage/${prono}/teacher`)}><FaPen /></a>

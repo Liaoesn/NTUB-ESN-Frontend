@@ -1,31 +1,40 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/memo.module.scss';
-import React, { useState } from 'react';
 import userI from '../../type/userI';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import proItemInterface from '@/type/proItemInterface';
 
 export default function ShowHistory({ user }: { user: userI | undefined }) {
-  const studentItems = [
-    { "id": "1", "name": "湖尾號", "sex": "男", "school": "國立台北商業大學" },
-    { "id": "2", "name": "廳前程", "sex": "男", "school": "湖尾科大" },
-    { "id": "3", "name": "志明", "sex": "女", "school": "國立台灣大學" },
-    { "id": "4", "name": "小華", "sex": "男", "school": "國立清華大學" },
-    { "id": "5", "name": "美玲", "sex": "女", "school": "國立成功大學" },
-    { "id": "6", "name": "雅惠", "sex": "女", "school": "國立交通大學" },
-    { "id": "7", "name": "志強", "sex": "男", "school": "國立政治大學" },
-    { "id": "8", "name": "麗珍", "sex": "女", "school": "國立中興大學" },
-    { "id": "9", "name": "志傑", "sex": "男", "school": "國立中山大學" },
-    { "id": "10", "name": "婷婷", "sex": "女", "school": "國立中央大學" },
-    { "id": "11", "name": "建華", "sex": "男", "school": "國立台北商業大學" },
-    { "id": "12", "name": "怡君", "sex": "女", "school": "湖尾科大" },
-    { "id": "13", "name": "俊傑", "sex": "男", "school": "國立台灣大學" },
-    { "id": "14", "name": "雅婷", "sex": "女", "school": "國立清華大學" },
-    { "id": "15", "name": "志玲", "sex": "女", "school": "國立成功大學" },
-    { "id": "16", "name": "美君", "sex": "女", "school": "國立交通大學" },
-  ];
-  const [isVisible, setIsVisible] = useState<string>();
 
-  const handleClick = ( id : string ) => {
-    setIsVisible(id); // 切換顯示狀態
+  const [studentItems, setItems] = useState<proItemInterface[]>([]);
+  const [description, setDescription] = useState<string>("");
+  // api 取得 permissions 的 mapping 清單
+  useEffect(() => {
+    const fetchData = async () => {
+      var path = window.location.href;
+      var prono = path.substring(path.lastIndexOf('/') + 1);
+      
+      try {
+        const response = await axios.get('/api/project/item/' + prono);
+        console.log('data:', response.data);
+        setItems(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  },[]);
+
+  const [isVisible, setIsVisible] = useState<number>();
+  const handleClick = ( id : number ) => {
+    setIsVisible(id);
+
+    const studentItem = studentItems.find(item => item.final_ranking === id);
+    var description = studentItem?.type + " " + studentItem?.value + " " + studentItem?.description;
+
+    setDescription(description);
   };
   return (
     <Layout>
@@ -42,12 +51,12 @@ export default function ShowHistory({ user }: { user: userI | undefined }) {
         <section className={styles.mainArea}>
           <article className={styles.nameArea}>
             {studentItems.map((item, index) => (
-              <div key={index} className={`${styles.context} ${isVisible == item.id ? styles.coverBack : ''}`}>
+              <div key={index} className={`${styles.context} ${isVisible == item.final_ranking ? styles.coverBack : ''}`}>
                 <p>#{index + 1}</p>
-                <p className={styles.name}>{item.name}</p>
+                <p className={styles.name}>{item.stuname}</p>
                 <p>{item.sex}</p>
                 <p className={styles.school}>{item.school}</p>
-                <button onClick={() => handleClick(item.id)}>展示內容</button>
+                <button onClick={() => handleClick(item.final_ranking)}>展示內容</button>
               </div>
             ))}
           </article>
@@ -55,7 +64,7 @@ export default function ShowHistory({ user }: { user: userI | undefined }) {
           <article className={styles.aboutArea}>
             <p className={styles.aboutContext}>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {studentItems.find(item => item.id === isVisible)?.school}
+              {description}
             </p>
             <div className={styles.aboutProject}>
               <div className={styles.title}>
