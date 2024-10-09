@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import PrivateRoute from '@/pages/privateRoute';
 import userI from '@/type/userI';
 import axios from 'axios';
+import { strict } from 'assert';
 
 type projectProp = {
   prono: string;
@@ -31,7 +32,8 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
   const [showChoose, setShowChoose] = React.useState(false);
   const [showFile, setShowFile] = React.useState(false);
   const [showTime, setShowTime] = React.useState(false);
-
+  const [fileNumber, setFileNumber] = useState<{total_students:''}>();
+  const [teachers, setTeachers] = useState<{teachers:[{username:string}]}>();
 
   useEffect(() => {
     const fetchProjectData = async () => {
@@ -41,6 +43,8 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
         });
 
         setProjectData(response.data[0]);
+        setFileNumber(response.data[1]);
+        setTeachers(response.data[2])
 
       } catch (error) {
         console.error('Error fetching project data:', error);
@@ -49,6 +53,8 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
 
     fetchProjectData();
   }, [prono]);
+
+  console.log(projectData)
 
   const handlePopup = (popupName: string) => {
     switch (popupName) {
@@ -98,19 +104,19 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
             <a onClick={() => handlePopup('Name')}><FaPen /></a>
             <div className={styles.contentShort}>
               <h3>審核方式</h3>
-              <p>{projectData ? projectData.share_type = '1' ? '全部分配' : '平均分配' : "Loading..."}</p>
+              <p>{projectData ? projectData.share_type == '1' ? '全部分配' : '平均分配' : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('Chose')}><FaPen /></a>
           </div>
           <div className={styles.setingList}>
             <div className={styles.contentShort}>
               <h3>資料數量</h3>
-              <p>{projectData ? projectData.admissions : "Loading..."}</p>
+              <p>{fileNumber ? fileNumber.total_students : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('File')}><FaFolder /></a>
             <div className={styles.contentShort}>
               <h3>錄取人數</h3>
-              <p>20</p>
+              <p>{projectData ? projectData.admissions : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('People')}><FaPen /></a>
           </div>
@@ -130,9 +136,8 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
             <div className={styles.contentTeacher}>
               <h3>協作老師</h3>
               <div>
-                <p>葉明貴</p>
-                <p>葉明貴</p>
-                <p>葉明貴</p>
+                {teachers ? teachers?.teachers.map((teacher, index) => (
+                  <p key={index}>{teacher.username}</p>)) : "Loading..."}
               </div>
             </div>
             <a onClick={() => router.push(`/projectManage/${prono}/teacher`)}><FaPen /></a>

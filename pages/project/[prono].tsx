@@ -12,7 +12,9 @@ export default function ShowHistory({ user }: { user: userI | undefined }) {
   // api 取得 permissions 的 mapping 清單
   useEffect(() => {
     const fetchData = async () => {
-      var prono = 11002001;
+      var path = window.location.href;
+      var prono = path.substring(path.lastIndexOf('/') + 1);
+      
       try {
         const response = await axios.get('/api/project/item/' + prono);
         console.log('data:', response.data);
