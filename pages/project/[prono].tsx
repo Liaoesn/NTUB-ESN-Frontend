@@ -36,6 +36,7 @@ export default function ShowHistory({ user }: { user: userI | undefined }) {
 
     setDescription(description);
   };
+  
   return (
     <Layout>
       <main className={styles.main}>
