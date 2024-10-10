@@ -20,7 +20,6 @@ export default function ProjectManageMain() {
         await axios.post('/api/score/student/' + prono, {
           userno: 11305001
         }).then((response) => {
-          console.log('data:', response.data.rows);
           setItems(response.data.rows);
         });
       } catch (error) {
@@ -30,12 +29,6 @@ export default function ProjectManageMain() {
 
     fetchData();
   },[]);
-
-  useEffect(() => {
-    items.map((item) => {
-      console.log(item);
-    })
-  },[items]);
 
   const [enabled, setEnabled] = useState(false);
 
