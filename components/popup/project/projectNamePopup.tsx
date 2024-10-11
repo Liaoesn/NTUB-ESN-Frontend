@@ -1,21 +1,43 @@
 
 import styles from "@/styles/components/popup/project/projectNamePopup.module.scss";
 import { Autocomplete, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import { timeEnd } from "console";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import { MdOutlineCancel, MdArrowRight, MdArrowLeft} from "react-icons/md";
+import { MdOutlineCancel } from "react-icons/md";
 
 interface ProjectNamePopupProps {
     onClose: () => void;
+    oldselet?:string;
+    oldtitle?:string;
+    prono?:string;
   }
-const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
-    const [academic, setAcademic] = React.useState('');
+const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, oldselet, oldtitle }) => {
+    
+    const [title, setTitle] = useState(oldtitle)
+    const [prodescription, setProdescription] = useState(oldselet)
 
+    console.log(prono)
     const handleChange = (event: SelectChangeEvent) => {
         if (event.target.name == 'academic') {
-            setAcademic(event.target.value);
+            setProdescription(event.target.value);
         };
     };
+
+    const handleInputChange = (_event: any, newInputValue: any) => {
+        setTitle(newInputValue);
+    };
+
+    const onSubmit = async () => {
+        await axios.patch(`/api/project/update/name`,{
+            title,
+            prodescription
+          }, {
+            params: { prono }
+          });
+    }
 
     return (
         <div className={styles.popupBG}>
@@ -32,6 +54,8 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
                         className={styles.Input}
                         id="free-solo-demo"
                         freeSolo options={[]}
+                        value={title}
+                        onInputChange = {handleInputChange}
                         renderInput={(params) => <TextField {...params} label="輸入專案名稱" />}
                     />
                     <article className={styles.type}>
@@ -40,20 +64,20 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose }) => {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={academic}
+                                value={prodescription}
                                 label="academic"
                                 name="academic"
                                 onChange={handleChange}
                             >
-                                <MenuItem value={10}>二技</MenuItem>
-                                <MenuItem value={20}>四技</MenuItem>
-                                <MenuItem value={30}>碩士</MenuItem>
-                                <MenuItem value={30}>博士</MenuItem>
+                                <MenuItem value={'二技'}>二技</MenuItem>
+                                <MenuItem value={'四技'}>四技</MenuItem>
+                                <MenuItem value={'碩士'}>碩士</MenuItem>
+                                <MenuItem value={'博士'}>博士</MenuItem>
                             </Select>
                         </FormControl>
                     </article>
                 </section>
-                <a className={`${styles.button} ${styles.check}`}><FaCheck /></a>
+                <a className={`${styles.button} ${styles.check}`} onClick={onSubmit}><FaCheck /></a>
             </div>
         </div>
     );
