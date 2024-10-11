@@ -5,11 +5,16 @@ import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautif
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import proItemInterface from '@/type/proItemInterface';
+import { useRouter } from 'next/router';
+import CheckPopup from '@/components/popup/checkPopup';
 
 export default function ProjectManageMain() {
+  const router = useRouter();
+  const { prono } = router.query;
   const [items, setItems] = useState<proItemInterface[]>([]);
-  const [description, setDescription] = useState<string>("");
+  const [showPopup, setShowPopup] = useState(false);
 
+  
   // api 取得 permissions 的 mapping 清單
   useEffect(() => {
     const fetchData = async () => {
@@ -57,8 +62,33 @@ export default function ProjectManageMain() {
     setItems(reorderedItems);
   };
 
+  const handSubmit = async () => {
+    // 將每個 item 的 evano 和 ranking 放入新的陣列
+    const sortOrder = items.map((item, index) => ({
+      evano: item.evano, // evano 屬性
+      ranking: (index + 1).toString() // 排名
+    }));
+    console.log(sortOrder);
+
+    try {
+      await axios.post(`/api/score/sort/submit`, {
+        sortOrder
+      });
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        // 3 秒後跳轉頁面
+        router.push(`/projectManage/${prono}/edit`);
+      }, 3000);
+      
+    } catch (error) {
+      console.error('Error fetching project data:', error);
+    }
+  };
+
   return (
     <Layout>
+      {showPopup && <CheckPopup title={'成功排序'} />}
       <main className={styles.main}>
         <section className={styles.title}>
           <article className={styles.nameShow}>
@@ -67,28 +97,28 @@ export default function ProjectManageMain() {
           </article>
           <article className={styles.about}>
             <p>摘要</p>
-            <button>完成</button>
+            <button onClick={handSubmit}>完成</button>
           </article>
         </section>
         <section className={styles.mainArea}>
           <article className={styles.nameArea}>
-            <DragDropContext
-              onDragEnd={handleDragEnd}>
+            <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId="droppable-1" type="PERSON">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
-                    className={styles.moveArea}
+                    className="moveArea"
                     style={{
                       backgroundColor: snapshot.isDraggingOver ? '#849189' : ''
                     }}
                     {...provided.droppableProps}
                   >
                     {items?.map((item, index) => (
-                      <Draggable key={item.evano} draggableId={item.evano?.toString()} index={index}>
+                      <Draggable key={item.evano} draggableId={item.evano ? item.evano.toString():index.toString()}
+                       index={index}>
                         {(provided) => (
                           <div
-                            className={styles.item}
+                          className={styles.item}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
@@ -100,7 +130,7 @@ export default function ProjectManageMain() {
                             }}
                           >
                             <div className={styles.context}>
-                              <p>#{index}</p>
+                              <p>#{index+1}</p>
                               <p className={styles.name}>{item.stuname}</p>
                               <p>{item.sex}</p>
                               <p className={styles.school}>{item.school}</p>
