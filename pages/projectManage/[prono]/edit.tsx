@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import PrivateRoute from '@/pages/privateRoute';
 import userI from '@/type/userI';
 import axios from 'axios';
-import { strict } from 'assert';
 
 type projectProp = {
   prono: string;
@@ -81,7 +80,7 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
 
   return (
     <Layout user={user}>
-      {showName && <ProjectNamePopup onClose={() => handlePopup('Name')} />}
+      {showName && <ProjectNamePopup prono={prono?.toString()} oldselet={projectData?.prodescription} oldtitle={projectData?.proname } onClose={() => handlePopup('Name')} />}
       {showPeople && <ProjectPeoplePopup onClose={() => handlePopup('People')} />}
       {showChoose && <ProjectChoosePopup onClose={() => handlePopup('Chose')} />}
       {showFile && <ProjectFilePopup onClose={() => handlePopup('File')} />}
@@ -144,7 +143,7 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
           </div>
         </section>
         <section className={styles.setingButton}>
-          <a className={`${styles.button} ${styles.check}`}><FaSignOutAlt /></a>
+          <a className={`${styles.button} ${styles.check}`} onClick={() => router.push('/projectManage/list')}><FaSignOutAlt /></a>
         </section>
       </main>
     </Layout>
