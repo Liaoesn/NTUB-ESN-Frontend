@@ -1,14 +1,14 @@
-import Layout from '@/components/Layout/Layout';
+import Layout from '@/components/Layout/Layout.jsx';
 import styles from '@/styles/page/project/list.module.scss'
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import { FaAngleLeft, FaAngleRight, FaCog, FaRegPlusSquare } from "react-icons/fa";
 import React, { useState, useEffect } from 'react';
-import Project from './project';
-import projectManageInterface from '../../type/projectManageInterface'
+import Project from './project.jsx';
+import projectManageInterface from '../../type/projectManageInterface.jsx'
 import axios from 'axios';
-import PrivateRoute from '../privateRoute';
-import userI from '../../type/userI';
-import DelConfirm from '@/components/popup/confirmPopup';
+import PrivateRoute from '../privateRoute.jsx';
+import userI from '../../type/userI.jsx';
+import DelConfirm from '@/components/popup/confirmPopup.jsx';
 
 function ProjectManage({ user }: { user: userI | undefined }) {
   const [year, setYear] = React.useState('');

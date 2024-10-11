@@ -1,5 +1,5 @@
-import router from 'next/router';
-import projectInterface from '../../type/projectinterface';
+import router from 'next/router.js';
+import projectInterface from '../../type/projectinterface.jsx';
 import styles from '@/styles/page/project/list.module.scss';
 import { useEffect, useState } from 'react';
 
