@@ -40,14 +40,5 @@
     "typescript": "^5"
   }
 
-  {
-    "name": "你的專案名稱",
-    "version": "1.0.0",
-    "type": "module",
-    "scripts": {
-      "start": "node index.js"
-    }
-  }
-
   
 }
