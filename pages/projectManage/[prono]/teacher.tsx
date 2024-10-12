@@ -68,8 +68,6 @@ function SetTeacher({ user }: { user: userI | undefined }) {
       }, {
         params: { prono }
       });
-  
-      // 顯示成功訊息 3 秒
       setShowPopup(true);
       setTimeout(() => {
         setShowPopup(false);
