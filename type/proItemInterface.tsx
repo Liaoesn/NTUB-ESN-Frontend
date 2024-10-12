@@ -1,6 +1,6 @@
 interface proItemInterface{
     final_ranking:number;
-    evano: number;
+    evano: string;
     stuname: string;
     sex: string;
     school: string;
