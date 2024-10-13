@@ -13,7 +13,7 @@ const ProjectPeoplePopup: React.FC<ProjectPeoplePopup> = ({ onClose }) => {
         <div className={styles.popupBG}>
             <div className={styles.mainShow}>
                 <section className={styles.title}>
-                    <h4>輸入名稱和選擇學制與年度</h4>
+                    <h4>輸入錄取人數</h4>
                     <a onClick={onClose} className={styles.closeButton}>
                         <MdOutlineCancel />
                     </a>
