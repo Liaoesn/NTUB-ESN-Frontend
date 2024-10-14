@@ -3,14 +3,12 @@ import styles from '@/styles/page/project/list.module.scss' // 引入樣式
 import { Box, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack } from '@mui/material'; // 引入 Material UI 元件
 import React, { useEffect, useState } from 'react'; // 引入 React 及其 hooks
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"; // 引入左右箭頭圖示
-import { useRouter } from 'next/router'; // 引入 Next.js 路由
 import Project from './project'; // 引入 Project 組件
 import projectInterface from '../../type/projectinterface' // 引入專案介面
 import axios from 'axios'; // 引入 axios 處理 HTTP 請求
-import PrivateRoute from '../privateRoute'; // 引入 PrivateRoute 組件，保護路由
-import userI from '../../type/userI'; // 引入使用者介面
+import router from 'next/router';
 
-function ProjectList({ user }: { user: userI | undefined }) {
+export default function ProjectList() {
   // 狀態管理
   const [year, setYear] = React.useState(''); // 儲存年度的狀態
   const [academic, setAcademic] = React.useState(''); // 儲存學制的狀態
@@ -21,34 +19,36 @@ function ProjectList({ user }: { user: userI | undefined }) {
   // 當 year, academic, 或 page 改變時，會觸發 useEffect
   useEffect(() => {
     // 定義一個函數以獲取專案列表及頁面大小
-    const getList = async () => {
-      try {
-        // 同時發送兩個請求，獲取專案列表和頁數
-        const [listResponse, sizeResponse] = await Promise.all([
-          axios.get('/api/project/list', {
-            params: {
-              year: year === 'all' ? '' : year, // 如果選擇 "all"，則不過濾年份
-              academic: academic === 'all' ? '' : academic, // 如果選擇 "all"，則不過濾學制
-              page
-            }
-          }),
-          axios.get('/api/project/page', {
-            params: {
-              year: year === 'all' ? '' : year, 
-              academic: academic === 'all' ? '' : academic, 
-            }
-          })
-        ]);
+    if (router.isReady){
+      const getList = async () => {
+        try {
+          // 同時發送兩個請求，獲取專案列表和頁數
+          const [listResponse, sizeResponse] = await Promise.all([
+            axios.get('/api/project/list', {
+              params: {
+                year: year === 'all' ? '' : year, // 如果選擇 "all"，則不過濾年份
+                academic: academic === 'all' ? '' : academic, // 如果選擇 "all"，則不過濾學制
+                page
+              }
+            }),
+            axios.get('/api/project/page', {
+              params: {
+                year: year === 'all' ? '' : year, 
+                academic: academic === 'all' ? '' : academic, 
+              }
+            })
+          ]);
 
-        // 將回應的數據存入狀態
-        setProjects(listResponse.data); // 設定專案列表
-        setPageSize(Number(sizeResponse.data.page)); // 設定總頁數
-      } catch (error) {
-        console.error("Error fetching projects:", error); // 如果發生錯誤，記錄在控制台
-      }
-    };
-
-    getList(); // 調用 getList 函數以獲取數據
+          // 將回應的數據存入狀態
+          setProjects(listResponse.data); // 設定專案列表
+          setPageSize(Number(sizeResponse.data.page)); // 設定總頁數
+        } catch (error) {
+          console.error("Error fetching projects:", error); // 如果發生錯誤，記錄在控制台
+        }
+      };
+    getList();
+    }
+ // 調用 getList 函數以獲取數據
   }, [year, academic, page]); // 當 year, academic, 或 page 改變時，重新調用 useEffect
   
   // 處理下拉選單的改變事件
@@ -152,13 +152,3 @@ function ProjectList({ user }: { user: userI | undefined }) {
   );
 }
 
-export default function Init() {
-  const [user, setUser] = useState<userI>(); // 使用者狀態
-
-  return (
-    <PrivateRoute> 
-      {/* 路由保護 */}
-      <ProjectList user={user} /> {/* 顯示專案列表 */}
-    </PrivateRoute>
-  );
-}
