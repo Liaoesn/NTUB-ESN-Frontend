@@ -15,16 +15,15 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
   const [items, setItems] = useState<proItemInterface[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [description, setDescription] = useState<string>("");
-  
+
   // api 取得 permissions 的 mapping 清單
   useEffect(() => {
     const fetchData = async () => {
       var path = window.location.href;
       var prono = path.substring(path.lastIndexOf('/') + 1);
-      console.log('userno: ' + user?.userno)
+
       try {
         await axios.post('/api/score/student/' + prono, {
-          userno: user?.userno
         }).then((response) => {
           setItems(response.data.rows);
         });
@@ -89,7 +88,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
 
   const showDescription = ( id : string ) => {
     const studentItem = items.find(item => item.evano == id);
-    console.log(studentItem?.description);
+    console.log(studentItem);
     var description = studentItem?.type + " " + studentItem?.value + " " + studentItem?.description;
 
     setDescription(description);
@@ -136,13 +135,13 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
                               backgroundColor: 'white',
                               ...provided.draggableProps.style,
                             }}
-                            onClick={() => showDescription(item.evano)}
                           >
                             <div className={styles.context}>
                               <p>#{index+1}</p>
                               <p className={styles.name}>{item.stuname}</p>
                               <p>{item.sex}</p>
                               <p className={styles.school}>{item.school}</p>
+                              <button onClick={() => showDescription(item.evano)}>展示內容</button>
                             </div>
                           </div>
                         )}
