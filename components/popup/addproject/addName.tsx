@@ -1,7 +1,8 @@
 import styles from "@/styles/components/popup/project/projectNamePopup.module.scss";
 import { Autocomplete, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import React, { useState } from 'react';
-import { MdArrowRight } from "react-icons/md";
+import { MdArrowRight, MdOutlineCancel } from "react-icons/md";
+import router from "next/router";
 
 interface ProjectNamePopupProps { 
     College: (value: string) => void;
@@ -36,6 +37,9 @@ const ProjectName: React.FC<ProjectNamePopupProps> = ({
             <div className={styles.mainShow}>
                 <section className={styles.title}>
                     <h4>輸入名稱和選擇學制與年度</h4>
+                    <a onClick={() => router.push('/projectManage/list')} className={styles.closeButton}>
+                        <MdOutlineCancel />
+                    </a>
                 </section>
                 <section className={styles.inputArea}>
                     <Autocomplete

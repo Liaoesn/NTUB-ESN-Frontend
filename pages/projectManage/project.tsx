@@ -1,6 +1,5 @@
 import projectManageInterface from '../../type/projectManageInterface';
 import styles from '@/styles/page/project/list.module.scss';
-import Link from 'next/link';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaCog, FaRegTrashAlt } from 'react-icons/fa';
