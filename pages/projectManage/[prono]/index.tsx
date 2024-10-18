@@ -15,6 +15,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
   const [items, setItems] = useState<proItemInterface[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [description, setDescription] = useState<string>("");
+  const [context, setContext] = useState<string>("");
 
   // api 取得 permissions 的 mapping 清單
   useEffect(() => {
@@ -88,10 +89,39 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
 
   const showDescription = ( id : string ) => {
     const studentItem = items.find(item => item.evano == id);
-    console.log(studentItem);
-    var description = studentItem?.type + " " + studentItem?.value + " " + studentItem?.description;
 
+    if(studentItem) {
+      studentItem.read = true;
+
+      var context = `
+    讀書計畫：${studentItem.studyplan}
+    機會：${studentItem.opportunity}
+    自我期許：${studentItem.selfexpectation}
+    工作背景：${studentItem.work}
+    多元學習：${studentItem.learning}
+    家庭背景：${studentItem.family}
+    教育背景：${studentItem.education}
+    求學經歷：${studentItem.studyexperience}
+    推薦人：${studentItem.recommender}
+    學歷：${studentItem.edu}
+    證照：${studentItem.licence}
+    工讀：${studentItem.pt}
+    服務及學習：${studentItem.servelearn}
+    其他資訊：${studentItem.other}
+    家庭狀況：${studentItem.home}
+    基本資料：${studentItem.basic}
+    技能：${studentItem.skill}
+    `;
+
+    var description = `
+    內容類型：${studentItem.studyplan}
+    詳細資料：${studentItem.description}
+    實際值：${studentItem.value}
+    `;
+
+    setContext(context);
     setDescription(description);
+    }
   };
 
   return (
@@ -132,15 +162,15 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
                             style={{
                               userSelect: 'none',
                               padding: 10,
-                              backgroundColor: 'white',
+                              backgroundColor: item.read? '#A3B8C0' : 'white',
                               ...provided.draggableProps.style,
                             }}
                           >
                             <div className={styles.context}>
-                              <p>#{index+1}</p>
-                              <p className={styles.name}>{item.stuname}</p>
-                              <p>{item.sex}</p>
-                              <p className={styles.school}>{item.school}</p>
+                              <p style={{ width: '16%' }}>#{index+1}</p>
+                              <p style={{ width: '24%' }} className={styles.name}>{item.stuname}</p>
+                              <p style={{ width: '24%' }}>{item.sex}</p>
+                              <p style={{ width: '24%' }} className={styles.school}>{item.school}</p>
                               <button onClick={() => showDescription(item.evano)}>展示內容</button>
                             </div>
                           </div>
@@ -155,9 +185,10 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
           </article>
           <article className={styles.aboutArea}>
             <p className={styles.aboutContext}>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {context}
+            </p>
+            <p className={styles.aboutDescription}>
               {description}
-              
             </p>
             <div className={styles.aboutProject}>
               <div className={styles.title}>

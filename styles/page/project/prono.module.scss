@@ -92,11 +92,12 @@
             }
             .context{
                 display: flex;
-                justify-content: space-around;
-                .name, .school{
-                    width: 20%;
-                    text-align: center;
+                p {
+                    align-content: center;
                 }
+            }
+            .cat {
+                background-color: aqua;
             }
         }
         .aboutArea {
@@ -108,15 +109,31 @@
             margin: 10px;
             .aboutContext{
                 width: 90%;
-                height: 75%;
+                height: 70%;
                 color: $mainColor;
                 font-size: 18px;
                 line-height: 25px;
                 text-align: justify;
-                padding: 5%;
+                padding: 2% 3% 2% 3%;
                 letter-spacing: 5px;
                 border-radius: 20px;
                 border: 1px solid $mainColorGreen;
+                white-space: pre-wrap;
+                overflow: auto;
+                margin-bottom: 15px;
+            }
+            .aboutDescription{
+                width: 90%;
+                height: 25%;
+                color: $mainColor;
+                font-size: 18px;
+                line-height: 25px;
+                text-align: justify;
+                padding: 2% 3% 2% 3%;
+                letter-spacing: 5px;
+                border-radius: 20px;
+                border: 1px solid $mainColorGreen;
+                white-space: pre-wrap;
             }
             .aboutProject{
                 display: flex;
