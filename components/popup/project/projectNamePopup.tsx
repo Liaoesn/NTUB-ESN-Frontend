@@ -2,11 +2,11 @@
 import styles from "@/styles/components/popup/project/projectNamePopup.module.scss";
 import { Autocomplete, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
 import axios from "axios";
-import { timeEnd } from "console";
-import { useRouter } from "next/router";
+import router from "next/router";
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
+import FailPopup from "../failPopup";
 
 interface ProjectNamePopupProps {
     onClose: () => void;
@@ -15,11 +15,10 @@ interface ProjectNamePopupProps {
     prono?:string;
   }
 const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, oldselet, oldtitle }) => {
-    
     const [title, setTitle] = useState(oldtitle)
     const [prodescription, setProdescription] = useState(oldselet)
+    const [showPopup, setShowPopup] = useState(false);
 
-    console.log(prono)
     const handleChange = (event: SelectChangeEvent) => {
         if (event.target.name == 'academic') {
             setProdescription(event.target.value);
@@ -31,17 +30,39 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, old
     };
 
     const onSubmit = async () => {
-        await axios.patch(`/api/project/update/name`,{
-            title,
-            prodescription
-          }, {
-            params: { prono }
-          });
-    }
+        if (title && prodescription) {
+          try {
+            // 發送 POST 請求
+            await axios.post(`/api/project/update/name`, {
+              title,
+              prodescription
+            }, {
+              params: { prono }  // 透過 query 傳遞 prono
+            });
+      
+            // 提交成功後可以進行跳轉或顯示成功訊息
+            router.push(`/projectManage/list`);
+            
+          } catch (error) {
+            console.error('Error while updating project:', error);
+            // 可以根據情況顯示錯誤訊息給使用者
+          }
+      
+        } else {
+          setShowPopup(true);
+          setTimeout(() => {
+            setShowPopup(false);
+            router.push(`/projectManage/${prono}/edit`);
+          }, 2000);
+        }
+      };
+      
 
     return (
         <div className={styles.popupBG}>
+            { showPopup ? <FailPopup title={'有資料為空'}/> : '' }
             <div className={styles.mainShow}>
+                <p>資料不可為空</p>
                 <section className={styles.title}>
                     <h4>輸入名稱和選擇學制與年度</h4>
                     <a onClick={onClose} className={styles.closeButton}>
