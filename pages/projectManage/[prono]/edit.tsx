@@ -33,6 +33,8 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
   const [showTime, setShowTime] = React.useState(false);
   const [fileNumber, setFileNumber] = useState<{total_students:''}>();
   const [teachers, setTeachers] = useState<{teachers:[{username:string}]}>();
+  const [sdate, setSDate] = useState<string>();
+  const [edate, setEDate] = useState<string>();
 
   useEffect(() => {
     const fetchProjectData = async () => {
@@ -43,8 +45,17 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
 
         setProjectData(response.data[0]);
         setFileNumber(response.data[1]);
-        setTeachers(response.data[2])
-
+        setTeachers(response.data[2]);
+        setSDate(`
+          ${new Date(response.data[0].phase1).getUTCFullYear()}/
+          ${new Date(response.data[0].phase1).getUTCMonth()+1}/
+          ${new Date(response.data[0].phase1).getUTCDate()}
+        `);
+        setEDate(`
+          ${new Date(response.data[0].endDate).getUTCFullYear()}/
+          ${new Date(response.data[0].endDate).getUTCMonth()+1}/
+          ${new Date(response.data[0].endDate).getUTCDate()}
+        `);
       } catch (error) {
         console.error('Error fetching project data:', error);
       }
@@ -52,8 +63,6 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
 
     fetchProjectData();
   }, [prono]);
-
-  console.log(projectData)
 
   const handlePopup = (popupName: string) => {
     switch (popupName) {
@@ -77,14 +86,13 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
     }
   };
 
-
   return (
     <Layout user={user}>
       {showName && <ProjectNamePopup prono={prono?.toString()} oldselet={projectData?.prodescription} oldtitle={projectData?.proname } onClose={() => handlePopup('Name')} />}
-      {showPeople && <ProjectPeoplePopup onClose={() => handlePopup('People')} />}
-      {showChoose && <ProjectChoosePopup onClose={() => handlePopup('Chose')} />}
+      {showPeople && <ProjectPeoplePopup prono={prono?.toString()} oldNumber={projectData?.admissions} onClose={() => handlePopup('People')} />}
+      {showChoose && <ProjectChoosePopup prono={prono?.toString()} oldType={projectData?.share_type} onClose={() => handlePopup('Chose')} />}
       {showFile && <ProjectFilePopup onClose={() => handlePopup('File')} />}
-      {showTime && <ProjectTimePopup onClose={() => handlePopup('Time')} />}
+      {showTime && <ProjectTimePopup oldSDate={new Date(projectData?.phase1 as string)} oldEDate={new Date(projectData?.endDate as string)} prono={prono?.toString()} onClose={() => handlePopup('Time')} />}
       <main className={styles.listArea}>
         <h2>專案設定</h2>
         <section className={styles.aboutArea}>
@@ -122,12 +130,12 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
           <div className={styles.setingList}>
             <div className={styles.contentShort}>
               <h3>第一階段</h3>
-              <p>2024/09/28</p>
+              <p>{sdate}</p>
             </div>
             <a onClick={() => handlePopup('Time')}><FaRegCalendarAlt /></a>
             <div className={styles.contentShort}>
               <h3>結束日期</h3>
-              <p>2024/11/11</p>
+              <p>{edate}</p>
             </div>
             <a onClick={() => handlePopup('Time')}><FaRegCalendarAlt /></a>
           </div>

@@ -19,8 +19,6 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, old
     const [prodescription, setProdescription] = useState(oldselet)
     const [showPopup, setShowPopup] = useState(false);
 
-
-    console.log(prono)
     const handleChange = (event: SelectChangeEvent) => {
         if (event.target.name == 'academic') {
             setProdescription(event.target.value);
@@ -43,7 +41,7 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, old
             });
       
             // 提交成功後可以進行跳轉或顯示成功訊息
-            router.push(`/projectManage/${prono}`);
+            router.push(`/projectManage/list`);
             
           } catch (error) {
             console.error('Error while updating project:', error);

@@ -3,8 +3,6 @@ import styles from '@/styles/page/project/teacher.module.scss';
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaSignOutAlt, FaTimes } from "react-icons/fa"; // 引入確認、登出、取消的圖示
 import { useRouter } from 'next/router'; // 使用 Next.js 的路由功能
-import PrivateRoute from '@/pages/privateRoute'; // 引入私有路由（需登入才能訪問）
-import userI from '@/type/userI'; // 引入使用者介面定義
 import axios from 'axios'; // 用於進行 HTTP 請求
 import CheckPopup from '@/components/popup/checkPopup'; // 引入確認彈出視窗
 
@@ -17,7 +15,7 @@ type userType = {
 }
 
 // SetTeacher 組件，負責設置協作老師
-function SetTeacher({ user }: { user: userI | undefined }) {
+export default function SetTeacher() {
 
   const router = useRouter(); // 使用 Next.js 的路由功能
   const { prono } = router.query; // 取得路由參數中的專案編號
@@ -28,24 +26,26 @@ function SetTeacher({ user }: { user: userI | undefined }) {
 
   // 在組件加載時取得專案數據
   useEffect(() => {
-    const fetchProjectData = async () => {
-      try {
-        // 發送 GET 請求，取得該專案的教師資料
-        const response = await axios.get(`/api/project/update/search/teacher`, {
-          params: { prono }
-        });
+    if (router.isReady){
+      const fetchProjectData = async () => {
+        try {
+          // 發送 GET 請求，取得該專案的教師資料
+          const response = await axios.get(`/api/project/update/search/teacher`, {
+            params: { prono }
+          });
 
-        // 設定已選擇的老師和所有老師資料
-        setReady(response.data[0]);
-        setChangeUser(readyID(response.data[0]));
-        setUsers(response.data[1]);
-      } catch (error) {
-        console.error('取得專案資料時出錯:', error);
-      }
-    };
+          // 設定已選擇的老師和所有老師資料
+          setReady(response.data[0]);
+          setChangeUser(readyID(response.data[0]));
+          setUsers(response.data[1]);
+        } catch (error) {
+          console.error('取得專案資料時出錯:', error);
+        }
+      };
 
-    setChangeUser(readyID(ready as { ready: userType[] })); // 將已選老師的 ID 設定到 state
-    fetchProjectData(); // 呼叫函數取得資料
+      setChangeUser(readyID(ready as { ready: userType[] })); // 將已選老師的 ID 設定到 state
+      fetchProjectData(); // 呼叫函數取得資料
+    }
   }, [prono]);
 
   // 取得已選擇的老師 ID 列表
@@ -79,7 +79,7 @@ function SetTeacher({ user }: { user: userI | undefined }) {
       setShowPopup(true); // 顯示提交成功的彈出視窗
       setTimeout(() => {
         setShowPopup(false); // 3 秒後關閉彈出視窗
-        router.push(`/projectManage/${prono}/edit`); // 3 秒後跳轉到編輯專案頁面
+        router.push(`/projectManage/list`); // 3 秒後跳轉到編輯專案頁面
       }, 3000);
 
     } catch (error) {
@@ -88,7 +88,7 @@ function SetTeacher({ user }: { user: userI | undefined }) {
   };
 
   return (
-    <Layout user={user}> {/* 使用 Layout 組件，傳入使用者 */}
+    <Layout> {/* 使用 Layout 組件，傳入使用者 */}
       {showPopup && <CheckPopup title={'成功修改'} />} {/* 如果顯示彈出視窗，顯示成功提示 */}
       <main className={styles.teacherArea}>
         <h2>編輯專案 - 選擇協作老師</h2> {/* 頁面標題 */}
@@ -120,16 +120,5 @@ function SetTeacher({ user }: { user: userI | undefined }) {
         </section>
       </main>
     </Layout>
-  );
-}
-
-// 預設導出組件
-export default function Init() {
-  const [user, setUser] = useState<userI>(); // 用來儲存使用者狀態
-
-  return (
-    <PrivateRoute> {/* 私有路由保護 */}
-      <SetTeacher user={user} /> {/* 傳遞使用者狀態給 SetTeacher 組件 */}
-    </PrivateRoute>
   );
 }
