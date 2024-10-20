@@ -72,45 +72,19 @@ export default function ShowHistory({ user }: { user: userI | undefined }) {
       <main className={styles.main}>
         <section className={styles.title}>
           <article className={styles.nameShow}>
-            <p>學生列表</p>
-            <button>展開PDF</button>
-          </article>
-          <article className={styles.about}>
-            <p>展示區</p>
           </article>
         </section>
         <section className={styles.mainArea}>
           <article className={styles.nameArea}>
             {studentItems.map((item, index) => (
               <div key={index} className={`${styles.context} ${isVisible == item.final_ranking ? styles.coverBack : ''}`}>
-                <p>#{index + 1}</p>
-                <p className={styles.name}>{item.stuname}</p>
-                <p>{item.sex}</p>
-                <p className={styles.school}>{item.school}</p>
-                <button onClick={() => handleClick(item.final_ranking)}>展示內容</button>
+                <p style={{ width: '14%' }}>#{index + 1}</p>
+                <p style={{ width: '22%' }}>{item.stuname}</p>
+                <p style={{ width: '22%' }}>{item.sex}</p>
+                <p style={{ width: '22%' }}>{item.school}</p>
+                <p className={`${item.admit == '錄取' ? styles.acceptance : styles.denial}`}>{item.admit}</p>
               </div>
             ))}
-          </article>
-
-          <article className={styles.aboutArea}>
-            <p className={styles.aboutContext}>
-            {context}
-            </p>
-            <p className={styles.aboutDescription}>
-            {description}
-            </p>
-            <div className={styles.aboutProject}>
-              <div className={styles.title}>
-                <h5>專案狀態</h5>
-                <h5>其餘教師完成進度</h5>
-                <h5>截止日期</h5>
-              </div>
-              <div className={styles.context}>
-                <p>已完成</p>
-                <p>20/20</p>
-                <p>2024/10/25</p>
-              </div>
-            </div>
           </article>
         </section>
       </main>
