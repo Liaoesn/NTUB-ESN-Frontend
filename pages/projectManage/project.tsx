@@ -14,7 +14,7 @@ function Manageproject({ project, onDel }: proProps) {
   const [phase1, setPhase1] = useState<Date>();
   const [proItem, setProItem] = useState<projectManageInterface>();
 
-  useEffect(() => {
+  useEffect(  () => {
     if (router.isReady) {
       if (project) {
         setEdata(new Date(project?.enddate));
@@ -42,7 +42,7 @@ function Manageproject({ project, onDel }: proProps) {
     <div className={styles.projectMain}>
       {proItem?.state == '已關閉' ?
         <div className={styles.cover} >
-          <a>產生名單</a>
+          <a>查看結果</a>
         </div > : checkDate(phase1 as Date) ?
           <div className={styles.cover}>
             <a>合併排序</a>

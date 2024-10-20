@@ -13,22 +13,25 @@ interface ProjectNamePopupProps {
 }
 
 const ProjectName: React.FC<ProjectNamePopupProps> = ({ 
-    College, ProjectName, ProjectNameValue, onNext}) => {
+    College, CollegeValue, ProjectName, ProjectNameValue, onNext}) => {
 
-    const [projectNameValue, setProjectNameValue] = useState<string>('');
-    const [collegeValue, setCollegeValue] = useState<string>('');
-    const handlecollegeChange = (event: React.ChangeEvent<{}>, value: string | null) => {
-        if (value) setCollegeValue(value);
+    const [projectNameValue, setProjectNameValue] = useState<string>(ProjectNameValue as string);
+    const [collegeValue, setCollegeValue] = useState<string>(CollegeValue as string);
+
+    const handleProjectNameChange = (_event: any, newInputValue: any) => {
+        setProjectNameValue(newInputValue);
     };
 
-    const handleProjectNameChange = (event: SelectChangeEvent) => {
-        setProjectNameValue(event.target.value);
+    const handlecollegeChange = (value: string | null) => {
+        if (value) setCollegeValue(value);
     };
 
     const handleClick = () => {
         // 更新父組件中的 college 和 projectName
         College(collegeValue);
         ProjectName(projectNameValue);
+        console.log(projectNameValue)
+        console.log(collegeValue)
         onNext();
     };
 
@@ -42,14 +45,13 @@ const ProjectName: React.FC<ProjectNamePopupProps> = ({
                     </a>
                 </section>
                 <section className={styles.inputArea}>
-                    <Autocomplete
-                        sx={{ m: 2, height: 13 }}
+                <Autocomplete
+                        sx={{ m: 2, height: 15, }}
                         className={styles.Input}
                         id="free-solo-demo"
-                        freeSolo
-                        options={[]}
-                        value={ProjectNameValue}
-                        onChange={() => handleProjectNameChange}
+                        freeSolo options={[]}
+                        value={projectNameValue}
+                        onInputChange = {handleProjectNameChange}
                         renderInput={(params) => <TextField {...params} label="輸入專案名稱" />}
                     />
                     <article className={styles.type}>
@@ -61,7 +63,7 @@ const ProjectName: React.FC<ProjectNamePopupProps> = ({
                                 label="academic"
                                 name="academic"
                                 value={collegeValue}
-                                onChange={() => handlecollegeChange}
+                                onChange={(e) => handlecollegeChange(e.target.value)}
                             >
                                 <MenuItem value="二技">二技</MenuItem>
                                 <MenuItem value="四技">四技</MenuItem>

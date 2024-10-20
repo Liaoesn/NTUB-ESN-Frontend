@@ -72,8 +72,14 @@
           margin: 10px;
         }
       }
-
-      @extend %popup-button;
+      .bottom{
+        @extend %flex-center;
+        .left{
+          font-size: 35px;
+          margin-top: 10px;
+        }
+        @extend %popup-button;
+      }
 
       .showStep {
         width: 90%;

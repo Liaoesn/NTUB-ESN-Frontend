@@ -13,7 +13,7 @@ interface ProjectChoosePopupProps {
 }
 
 const ProjectChoosePopup: React.FC<ProjectChoosePopupProps> = ({ Type, submit, onNext, onBack }) => {
-  const [type, setType] = React.useState('all');
+  const [type, setType] = React.useState('1');
 
   const handleChange = (
     _event: React.MouseEvent<HTMLElement>,
@@ -24,9 +24,8 @@ const ProjectChoosePopup: React.FC<ProjectChoosePopupProps> = ({ Type, submit, o
 
   const handleClick = () => {
     Type(type);
-    onNext();submit
-    console.log(`People: ${type}`);
-};
+    onNext();
+  };
 
   return (
     <div className={styles.popupBG}>
@@ -42,8 +41,8 @@ const ProjectChoosePopup: React.FC<ProjectChoosePopupProps> = ({ Type, submit, o
             onChange={handleChange}
             aria-label="Platform"
           >
-            <ToggleButton size="large" value="all">全部分配</ToggleButton>
-            <ToggleButton size="large" value="average">平均分配</ToggleButton>
+            <ToggleButton size="large" value="1">全部分配</ToggleButton>
+            <ToggleButton size="large" value="2">平均分配</ToggleButton>
 
           </ToggleButtonGroup>
         </section>
