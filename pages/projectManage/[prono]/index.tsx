@@ -79,7 +79,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
       setTimeout(() => {
         setShowPopup(false);
         // 3 秒後跳轉頁面
-        router.push(`/projectManage/${prono}/edit`);
+        router.push(`/projectManage/list`);
       }, 3000);
       
     } catch (error) {
