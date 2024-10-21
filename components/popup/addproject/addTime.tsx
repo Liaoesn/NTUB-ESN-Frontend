@@ -14,8 +14,8 @@ interface ProjectTimePopupProps {
 
 const ProjectTimeSet: React.FC<ProjectTimePopupProps> = ({ 
     StartTime, EndTime, StartTimeValue, EndTimeValue, onNext, onBack}) => {
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    const [startDate, setStartDate] = useState(StartTimeValue as string);
+    const [endDate, setEndDate] = useState(EndTimeValue as string);
     const today = new Date().toISOString().split('T')[0];
 
     const handleStartDateChange = (e: any) => {
@@ -48,7 +48,7 @@ const ProjectTimeSet: React.FC<ProjectTimePopupProps> = ({
                         <input
                             type="date"
                             id="start-date"
-                            value={StartTimeValue}
+                            value={startDate}
                             onChange={handleStartDateChange}
                             min={today} // 第一個日期只能選今天或之後
                         />
@@ -58,7 +58,7 @@ const ProjectTimeSet: React.FC<ProjectTimePopupProps> = ({
                         <input
                             type="date"
                             id="end-date"
-                            value={EndTimeValue}
+                            value={endDate}
                             onChange={handleEndDateChange}
                             min={startDate || today} // 第二個日期只能選擇第一個日期之後
                             disabled={!startDate} // 如果未選擇開始日期，禁用第二個日期選擇器
