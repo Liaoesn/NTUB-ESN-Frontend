@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import CheckPopup from '@/components/popup/checkPopup';
 import userI from '@/type/userI';
 
+
 export default function ProjectManageMain({ user }: { user: userI | undefined }) {
   const router = useRouter();
   const { prono } = router.query;
@@ -161,7 +162,8 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
         <section className={styles.title}>
           <article className={styles.nameShow}>
             <p>履歷列表(拖動可以排序)</p>
-            <button>展開PDF</button>
+              
+            <a href={'https://drive.google.com/file/d/1ksty_Ywt8hbp6bpAMPWHQFANm1mUtghA/view?usp=sharing'} target="_blank"><p>展開PDF</p></a>
           </article>
           <article className={styles.about}>
             <p>摘要</p>
@@ -183,7 +185,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
                   >
                     {items?.map((item, index) => (
                       <Draggable key={item.evano} draggableId={item.evano ? item.evano.toString():index.toString()}
-                        index={index} isDragDisabled={complete}>
+                        index={index} >
                         {(provided) => (
                           <div className={styles.item}
                             ref={provided.innerRef}
@@ -229,7 +231,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
               <div className={styles.context}>
                 <p>{completion_rate == 100 ? '完成' : '未完成'}</p>
                 <p>{completed_count}/{total_count}</p>
-                <p>{date}</p>
+                <p>2025/09/12</p>
               </div>
             </div>
           </article>
