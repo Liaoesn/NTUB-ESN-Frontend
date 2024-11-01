@@ -9,7 +9,7 @@ import logo from '@/public/img/logo.png';
 import styles from '@/styles/Home.module.scss';
 
 interface User {
-  username: string;
+  user_name: string;
   avatar_url: string;
 }
 
@@ -54,7 +54,7 @@ export default function Home() {
             </div>
             <div onClick={() => router.push('/projectManage/list')} className={styles.listButton}>
               <article>
-                <h3>{user.username}的專案</h3>
+                <h3>{user.user_name}的專案</h3>
                 <p>您建立或是參與的書審專案</p>
               </article>
               <FaFileAlt className={styles.buttonIcon} />
