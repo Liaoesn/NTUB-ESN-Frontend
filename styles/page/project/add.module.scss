@@ -1,102 +1,166 @@
 @import "@/styles/base/variables";
 @import "@/styles/base/extends";
 
-.coverBg {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-  
+.addArea {
+  @extend %list-area;
+  letter-spacing: 5px;
+  color: $mainColor;
 
-  .popupBG {
-    @extend %popup-area;
+  h2 {
+    color: $mainColor;
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $mainColor;
+  }
 
-    .mainShow {
-      width: 35vw;
-      height: 30vh;
+  .addArea {
+    padding: 3%;
+    border-bottom: 1px solid $mainColor ;
+
+    .setingArea {
+      letter-spacing: 2px;
       display: flex;
-      padding: 20px;
       align-items: center;
-      @extend %popup-mainShow;
+      justify-content: space-around;
+      margin-bottom: 3%;
 
-      .title {
-        width: 90%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid $mainColor ;
-        font-size: 20px;
-
-        a {
-          font-size: 25px;
-          color: $mainColorRed;
-          cursor: pointer;
-        }
+      .addInput{
+        width: 100%;
+        border-radius: 25px;
       }
-
-      .inputArea {
-        width: 90%;
-        height: 70%;
+      .input{
+        background-color: $mainColor;
+      }
+      .contentShort {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        font-size: 32px;
-        border-bottom: 1px solid $mainColor;
+        width: 35%;
+        height: 4vh;
+        padding: 10px 20px;
+        background-color: $subColor;
+        border-radius: 10px;
 
-
-        input {
-          display: none;
-        }
-
-        .fileArea {
-          padding: 20px;
-          font-size: 18px;
-          border: 1px solid $mainColor;
-          border-radius: 10px;
-          height: 50%;
-          width: 50%;
-          @extend %flex-center;
-          flex-direction: column;
-
-          .donloadicon {
-            width: 60px;
-            height: auto;
-          }
-
+        h3 {
+          font-weight: bold;
         }
 
         p {
-          margin: 10px;
-        }
-      }
-      .bottom{
-        @extend %flex-center;
-        .left{
-          font-size: 35px;
-          margin-top: 10px;
-        }
-        @extend %popup-button;
-      }
-
-      .showStep {
-        width: 90%;
-        border-top: 1px solid $mainColor;
-        @extend %flex-center;
-        padding: 10px 0;
-        font-size: 20px;
-
-        p {
-          line-height: 32px;
+          width: 60%;
           text-align: center;
         }
+      }
 
-        a {
-          font-size: 32px;
-          @extend %flex-center;
+      a {
+        width: 3vh;
+        height: 3vh;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: $subColor;
+        @extend %flex-center;
+        cursor: pointer;
+
+        &:hover {
+          color: white;
+          background-color: $mainColorLight;
+          ;
+          box-shadow: 1px 2px 1px 1px $mainColorLight ;
         }
+      }
+    }
+
+    .setingTeacher {
+      letter-spacing: 2px;
+      display: flex;
+      justify-content: space-around;
+
+      .contentTeacher {
+        display: flex;
+        flex-direction: column;
+        width: 85%;
+        height: 25vh;
+        padding: 10px 20px;
+        background-color: $subColor;
+        border-radius: 10px;
+
+        h3 {
+          width: 20%;
+          font-weight: bold;
+        }
+
+        div {
+          display: flex;
+          padding: 10px;
+
+          p {
+            font-size: $smallSize;
+            margin: 0 5px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            width: fit-content;
+            background-color: $mainColor;
+            color: white;
+            text-align: center;
+          }
+        }
+      }
+
+      a {
+        width: 3vh;
+        height: 3vh;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: $subColor;
+        @extend %flex-center;
+        cursor: pointer;
+
+        &:hover {
+          color: white;
+          background-color: $mainColorLight;
+          box-shadow: 1px 2px 1px 1px $mainColorLight ;
+        }
+      }
+    }
+  }
+
+  .setingButton {
+    padding-top: 10px;
+    @extend %flex-center;
+
+    .button {
+      @extend %flex-center;
+      height: 50px;
+      width: 50px;
+      border-radius: 100px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    .delete {
+      height: 40px;
+      width: 40px;
+      color: $mainColorRed;
+      border: 2px solid $mainColorRed;
+
+      &:hover {
+        border: 0;
+        color: white;
+        box-shadow: 1px 1px 10px 3px $mainColorRed ;
+        border: 2px solid $mainColorRed;
+        background-color: $mainColorRed;
+      }
+    }
+
+    .check {
+      border: 2px solid $mainColor;
+
+      &:hover {
+        border: 0;
+        color: white;
+        box-shadow: 1px 1px 10px 3px $mainColorGreen ;
+        border: 2px solid $mainColor;
+        background-color: $mainColor;
       }
     }
   }
