@@ -16,7 +16,7 @@ interface ProjectNamePopupProps {
   }
 const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, oldselet, oldtitle }) => {
     const [title, setTitle] = useState(oldtitle)
-    const [prodescription, setProdescription] = useState(oldselet)
+    const [prodescription, setProdescription] = useState(oldselet);
     const [showPopup, setShowPopup] = useState(false);
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -41,6 +41,7 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, old
             });
       
             // 提交成功後可以進行跳轉或顯示成功訊息
+            onClose();
             router.push(`/projectManage/list`);
             
           } catch (error) {
@@ -62,7 +63,7 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, old
         <div className={styles.popupBG}>
             { showPopup ? <FailPopup title={'有資料為空'}/> : '' }
             <div className={styles.mainShow}>
-                <p>資料不可為空</p>
+                { title && prodescription  ? '' : <p>資料不可為空</p>}
                 <section className={styles.title}>
                     <h4>輸入名稱和選擇學制與年度</h4>
                     <a onClick={onClose} className={styles.closeButton}>

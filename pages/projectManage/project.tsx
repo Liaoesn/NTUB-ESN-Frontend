@@ -13,6 +13,7 @@ function Manageproject({ project, onDel }: proProps) {
   const [edate, setEdata] = useState<Date>();
   const [phase1, setPhase1] = useState<Date>();
   const [proItem, setProItem] = useState<projectManageInterface>();
+  const [pop, setPop] = useState<Boolean>(true);
 
   useEffect(  () => {
     if (router.isReady) {
@@ -38,14 +39,19 @@ function Manageproject({ project, onDel }: proProps) {
     window.location.href='/projectManage/' + prono + '/edit';
   }
 
+  const onMerage = (prono :number) => {
+
+  }
+
+
   return (
     <div className={styles.projectMain}>
       {proItem?.state == '已關閉' ?
         <div className={styles.cover} >
-          <a>查看結果</a>
+          <a onClick={() => router.push(`/project/${project.prono}`)}>查看結果</a>
         </div > : checkDate(phase1 as Date) ?
           <div className={styles.cover}>
-            <a>合併排序</a>
+            <a onClick={() =>  onMerage(project.prono)}>合併排序</a>
           </div> : ''
       }
       <div onClick={() => ViewPage(project.prono)} className={styles.projectItem}>

@@ -6,7 +6,7 @@ import logo from "@/public/img/navLogo.png";
 import React from 'react';
 
 interface NavbarProps {
-  user?: { username: string; avatar_url: string } | undefined;
+  user?: { user_name: string; avatar_url: string } | undefined;
 }
 
 const NavBar = React.memo(({ user }: NavbarProps) => {
@@ -35,7 +35,7 @@ const NavBar = React.memo(({ user }: NavbarProps) => {
               <Link href={"/aboutUser/list"} className={styles.linkUser}>
                 <>
                   <Image src={user.avatar_url} alt={"user"} width={110} height={110} priority />
-                  <p>{user.username}</p>
+                  <p>{user.user_name}</p>
                 </>
               </Link>
               <Link href="http://localhost:5000/api/auth/logout" className={styles.linkLogout}>

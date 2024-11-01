@@ -64,9 +64,8 @@
     height: 90%;
     display: flex;
     .nameArea {
-      width: 60%;
+      width: 100%;
       margin-top: 10px;
-      overflow-y:scroll;
       .context {
         width: 90%;
         height: 25px;
@@ -76,31 +75,24 @@
         border-radius: 10px;
         display: flex;
         align-items: center;
-        justify-content: space-around;
         &.coverBack{
           background-color: $mainColorGreen;
         }
 
-    
-        button{
-          color: $mainColor;
-          height: 100%;
-          border: 2px solid $mainColor;
-          border-radius: 5px; 
-          background-color: $subColor;
-          font-size: 0.9em;
-          font-weight: 900;
-          cursor: pointer;
-          &:hover{
-            transition: 0.3s;
-            box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.2);
-          }
+        p {
+          padding: 0.2em 0.5em 0.2em 0.5em;
+          align-content: center;
         }
 
-        .name,
-        .school {
-          width: 20%;
+        .acceptance {
+          background-color: #30E59D;
+          color: #475F69;
+          width: 48px;
           text-align: center;
+        }
+
+        .denial {
+          background-color: #C83E4D;
         }
       }
     }

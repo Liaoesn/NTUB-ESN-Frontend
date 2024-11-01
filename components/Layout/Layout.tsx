@@ -6,13 +6,13 @@ import styles from "@/styles/components/layout.module.scss";
 // 定義 Layout 組件的 props 介面，接收 children 以及選擇性的 user 物件
 interface LayoutProps {
   children: React.ReactNode; // children 為所有內嵌於此 Layout 中的元件
-  user?: { username: string, avatar_url: string } | undefined; // user 是選擇性的參數，包含 username 和 avatar_url
+  user?: { user_name: string, avatar_url: string } | undefined; // user 是選擇性的參數，包含 username 和 avatar_url
 }
 
 // Layout 組件，負責呈現標頭、導覽列以及包裹內容
 export default function Layout({ children, user }: LayoutProps) {
   // 使用 useState 儲存使用者資料，如果有提供 user prop 就使用它，否則會是 undefined
-  const [userData, setUserData] = useState<{ username: string, avatar_url: string } | undefined>(user);
+  const [userData, setUserData] = useState<{ user_name: string, avatar_url: string } | undefined>(user);
 
   // 定義一個非同步函式，從後端 API 獲取當前登入的使用者資訊
   const fetchUser = async () => {

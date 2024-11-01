@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import CheckPopup from '@/components/popup/checkPopup';
 import userI from '@/type/userI';
 
+
 export default function ProjectManageMain({ user }: { user: userI | undefined }) {
   const router = useRouter();
   const { prono } = router.query;
@@ -16,7 +17,12 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
   const [showPopup, setShowPopup] = useState(false);
   const [description, setDescription] = useState<string>("");
   const [context, setContext] = useState<string>("");
-
+  const [completed_count, setCompletedCount] = useState<number>(0);
+  const [total_count, setTotalCount] = useState<number>(0);
+  const [complete, setComplete] = useState<boolean>(false);
+  const [completion_rate, setCompletionRate] = useState<number>(0);
+  const [date, setDate] = useState<string>("");
+  
   // api 取得 permissions 的 mapping 清單
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +32,13 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
       try {
         await axios.post('/api/score/student/' + prono, {
         }).then((response) => {
+          console.log(response.data)
           setItems(response.data.rows);
+          setCompletionRate(parseFloat(response.data.completion_rate));
+          setComplete(response.data.complete);
+          setCompletedCount(response.data.completed_count);
+          setTotalCount(response.data.total_count);
+          setDate(formatDate(response.data.date));
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -35,6 +47,25 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
 
     fetchData();
   },[]);
+
+  // 格式化日期函數
+  function formatDate(dateString: string) {
+    // 若 dateString 不是有效的日期字串，返回空字串
+    var date = new Date(dateString);
+    if(date instanceof Date) {
+      const year = date.getFullYear(); // 獲取年份
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // 獲取月份，月份是從 0 開始的，所以需要加 1，並補足兩位數
+      const day = String(date.getDate()).padStart(2, '0'); // 獲取日期，並補足兩位數
+      const hours = String(date.getHours()).padStart(2, '0'); // 獲取小時，並補足兩位數
+      const minutes = String(date.getMinutes()).padStart(2, '0'); // 獲取分鐘，並補足兩位數
+      const seconds = String(date.getSeconds()).padStart(2, '0'); // 獲取秒數，並補足兩位數
+
+      // 返回格式化後的日期字串
+      return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+    } else {
+      return "";
+    }
+  }
 
   const [enabled, setEnabled] = useState(false);
 
@@ -131,7 +162,8 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
         <section className={styles.title}>
           <article className={styles.nameShow}>
             <p>履歷列表(拖動可以排序)</p>
-            <button>展開PDF</button>
+              
+            <a href={'https://drive.google.com/file/d/1ksty_Ywt8hbp6bpAMPWHQFANm1mUtghA/view?usp=sharing'} target="_blank"><p>展開PDF</p></a>
           </article>
           <article className={styles.about}>
             <p>摘要</p>
@@ -153,7 +185,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
                   >
                     {items?.map((item, index) => (
                       <Draggable key={item.evano} draggableId={item.evano ? item.evano.toString():index.toString()}
-                        index={index}>
+                        index={index} >
                         {(provided) => (
                           <div className={styles.item}
                             ref={provided.innerRef}
@@ -197,9 +229,9 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
                 <h5>截止日期</h5>
               </div>
               <div className={styles.context}>
-                <p>未完成</p>
-                <p>10/20</p>
-                <p>2024/10/25</p>
+                <p>{completion_rate == 100 ? '完成' : '未完成'}</p>
+                <p>{completed_count}/{total_count}</p>
+                <p>2025/09/12</p>
               </div>
             </div>
           </article>

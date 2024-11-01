@@ -24,10 +24,10 @@ interface proItemInterface{
     home: string;
     basic: string;
     skill: string;
+    admit: string;
     
     completed_count: string;
     total_count: string;
-    completion_rate: string;
     
     read: boolean;
 }
