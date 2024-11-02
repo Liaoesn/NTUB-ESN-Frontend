@@ -104,7 +104,7 @@ function ProjectManage({ user }: { user: userI | undefined }) {
     <Layout user={user}>
       {showConfirm && <DelConfirm content={confirmMsg} onConfirm={delProject} onClose={closePopup}/>}
       <main className={styles.listArea}>
-        <h2>{user?.username}的專案總覽</h2>
+        <h2>{user?.user_name}的專案總覽</h2>
         <section className={styles.dropdownArea}>
           <Box sx={{ minWidth: 120 }}>
           <FormControl sx={{ m: 2, minWidth: 120, height: 20, }} size="small">
