@@ -12,15 +12,15 @@ interface proProps {
   permissionNames: Record<string, string>;
   editable: boolean;
   onUpdate: (updatedUser: userInterface) => void;
-  onEnable: (userno: number, username: string) => void;
-  onDisable: (userno: number, username: string) => void;
+  onEnable: (user_no: number, user_name: string) => void;
+  onDisable: (user_no: number, user_name: string) => void;
 }
 
 function User({ user, permissionNames, editable, onUpdate, onEnable, onDisable }: proProps) { // 改为大写的 User
   const router = useRouter();
   const [userData, setUserData] = useState<userInterface>({
-    userno: 0,
-    username: '',
+    user_no: 0,
+    user_name: '',
     email: '',
     avatar_url: '',
     permissions: '',
@@ -47,9 +47,9 @@ function User({ user, permissionNames, editable, onUpdate, onEnable, onDisable }
 
   const toggleState = (state: string) => {
     if (state === '0') {
-      onDisable(userData.userno, userData.username);
+      onDisable(userData.user_no, userData.user_name);
     } else {
-      onEnable(userData.userno, userData.username);
+      onEnable(userData.user_no, userData.user_name);
     }
   };
 
@@ -60,7 +60,7 @@ function User({ user, permissionNames, editable, onUpdate, onEnable, onDisable }
           <img src={userData.avatar_url} alt="User Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
         </div>
         <div className={styles.userContent}>
-          <b>{userData.username}</b>
+          <b>{userData.user_name}</b>
         </div>
         <div className={styles.userMail}>
           <b>{userData.email}</b>

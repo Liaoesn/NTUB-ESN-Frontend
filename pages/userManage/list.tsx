@@ -119,10 +119,10 @@ function UserManageList({ user }: { user: userI | undefined }) {
   };
 
   const handleUpdate = (updatedUser: userInterface) => {
-    console.log('Update:' + updatedUser.username + ", permissions: " +updatedUser.permissions);
+    console.log('Update:' + updatedUser.user_name + ", permissions: " +updatedUser.permissions);
 
     setUsers((preUsers) => preUsers.map(preUser => {
-      if(preUser.userno == updatedUser.userno) {
+      if(preUser.user_no == updatedUser.user_no) {
         preUser.permissions = updatedUser.permissions;
       }
 
@@ -131,16 +131,16 @@ function UserManageList({ user }: { user: userI | undefined }) {
   }
 
   //Popup 相關
-  const showEnablePopup = (userno: number, username: string) => {
-    setConfirmMsg('是否確定啟用' + username + '?');
-    setTargetUser(userno);
+  const showEnablePopup = (user_no: number, user_name: string) => {
+    setConfirmMsg('是否確定啟用' + user_name + '?');
+    setTargetUser(user_no);
     setTargetState('1');
     setShowConfirm(true);
   }
 
-  const showDisablePopup = (userno: number, username: string) => {
-    setConfirmMsg('是否確定停用' + username + '?');
-    setTargetUser(userno);
+  const showDisablePopup = (user_no: number, user_name: string) => {
+    setConfirmMsg('是否確定停用' + user_name + '?');
+    setTargetUser(user_no);
     setTargetState('0');
     setShowConfirm(true);
   }
@@ -154,7 +154,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
   const updateUsers = async () => {
     try {
       const updateUser = users.map(preUser =>{
-        const url = '/api/user/update/' + preUser.userno;
+        const url = '/api/user/update/' + preUser.user_no;
         return axios.put(url, {
           permissions: preUser.permissions,
           state: preUser.state
@@ -254,7 +254,7 @@ function UserManageList({ user }: { user: userI | undefined }) {
 
         <section className={styles.userList}>
         {users.map((row, index) => (
-            <React.Fragment key={row.userno}>
+            <React.Fragment key={row.user_no}>
             <UserRow user={row} permissionNames={permissionNames} editable={editable} onUpdate={handleUpdate} onEnable={showEnablePopup} onDisable={showDisablePopup}/>
             {index < users.length-1 && <hr/>}
             
