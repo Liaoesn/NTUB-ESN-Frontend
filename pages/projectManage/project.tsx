@@ -6,7 +6,7 @@ import { FaCog, FaRegTrashAlt } from 'react-icons/fa';
 
 interface proProps {
   project: projectManageInterface;
-  onDel: (prono: number, proname: string) => void;
+  onDel: (pro_no: number, pro_name: string) => void;
 }
 
 function Manageproject({ project, onDel }: proProps) {
@@ -18,7 +18,7 @@ function Manageproject({ project, onDel }: proProps) {
   useEffect(  () => {
     if (router.isReady) {
       if (project) {
-        setEdata(new Date(project?.enddate));
+        setEdata(new Date(project?.end_date));
         setPhase1(new Date(project?.phase1));
         setProItem(project);
       } else {
@@ -28,18 +28,18 @@ function Manageproject({ project, onDel }: proProps) {
   }, [project]);
 
   const Del = () => {
-    onDel(project.prono, project.proname);
+    onDel(project.pro_no, project.pro_name);
   };
 
-  const ViewPage = (prono: number) => {
-    window.location.href='/projectManage/' + prono;
+  const ViewPage = (pro_no: number) => {
+    window.location.href='/projectManage/' + pro_no;
   }
 
-  const EditPage = (prono: number) => {
-    window.location.href='/projectManage/' + prono + '/edit';
+  const EditPage = (pro_no: number) => {
+    window.location.href='/projectManage/' + pro_no + '/edit';
   }
 
-  const onMerage = (prono :number) => {
+  const onMerage = (pro_no :number) => {
 
   }
 
@@ -48,26 +48,26 @@ function Manageproject({ project, onDel }: proProps) {
     <div className={styles.projectMain}>
       {proItem?.state == '已關閉' ?
         <div className={styles.cover} >
-          <a onClick={() => router.push(`/project/${project.prono}`)}>查看結果</a>
+          <a onClick={() => router.push(`/project/${project.pro_no}`)}>查看結果</a>
         </div > : checkDate(phase1 as Date) ?
           <div className={styles.cover}>
-            <a onClick={() =>  onMerage(project.prono)}>合併排序</a>
+            <a onClick={() =>  onMerage(project.pro_no)}>合併排序</a>
           </div> : ''
       }
-      <div onClick={() => ViewPage(project.prono)} className={styles.projectItem}>
+      <div onClick={() => ViewPage(project.pro_no)} className={styles.projectItem}>
         <article>
           <div className={styles.projectLogo}>
             <p>{proItem?.prodescription}</p>
           </div>
           <div className={styles.projectContent}>
-            <b>{proItem?.proname}</b>
-            <p>專案建立者: <span>{proItem?.username}</span></p>
+            <b>{proItem?.pro_name}</b>
+            <p>專案建立者: <span>{proItem?.user_name}</span></p>
             <p>排序進度: {proItem?.state}</p>
           </div>
         </article>
         <div className={styles.projectAbout}>
           <div className={styles.projectButton} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.projectSet} onClick={() => EditPage(project.prono)}><FaCog /></div>
+            <div className={styles.projectSet} onClick={() => EditPage(project.pro_no)}><FaCog /></div>
             <div className={styles.projectDel} onClick={() => Del()}><FaRegTrashAlt /></div>
           </div>
           <p>結案日期：{formatDate(edate as Date)}</p>

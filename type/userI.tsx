@@ -1,6 +1,6 @@
 interface userI {
     user_name: string;
-    userno:number;
+    user_no:number;
     avatar_url: string;
     
 }
