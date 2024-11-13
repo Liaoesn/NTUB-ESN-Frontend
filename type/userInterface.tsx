@@ -1,6 +1,6 @@
 interface userInterface{
-    userno:number;
-    username: string;
+    user_no:number;
+    user_name: string;
     email: string;
     avatar_url: string;
     permissions: string;
