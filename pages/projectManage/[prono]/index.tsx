@@ -3,8 +3,8 @@ import styles from '@/styles/page/project/prono.module.scss';
 // npm install react-beautiful-dnd
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import proItemInterface from '@/type/proItemInterface';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import CheckPopup from '@/components/popup/checkPopup';
 import userI from '@/type/userI';
@@ -162,7 +162,6 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
         <section className={styles.title}>
           <article className={styles.nameShow}>
             <p>履歷列表(拖動可以排序)</p>
-              
             <a href={'https://drive.google.com/file/d/1ksty_Ywt8hbp6bpAMPWHQFANm1mUtghA/view?usp=sharing'} target="_blank"><p>展開PDF</p></a>
           </article>
           <article className={styles.about}>

@@ -73,7 +73,7 @@ function CreateProject({ user }: { user: userI | undefined }) {
           <section className={styles.add}>
             <div className={styles.setingArea}>
               <Autocomplete
-                sx={{ m: 2, height:'54px', backgroundColor: '#e0f7fa', borderRadius: '25px'}}
+                sx={{ m: 2, height:'54px', backgroundColor: '#e0f7fa', borderRadius: '25px', border: 'none'}}
                 className={styles.addInput}
                 id="free-solo-demo"
                 freeSolo options={[]}
