@@ -78,9 +78,9 @@ function ProjectManage({ user }: { user: userI | undefined }) {
   };
 
   //Popup 相關
-  const showDelPopup = (prono: number, proname: string) => {
-    setConfirmMsg('是否確定刪除' + proname + '?');
-    setTargetPro(prono);
+  const showDelPopup = (pro_no: number, pro_name: string) => {
+    setConfirmMsg('是否確定刪除' + pro_name + '?');
+    setTargetPro(pro_no);
     setShowConfirm(true);
   }
 
@@ -92,7 +92,7 @@ function ProjectManage({ user }: { user: userI | undefined }) {
   const delProject = async () => {
     const url = '/api/project/delete';
     await axios.put(url, {
-        prono: targetPro
+      pro_no: targetPro
     }).then((response) => {
       closePopup();
       refleshData();
@@ -147,7 +147,7 @@ function ProjectManage({ user }: { user: userI | undefined }) {
         </section>
         <section className={styles.projectList}>
         {projects.map((project, index) => (
-          <React.Fragment key={project.prono}>
+          <React.Fragment key={project.pro_no}>
             <Project project={project} onDel={showDelPopup} />
             {index < projects.length-1 && <hr/>}
           </React.Fragment>

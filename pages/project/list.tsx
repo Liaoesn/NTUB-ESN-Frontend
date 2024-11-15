@@ -125,7 +125,7 @@ export default function ProjectList() {
         {/* 專案列表顯示區域 */}
         <section className={styles.projectList}>
           {projects.map((project, index) => (
-            <React.Fragment key={project.prono}>
+            <React.Fragment key={project.pro_no}>
               <Project project={project} /> {/* 顯示每個專案 */}
               {index < projects.length - 1 && <hr />} {/* 在每個專案之間顯示分隔線 */}
             </React.Fragment>

@@ -18,7 +18,7 @@ function Project({ project }: proProps) {
     if (router.isReady) {
       // 如果 project 存在，則將專案資料設定到 state
       if (project) {
-        setEdata(new Date(project?.enddate)); // 將結束日期轉換為 Date 物件並設定
+        setEdata(new Date(project?.end_date)); // 將結束日期轉換為 Date 物件並設定
         setProItem(project); // 將 project 設定到 proItem
       } else {
         console.log('No project found in query.'); // 如果沒有找到專案，則在控制台中輸出訊息
@@ -28,15 +28,15 @@ function Project({ project }: proProps) {
 
   return (
     // 當使用者點擊專案時，導向到專案的詳細頁面
-    <div onClick={() => router.push(`/project/${proItem?.prono}`)} className={styles.projectMain}>
+    <div onClick={() => router.push(`/project/${proItem?.end_date}`)} className={styles.projectMain}>
       <div className={styles.projectItem}>
         <article>
           <div className={styles.projectLogo}>
             <p>{proItem?.prono_prefix}</p> {/* 顯示專案編號前綴 */}
           </div>
           <div className={styles.projectContent}>
-            <b>{proItem?.proname}</b> {/* 顯示專案名稱 */}
-            <p>專案建立者: <span>{proItem?.username}</span></p> {/* 顯示專案建立者名稱 */}
+            <b>{proItem?.pro_name}</b> {/* 顯示專案名稱 */}
+            <p>專案建立者: <span>{proItem?.user_name}</span></p> {/* 顯示專案建立者名稱 */}
             <p>排序進度: {proItem?.state}</p> {/* 顯示專案目前狀態 */}
           </div>
         </article>

@@ -10,8 +10,8 @@ import userInterface from '@/type/userInterface';
 
 function AboutUser({ user }: { user: userI | undefined }) {
   const [userData, setUserData] = useState<userInterface>({
-    userno: 0,
-    username: '',
+    user_no: 0,
+    user_name: '',
     email: '',
     avatar_url: '',
     permissions: '',
@@ -26,7 +26,7 @@ function AboutUser({ user }: { user: userI | undefined }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = '/api/user/data/' + user?.userno;
+        const url = '/api/user/data/' + user?.user_no;
         await axios.get(url, {
           // 這裡放參數
 
@@ -49,7 +49,7 @@ function AboutUser({ user }: { user: userI | undefined }) {
   }
 
   const disableUser = async () => {
-    const url = '/api/user/update/' + user?.userno;
+    const url = '/api/user/update/' + user?.user_no;
     await axios.put(url, {
       state: "0"
     }).then((response) => {
@@ -90,7 +90,7 @@ function AboutUser({ user }: { user: userI | undefined }) {
           </div>
 
           <div className={styles.userName}>
-            <p>使用者帳號:&nbsp;{userData.username}</p>
+            <p>使用者名稱:&nbsp;{userData.user_name}</p>
           </div>
         </div>
         <section className={styles.dropdownArea}></section>

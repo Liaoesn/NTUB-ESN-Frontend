@@ -1,12 +1,12 @@
 interface projectManageInterface{
     prodescription: string;
-    prono:number;
+    pro_no:number;
     prono_prefix:string;
-    proname: string;
-    username:string;
+    pro_name: string;
+    user_name:string;
     state:string;
     phase1:string;
-    enddate: string;
+    end_date: string;
 }
 
 export default projectManageInterface;
