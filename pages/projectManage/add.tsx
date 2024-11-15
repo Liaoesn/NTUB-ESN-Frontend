@@ -106,6 +106,69 @@ function CreateProject({ user }: { user: userI | undefined }) {
                 </div>
               </div>
             </div>
+            <div className={styles.setingArea}>
+              <div className={styles.contentShort}>
+                <FormControl className={styles.shortInput}>
+                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="academic"
+                    name="academic"
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                  >
+                    <MenuItem value="二技">二技</MenuItem>
+                    <MenuItem value="四技">四技</MenuItem>
+                    <MenuItem value="碩士">碩士</MenuItem>
+                    <MenuItem value="博士">博士</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className={styles.shortInput}>
+                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value as unknown as number)} />
+                </div>
+              </div>
+            </div>
+            <div className={styles.setingArea}>
+              <div className={styles.contentShort}>
+                <FormControl className={styles.shortInput}>
+                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="academic"
+                    name="academic"
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                  >
+                    <MenuItem value="二技">二技</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className={styles.shortInput}>
+                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value)} />
+                </div>
+              </div>
+            </div>
+            <div className={styles.setingArea}>
+              <div className={styles.contentShort}>
+                <FormControl className={styles.shortInput}>
+                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="academic"
+                    name="academic"
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                  >
+                    <MenuItem value="二技">二技</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className={styles.shortInput}>
+                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value)} />
+                </div>
+              </div>
+            </div>
           </section>
           <section className={styles.setingButton}>
             <a className={`${styles.button} ${styles.check}`}><FaSignOutAlt /></a>
