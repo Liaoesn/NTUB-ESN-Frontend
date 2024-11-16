@@ -18,6 +18,7 @@
   .add {
     padding: 10px;
     border-bottom: 1px solid $mainColor ;
+    height: 80%;
 
     .setingArea {
       width: 100%;
@@ -25,6 +26,7 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
+      margin-bottom: 30px;
 
       .addInput {
         width: 100%;
@@ -35,6 +37,20 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .dateInput{
+          @extend %flex-center;
+          letter-spacing: 1px;
+          justify-content: space-between;
+          input{
+            width: 50%;
+            height: 97%;
+            padding-left: 1%;
+            padding-right: 3%;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
+          }
+        }
 
         .shortInput {
           width: 48%;
@@ -69,6 +85,53 @@
         }
       }
     }
+    .fileArea{
+      width: 100%;
+      height: 50%;
+      border-top:1px solid $mainColor ;
+      padding-top: 40px;
+      margin-bottom: 50px;
+      p{
+        padding-left: 3%;
+      }
+      .fileInput{
+        width: 100%;
+        height: 60%;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+  
+  
+        input {
+          display: none;
+        }
+  
+        .file {
+          padding: 20px;
+          font-size: 18px;
+          border: 1px solid $mainColor;
+          border-radius: 10px;
+          height: 100%;
+          width: 90%;
+          @extend %flex-center;
+          flex-direction: column;
+  
+          .donloadicon {
+            width: 60px;
+            height: auto;
+          }
+  
+        }
+  
+        p {
+          margin: 10px;
+        }
+        
+      }
+    }
   }
 
   .setingButton {
@@ -100,6 +163,7 @@
     }
 
     .check {
+      margin-top: 3%;
       border: 2px solid $mainColor;
 
       &:hover {
