@@ -37,7 +37,7 @@ function Project({ project }: proProps) {
           <div className={styles.projectContent}>
             <b>{proItem?.pro_name}</b> {/* 顯示專案名稱 */}
             <p>專案建立者: <span>{proItem?.user_name}</span></p> {/* 顯示專案建立者名稱 */}
-            <p>排序進度: {proItem?.state}</p> {/* 顯示專案目前狀態 */}
+            <p>排序進度: {proItem?.states}</p> {/* 顯示專案目前狀態 */}
           </div>
         </article>
         <div className={styles.projectTime}>

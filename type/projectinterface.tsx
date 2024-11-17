@@ -3,7 +3,7 @@ interface projectInterface{
     prono_prefix:string;
     pro_name: string;
     user_name:string;
-    state:string;
+    states:string;
     end_date: string;
     
 }

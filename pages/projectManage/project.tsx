@@ -46,7 +46,7 @@ function Manageproject({ project, onDel }: proProps) {
 
   return (
     <div className={styles.projectMain}>
-      {proItem?.state == '已關閉' ?
+      {proItem?.status == '已關閉' ?
         <div className={styles.cover} >
           <a onClick={() => router.push(`/project/${project.pro_no}`)}>查看結果</a>
         </div > : checkDate(phase1 as Date) ?
@@ -62,7 +62,7 @@ function Manageproject({ project, onDel }: proProps) {
           <div className={styles.projectContent}>
             <b>{proItem?.pro_name}</b>
             <p>專案建立者: <span>{proItem?.user_name}</span></p>
-            <p>排序進度: {proItem?.state}</p>
+            <p>排序進度: {proItem?.status}</p>
           </div>
         </article>
         <div className={styles.projectAbout}>

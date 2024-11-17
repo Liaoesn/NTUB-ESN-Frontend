@@ -79,7 +79,7 @@ export default function ShowHistory({ user }: { user: userI | undefined }) {
             {studentItems.map((item, index) => (
               <div key={index} className={`${styles.context} ${isVisible == item.final_ranking ? styles.coverBack : ''}`}>
                 <p style={{ width: '14%' }}>#{index + 1}</p>
-                <p style={{ width: '22%' }}>{item.stuname}</p>
+                <p style={{ width: '22%' }}>{item.stu_name}</p>
                 <p style={{ width: '22%' }}>{item.sex}</p>
                 <p style={{ width: '22%' }}>{item.school}</p>
                 <p className={`${item.admit == '錄取' ? styles.acceptance : styles.denial}`}>{item.admit}</p>
