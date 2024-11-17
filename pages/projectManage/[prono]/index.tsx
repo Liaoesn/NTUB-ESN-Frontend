@@ -136,30 +136,6 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
     setItems(reorderedItems);
   };
 
-  const handSubmit = async () => {
-    // 將每個 item 的 evano 和 ranking 放入新的陣列
-    const sortOrder = items.map((item, index) => ({
-      evano: item.eva_no, // evano 屬性
-      ranking: (index + 1).toString() // 排名
-    }));
-    console.log(sortOrder);
-
-    try {
-      await axios.post(`/api/score/sort/submit`, {
-        sortOrder
-      });
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-        // 3 秒後跳轉頁面
-        router.push(`/projectManage/list`);
-      }, 3000);
-      
-    } catch (error) {
-      console.error('Error fetching project data:', error);
-    }
-  };
-
   const showDescription = ( index : number ) => {
     setTarget(items[index]);
   };
@@ -200,21 +176,29 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
   /* TODO 調整complete參數 */
   const completed = async () => {
     try {
-      const data = items.map((item : proItemInterface) => ({
-        id: item.eva_no,
+      const evaluations = items.map((item) => ({
+        evano: item.eva_no,
         score: item.score,
         memo: item.memo,
       }));
   
-
-      console.log(data);
+      console.log(evaluations);
       const response = await axios.post('/api/score/sort/complete', {
-        data
+        evaluations
       });
+
+      // 顯示彈出視窗並在3秒後跳轉頁面
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        router.push(`/projectManage/list`);
+      }, 3000);
+
     } catch (error) {
-      console.error('Error saving data:', error);
+      console.error('儲存資料時出錯:', error);
     }
   };
+
 
   return (
     <Layout>
@@ -226,7 +210,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
           </article>
           <article className={styles.about}>
             <p>摘要</p>
-            <button onClick={handSubmit}>完成</button>
+            <button onClick={completed}>完成</button>
           </article>
         </section>
         <section className={styles.mainArea}>

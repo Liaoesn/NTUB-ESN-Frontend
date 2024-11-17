@@ -40,7 +40,6 @@ function Manageproject({ project, onDel }: proProps) {
     window.location.href='/projectManage/' + pro_no + '/edit';
   }
 
-  /* TODO 改為正確的API */
   const onMerage = async (pro_no: number) => {
     try {
       const response = await axios.post('/api/score/merge', {
