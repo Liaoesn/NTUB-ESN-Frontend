@@ -139,7 +139,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
   const handSubmit = async () => {
     // 將每個 item 的 evano 和 ranking 放入新的陣列
     const sortOrder = items.map((item, index) => ({
-      evano: item.evano, // evano 屬性
+      evano: item.eva_no, // evano 屬性
       ranking: (index + 1).toString() // 排名
     }));
     console.log(sortOrder);
@@ -182,16 +182,35 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
   const save = async () => {
     try {
       const data = items.map((item : proItemInterface) => ({
-        id: item.evano,
+        id: item.eva_no,
         score: item.score,
         memo: item.memo,
       }));
   
-      //TODO 改為保存的API
+
+      console.log(data);
       const response = await axios.post('/api/score/score', {
         data
       });
-      console.log('喵喵');
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  };
+
+  /* TODO 調整complete參數 */
+  const completed = async () => {
+    try {
+      const data = items.map((item : proItemInterface) => ({
+        id: item.eva_no,
+        score: item.score,
+        memo: item.memo,
+      }));
+  
+
+      console.log(data);
+      const response = await axios.post('/api/score/sort/complete', {
+        data
+      });
     } catch (error) {
       console.error('Error saving data:', error);
     }
@@ -240,11 +259,11 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
             <p className={styles.aboutDescription}>
               {description}
             </p>
-            {/* TODO 記得改CSS */}
             <Input 
                 name="memo"
                 disableUnderline={true}
                 onChange={handleChange}
+                onBlur={save}
                 value={memo ? memo : ''}
                 />
             <div className={styles.aboutProject}>
@@ -258,7 +277,6 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
                 <p>{completed_count}/{total_count}</p>
 
                 {/*<input  onChange={() => updateScore()}></input>*/}
-                {/* TODO 記得改CSS */}
 
                 {/* onBlur={save} 當輸入框失焦時觸發保存 */}
 
@@ -266,6 +284,7 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
                   name="score"
                   disableUnderline
                   onChange={handleChange}
+                  onBlur={save}
                   value={score || ''}
                 />
 

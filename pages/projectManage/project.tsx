@@ -3,6 +3,7 @@ import styles from '@/styles/page/project/list.module.scss';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaCog, FaRegTrashAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 interface proProps {
   project: projectManageInterface;
@@ -39,8 +40,15 @@ function Manageproject({ project, onDel }: proProps) {
     window.location.href='/projectManage/' + pro_no + '/edit';
   }
 
-  const onMerage = (pro_no :number) => {
-
+  /* TODO 改為正確的API */
+  const onMerage = async (pro_no: number) => {
+    try {
+      const response = await axios.post('/api/score/merge', {
+        pro_no
+      });
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
   }
 
 
