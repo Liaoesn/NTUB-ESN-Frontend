@@ -8,17 +8,18 @@ import { useRouter } from 'next/router';
 import FailPopup from '@/components/popup/failPopup';
 import { MdArrowLeft } from 'react-icons/md';
 import axios from 'axios';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+
 function CreateProject({ user }: { user: userI | undefined }) {
   const [showPopup, setShowPopup] = useState(false);
   const [popupTitle, setPopupTitle] = useState('')
   const router = useRouter();
   const [college, setCollege] = useState('');
+  const [people, setPeople] = useState<number>();
   const [projectName, setProjectName] = useState<string>('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [files, setFiles] = useState<FileList | null>(null);
-  const [people, setPeople] = useState<number>(0);
   const [type, setType] = useState('');
 
   const handleSubmit = () => {
@@ -69,11 +70,11 @@ function CreateProject({ user }: { user: userI | undefined }) {
     <>
       <Layout>
         <main className={styles.addArea}>
-          <h2>新曾專案</h2>
+          <h2>新增專案</h2>
           <section className={styles.add}>
             <div className={styles.setingArea}>
               <Autocomplete
-                sx={{ m: 2, height:'54px', backgroundColor: '#e0f7fa', borderRadius: '25px', border: 'none'}}
+                sx={{ mb: 2, mt: 2, height: '54px', border: 'none' }}
                 className={styles.addInput}
                 id="free-solo-demo"
                 freeSolo options={[]}
@@ -82,53 +83,91 @@ function CreateProject({ user }: { user: userI | undefined }) {
                 renderInput={(params) => <TextField className={styles.addInput} {...params} label="輸入專案名稱" />}
               />
             </div>
-            <div className={styles.setingList}>
+            <div className={styles.setingArea}>
               <div className={styles.contentShort}>
-                <h3>學制</h3>
-                {/* <p>{projectData ? projectData.prodescription : "Loading..."}</p> */}
+                <FormControl className={styles.shortInput}>
+                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="academic"
+                    name="academic"
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                  >
+                    <MenuItem value="二技">二技</MenuItem>
+                    <MenuItem value="四技">四技</MenuItem>
+                    <MenuItem value="碩士">碩士</MenuItem>
+                    <MenuItem value="博士">博士</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className={styles.shortInput}>
+                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value as unknown as number)} />
+                </div>
               </div>
-              <a
-              //  onClick={() => handlePopup('Name')}
-              ><FaPen /></a>
-              <div className={styles.contentShort}>
-                <h3>審核方式</h3>
-                {/* <p>{projectData ? projectData.share_type == '1' ? '全部分配' : '平均分配' : "Loading..."}</p> */}
-              </div>
-              <a
-              //  onClick={() => handlePopup('Chose')}
-              ><FaPen /></a>
             </div>
-            <div className={styles.setingList}>
+            <div className={styles.setingArea}>
               <div className={styles.contentShort}>
-                <h3>資料數量</h3>
-                {/* <p>{fileNumber ? fileNumber.total_students : "Loading..."}</p> */}
+                <FormControl className={styles.shortInput}>
+                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="academic"
+                    name="academic"
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                  >
+                    <MenuItem value="二技">二技</MenuItem>
+                    <MenuItem value="四技">四技</MenuItem>
+                    <MenuItem value="碩士">碩士</MenuItem>
+                    <MenuItem value="博士">博士</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className={styles.shortInput}>
+                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value as unknown as number)} />
+                </div>
               </div>
-              <a
-              //  onClick={() => handlePopup('File')}
-              ><FaFolder /></a>
-              <div className={styles.contentShort}>
-                <h3>錄取人數</h3>
-                {/* <p>{projectData ? projectData.admissions : "Loading..."}</p> */}
-              </div>
-              <a
-              //  onClick={() => handlePopup('People')}
-              ><FaPen /></a>
             </div>
-            <div className={styles.setingList}>
+            <div className={styles.setingArea}>
               <div className={styles.contentShort}>
-                <h3>第一階段</h3>
-                <p>2024/09/28</p>
+                <FormControl className={styles.shortInput}>
+                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="academic"
+                    name="academic"
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                  >
+                    <MenuItem value="二技">二技</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className={styles.shortInput}>
+                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value)} />
+                </div>
               </div>
-              <a
-              //  onClick={() => handlePopup('Time')}
-              ><FaRegCalendarAlt /></a>
+            </div>
+            <div className={styles.setingArea}>
               <div className={styles.contentShort}>
-                <h3>結束日期</h3>
-                <p>2024/11/11</p>
+                <FormControl className={styles.shortInput}>
+                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="academic"
+                    name="academic"
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                  >
+                    <MenuItem value="二技">二技</MenuItem>
+                  </Select>
+                </FormControl>
+                <div className={styles.shortInput}>
+                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value)} />
+                </div>
               </div>
-              <a
-              //  onClick={() => handlePopup('Time')}
-              ><FaRegCalendarAlt /></a>
             </div>
           </section>
           <section className={styles.setingButton}>

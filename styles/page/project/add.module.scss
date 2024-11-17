@@ -15,94 +15,39 @@
     border-bottom: 1px solid $mainColor;
   }
 
-  .addArea {
-    padding: 3%;
+  .add {
+    padding: 10px;
     border-bottom: 1px solid $mainColor ;
 
     .setingArea {
+      width: 100%;
       letter-spacing: 2px;
       display: flex;
       align-items: center;
       justify-content: space-around;
-      margin-bottom: 3%;
 
-      .addInput{
+      .addInput {
         width: 100%;
-        // border-radius: 25px;
-        border: none;
       }
-      .input{
-        background-color: $mainColor;
-      }
+
       .contentShort {
+        width: 100%;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        width: 35%;
-        height: 4vh;
-        padding: 10px 20px;
-        background-color: $subColor;
-        border-radius: 10px;
 
-        h3 {
-          font-weight: bold;
-        }
-
-        p {
-          width: 60%;
-          text-align: center;
-        }
-      }
-
-      a {
-        width: 3vh;
-        height: 3vh;
-        padding: 10px;
-        border-radius: 10px;
-        background-color: $subColor;
-        @extend %flex-center;
-        cursor: pointer;
-
-        &:hover {
-          color: white;
-          background-color: $mainColorLight;
-          ;
-          box-shadow: 1px 2px 1px 1px $mainColorLight ;
-        }
-      }
-    }
-
-    .setingTeacher {
-      letter-spacing: 2px;
-      display: flex;
-      justify-content: space-around;
-
-      .contentTeacher {
-        display: flex;
-        flex-direction: column;
-        width: 85%;
-        height: 25vh;
-        padding: 10px 20px;
-        background-color: $subColor;
-        border-radius: 10px;
-
-        h3 {
-          width: 20%;
-          font-weight: bold;
-        }
-
-        div {
-          display: flex;
-          padding: 10px;
-
-          p {
-            font-size: $smallSize;
-            margin: 0 5px;
-            padding: 10px 20px;
-            border-radius: 20px;
-            width: fit-content;
-            background-color: $mainColor;
-            color: white;
-            text-align: center;
+        .shortInput {
+          width: 48%;
+          height: 50px;
+          .people{
+            font-size: 18px;
+            padding-left: 3%;
+            padding-top: 1%;
+            height: 97%;
+            width: 96%;
+            margin: 0;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
           }
         }
       }
@@ -119,6 +64,7 @@
         &:hover {
           color: white;
           background-color: $mainColorLight;
+          ;
           box-shadow: 1px 2px 1px 1px $mainColorLight ;
         }
       }
