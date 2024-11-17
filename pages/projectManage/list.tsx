@@ -119,10 +119,12 @@ function ProjectManage({ user }: { user: userI | undefined }) {
                 onChange={handleChange}
               >
                 <MenuItem value={'all'}>全部</MenuItem>
-                <MenuItem value={'01'}>博士</MenuItem>
-                <MenuItem value={'02'}>二技</MenuItem>
-                <MenuItem value={'03'}>碩士</MenuItem>
-                <MenuItem value={'04'}>四技</MenuItem>
+                <MenuItem value={'二技進修'}>二技進修</MenuItem>
+                <MenuItem value={'二技'}>二技</MenuItem>
+                <MenuItem value={'碩士'}>碩士</MenuItem>
+                <MenuItem value={'四技'}>四技</MenuItem>
+                <MenuItem value={'四技進修'}>四技進修</MenuItem>
+                
               </Select>
             </FormControl>
             <FormControl sx={{ m: 2, minWidth: 120 }} size="small">

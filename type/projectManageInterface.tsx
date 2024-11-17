@@ -4,7 +4,7 @@ interface projectManageInterface{
     prono_prefix:string;
     pro_name: string;
     user_name:string;
-    state:string;
+    status:string;
     phase1:string;
     end_date: string;
 }
