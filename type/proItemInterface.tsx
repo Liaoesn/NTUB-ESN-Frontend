@@ -1,7 +1,7 @@
 interface proItemInterface{
     final_ranking:number;
-    evano: string;
-    stuname: string;
+    eva_no: string;
+    stu_name: string;
     sex: string;
     school: string;
     type:string;
@@ -30,6 +30,8 @@ interface proItemInterface{
     total_count: string;
     
     read: boolean;
+    score: number;
+    memo: string;
 }
 
 export default proItemInterface;

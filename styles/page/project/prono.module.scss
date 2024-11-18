@@ -121,12 +121,13 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 40%;
+            width: 45%;
             height: 100%;
             margin: 10px;
+            
             .aboutContext{
                 width: 90%;
-                height: 70%;
+                height: 55%;
                 color: $mainColor;
                 font-size: 18px;
                 line-height: 25px;
@@ -138,10 +139,11 @@
                 white-space: pre-wrap;
                 overflow: auto;
                 margin-bottom: 15px;
+                margin-left: 11px;
             }
             .aboutDescription{
                 width: 90%;
-                height: 25%;
+                height: 20%;
                 color: $mainColor;
                 font-size: 18px;
                 line-height: 25px;
@@ -151,6 +153,21 @@
                 border-radius: 20px;
                 border: 1px solid $mainColorGreen;
                 white-space: pre-wrap;
+                margin-bottom: 15px;
+                margin-left: 11px;
+            }
+
+            Input{
+                width: 90%;
+                color: $mainColor;
+                font-size: 18px;
+                line-height: 25px;
+                text-align: justify;
+                padding: 2% 3% 2% 3%;
+                border-radius: 20px;
+                border: 1px solid $mainColorGreen;
+                white-space: pre-wrap;
+                margin-left: 11px;
             }
             .aboutProject{
                 display: flex;
@@ -163,11 +180,13 @@
                     font-size: 16px;
                     display: flex;
                     text-align: center;
+                    
                     h5{
                         height: fit-content;
                         padding: 10px 5px;
                         color: white;
-                        width: 100%;
+                        width: 31%;
+                        padding-left: 18px;
                         background-color: $mainColor;
                     }
                 }
@@ -178,12 +197,19 @@
                     p{
                         @extend %flex-center;
                         text-align: center;
-                        width: 100%;
+                        width: 35%;
                         height: 100%;
                         text-align: center;
                         border: 1px solid $mainColor;
                     }
+
+                    Input {
+                        text-align: center;
+                        border: 0;
+                    }
                 }
+
+                
             }
         }
     }

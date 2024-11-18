@@ -8,14 +8,18 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import CheckPopup from '@/components/popup/checkPopup';
 import userI from '@/type/userI';
+import { Input } from '@mui/material';
 
 
 export default function ProjectManageMain({ user }: { user: userI | undefined }) {
   const router = useRouter();
   const { prono } = router.query;
-  const [items, setItems] = useState<proItemInterface[]>([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [items, setItems] = useState<proItemInterface[]>([]);
+  const [target, setTarget] = useState<proItemInterface>();
   const [description, setDescription] = useState<string>("");
+  const [memo, setMemo] = useState<string>("");
+  const [score, setScore] = useState<number>(0);
   const [context, setContext] = useState<string>("");
   const [completed_count, setCompletedCount] = useState<number>(0);
   const [total_count, setTotalCount] = useState<number>(0);
@@ -78,6 +82,44 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
     };
   }, []);
 
+  useEffect(() => {
+    if(target) {
+      target.read = true;
+
+      var context = `
+    讀書計畫：${target.studyplan}
+    機會：${target.opportunity}
+    自我期許：${target.selfexpectation}
+    工作背景：${target.work}
+    多元學習：${target.learning}
+    家庭背景：${target.family}
+    教育背景：${target.education}
+    求學經歷：${target.studyexperience}
+    推薦人：${target.recommender}
+    學歷：${target.edu}
+    證照：${target.licence}
+    工讀：${target.pt}
+    服務及學習：${target.servelearn}
+    其他資訊：${target.other}
+    家庭狀況：${target.home}
+    基本資料：${target.basic}
+    技能：${target.skill}
+    `;
+
+    var description = `
+    內容類型：${target.studyplan}
+    詳細資料：${target.description}
+    實際值：${target.value}
+    `;
+
+    setContext(context);
+    setDescription(description);
+    setMemo(target.memo);
+    setScore(target.score);
+    }
+
+  }, [target]);
+
   if (!enabled) {
     return null;
   }
@@ -94,66 +136,69 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
     setItems(reorderedItems);
   };
 
-  const handSubmit = async () => {
-    // 將每個 item 的 evano 和 ranking 放入新的陣列
-    const sortOrder = items.map((item, index) => ({
-      evano: item.evano, // evano 屬性
-      ranking: (index + 1).toString() // 排名
-    }));
-    console.log(sortOrder);
+  const showDescription = ( index : number ) => {
+    setTarget(items[index]);
+  };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    if (target) {
+      if(name == 'memo') {
+        target.memo = value; 
+        setMemo(value);
+      } else if(name == 'score') {
+        target.score = Number(value); 
+        setScore(Number(value));
+      }
+    }
+  };
+
+  const save = async () => {
     try {
-      await axios.post(`/api/score/sort/submit`, {
-        sortOrder
+      const data = items.map((item : proItemInterface) => ({
+        id: item.eva_no,
+        score: item.score,
+        memo: item.memo,
+      }));
+  
+
+      console.log(data);
+      const response = await axios.post('/api/score/score', {
+        data
       });
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  };
+
+  /* TODO 調整complete參數 */
+  const completed = async () => {
+    try {
+      const evaluations = items.map((item) => ({
+        evano: item.eva_no,
+        score: item.score,
+        memo: item.memo,
+      }));
+  
+      console.log(evaluations);
+      const response = await axios.post('/api/score/sort/complete', {
+        evaluations
+      });
+
+      // 顯示彈出視窗並在3秒後跳轉頁面
       setShowPopup(true);
       setTimeout(() => {
         setShowPopup(false);
-        // 3 秒後跳轉頁面
         router.push(`/projectManage/list`);
       }, 3000);
-      
+
     } catch (error) {
-      console.error('Error fetching project data:', error);
+      console.error('儲存資料時出錯:', error);
     }
   };
 
-  const showDescription = ( id : string ) => {
-    const studentItem = items.find(item => item.evano == id);
-
-    if(studentItem) {
-      studentItem.read = true;
-
-      var context = `
-    讀書計畫：${studentItem.studyplan}
-    機會：${studentItem.opportunity}
-    自我期許：${studentItem.selfexpectation}
-    工作背景：${studentItem.work}
-    多元學習：${studentItem.learning}
-    家庭背景：${studentItem.family}
-    教育背景：${studentItem.education}
-    求學經歷：${studentItem.studyexperience}
-    推薦人：${studentItem.recommender}
-    學歷：${studentItem.edu}
-    證照：${studentItem.licence}
-    工讀：${studentItem.pt}
-    服務及學習：${studentItem.servelearn}
-    其他資訊：${studentItem.other}
-    家庭狀況：${studentItem.home}
-    基本資料：${studentItem.basic}
-    技能：${studentItem.skill}
-    `;
-
-    var description = `
-    內容類型：${studentItem.studyplan}
-    詳細資料：${studentItem.description}
-    實際值：${studentItem.value}
-    `;
-
-    setContext(context);
-    setDescription(description);
-    }
-  };
 
   return (
     <Layout>
@@ -162,57 +207,34 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
         <section className={styles.title}>
           <article className={styles.nameShow}>
             <p>履歷列表(拖動可以排序)</p>
-            <a href={'https://drive.google.com/file/d/1ksty_Ywt8hbp6bpAMPWHQFANm1mUtghA/view?usp=sharing'} target="_blank"><p>展開PDF</p></a>
           </article>
           <article className={styles.about}>
             <p>摘要</p>
-            <button onClick={handSubmit}>完成</button>
+            <button onClick={completed}>完成</button>
           </article>
         </section>
         <section className={styles.mainArea}>
           <article className={styles.nameArea}>
-            <DragDropContext onDragEnd={handleDragEnd}>
-              <Droppable droppableId="droppable-1" type="PERSON">
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    className="moveArea"
-                    style={{
-                      backgroundColor: snapshot.isDraggingOver ? '#849189' : ''
-                    }}
-                    {...provided.droppableProps}
-                  >
-                    {items?.map((item, index) => (
-                      <Draggable key={item.evano} draggableId={item.evano ? item.evano.toString():index.toString()}
-                        index={index} >
-                        {(provided) => (
-                          <div className={styles.item}
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={{
-                              userSelect: 'none',
-                              padding: 10,
-                              backgroundColor: item.read? '#A3B8C0' : 'white',
-                              ...provided.draggableProps.style,
-                            }}
-                          >
-                            <div className={styles.context}>
-                              <p style={{ width: '16%' }}>#{index+1}</p>
-                              <p style={{ width: '24%' }} className={styles.name}>{item.stuname}</p>
-                              <p style={{ width: '24%' }}>{item.sex}</p>
-                              <p style={{ width: '24%' }} className={styles.school}>{item.school}</p>
-                              <button onClick={() => showDescription(item.evano)}>展示內容</button>
-                            </div>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
+            {items?.map((item, index) => (
+              <div className={styles.item}
+                key={item.stu_name}
+                style={{
+                  userSelect: 'none',
+                  padding: 10,
+                  backgroundColor: item.read? '#A3B8C0' : 'white',
+                }}
+                >
+                <div className={styles.context}>
+                  <p style={{ width: '16%' }}>#{index+1}</p>
+                  <p style={{ width: '20%' }} className={styles.name}>{item.stu_name}</p>
+                  <p style={{ width: '20%' }}>{item.sex}</p>
+                  <p style={{ width: '15%' }} className={styles.school}>{item.school}</p>
+
+                  <button style={{ width: '15%',marginInline: '20px'}} onClick={() => showDescription(index)}>展示內容</button>
+                  <button style={{ width: '15%',marginInline: '20px'}}>展開PDF</button>
+                </div>
+              </div>
+            ))}
           </article>
           <article className={styles.aboutArea}>
             <p className={styles.aboutContext}>
@@ -221,16 +243,35 @@ export default function ProjectManageMain({ user }: { user: userI | undefined })
             <p className={styles.aboutDescription}>
               {description}
             </p>
+            <Input 
+                name="memo"
+                disableUnderline={true}
+                onChange={handleChange}
+                onBlur={save}
+                value={memo ? memo : ''}
+                />
             <div className={styles.aboutProject}>
               <div className={styles.title}>
                 <h5>專案狀態</h5>
                 <h5>其餘教師完成進度</h5>
-                <h5>截止日期</h5>
+                <h5>評分</h5>
               </div>
               <div className={styles.context}>
                 <p>{completion_rate == 100 ? '完成' : '未完成'}</p>
                 <p>{completed_count}/{total_count}</p>
-                <p>2025/09/12</p>
+
+                {/*<input  onChange={() => updateScore()}></input>*/}
+
+                {/* onBlur={save} 當輸入框失焦時觸發保存 */}
+
+                <Input
+                  name="score"
+                  disableUnderline
+                  onChange={handleChange}
+                  onBlur={save}
+                  value={score || ''}
+                />
+
               </div>
             </div>
           </article>

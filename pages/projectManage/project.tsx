@@ -3,6 +3,7 @@ import styles from '@/styles/page/project/list.module.scss';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaCog, FaRegTrashAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 interface proProps {
   project: projectManageInterface;
@@ -39,14 +40,20 @@ function Manageproject({ project, onDel }: proProps) {
     window.location.href='/projectManage/' + pro_no + '/edit';
   }
 
-  const onMerage = (pro_no :number) => {
-
+  const onMerage = async (pro_no: number) => {
+    try {
+      const response = await axios.post('/api/score/merge', {
+        pro_no
+      });
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
   }
 
 
   return (
     <div className={styles.projectMain}>
-      {proItem?.state == '已關閉' ?
+      {proItem?.status == '已關閉' ?
         <div className={styles.cover} >
           <a onClick={() => router.push(`/project/${project.pro_no}`)}>查看結果</a>
         </div > : checkDate(phase1 as Date) ?
@@ -62,7 +69,7 @@ function Manageproject({ project, onDel }: proProps) {
           <div className={styles.projectContent}>
             <b>{proItem?.pro_name}</b>
             <p>專案建立者: <span>{proItem?.user_name}</span></p>
-            <p>排序進度: {proItem?.state}</p>
+            <p>排序進度: {proItem?.status}</p>
           </div>
         </article>
         <div className={styles.projectAbout}>
