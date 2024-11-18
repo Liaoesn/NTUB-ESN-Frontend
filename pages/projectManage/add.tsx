@@ -40,51 +40,53 @@ function CreateProject({ user }: { user: userI | undefined }) {
     setFilesName(event.target.files ? event.target.files[0].name : '');
   };
 
-  const handleSubmit = () => {
-    if (college.length < 1 || projectName.length < 1) {
-      setPopupTitle('第一步驟有空值')
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
-    } else if (startDate.length < 1 || endDate.length < 1) {
-      setPopupTitle('第二步驟有空值')
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
-    } else if (files == null) {
-      setPopupTitle('第三步驟有空值')
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
-    } else if (people < 1) {
-      setPopupTitle('第四步驟有空值')
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
-    } else if (type.length < 1) {
-      setPopupTitle('第五步驟有空值')
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
-    } else {
-      setShowPopup(true);
-    }
-    console.log([college, projectName, startDate, endDate, files, people, type])
-    console.log({
-      college,
-      projectName,
-      type,
-      people,
-      startDate,
-      endDate,
-    });
-  };
+  // const handleSubmit = () => {
+  //   if (college.length < 1 || projectName.length < 1) {
+  //     setPopupTitle('第一步驟有空值')
+  //     setShowPopup(true);
+  //     setTimeout(() => {
+  //       setShowPopup(false);
+  //     }, 2000);
+  //   } else if (startDate.length < 1 || endDate.length < 1) {
+  //     setPopupTitle('第二步驟有空值')
+  //     setShowPopup(true);
+  //     setTimeout(() => {
+  //       setShowPopup(false);
+  //     }, 2000);
+  //   } else if (files == null) {
+  //     setPopupTitle('第三步驟有空值')
+  //     setShowPopup(true);
+  //     setTimeout(() => {
+  //       setShowPopup(false);
+  //     }, 2000);
+  //   } else if (people < 1) {
+  //     setPopupTitle('第四步驟有空值')
+  //     setShowPopup(true);
+  //     setTimeout(() => {
+  //       setShowPopup(false);
+  //     }, 2000);
+  //   } else if (type.length < 1) {
+  //     setPopupTitle('第五步驟有空值')
+  //     setShowPopup(true);
+  //     setTimeout(() => {
+  //       setShowPopup(false);
+  //     }, 2000);
+  //   } else {
+  //     setShowPopup(true);
+  //   }
+  //   console.log([college, projectName, startDate, endDate, files, people, type])
+  //   console.log({
+  //     college,
+  //     projectName,
+  //     type,
+  //     people,
+  //     startDate,
+  //     endDate,
+  //   });
+  // };
+  
   return (
+    
     <>
       <Layout>
         <main className={styles.addArea}>

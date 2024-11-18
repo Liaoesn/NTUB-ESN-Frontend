@@ -4,7 +4,7 @@ import '../styles/main.scss';
 import Layout from '../components/Layout/Layout';
 
 interface User {
-  username: string;
+  user_name: string;
   avatar_url: string;
 }
 
