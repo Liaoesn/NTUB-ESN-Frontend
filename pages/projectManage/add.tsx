@@ -6,7 +6,7 @@ import userI from '../../type/userI';
 import { FaCheck, FaFolder, FaPen, FaRegCalendarAlt, FaSignOutAlt } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import FailPopup from '@/components/popup/failPopup';
-import { MdArrowLeft } from 'react-icons/md';
+import { MdArrowLeft, MdFileUpload } from 'react-icons/md';
 import axios from 'axios';
 import { Autocomplete, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
@@ -19,8 +19,26 @@ function CreateProject({ user }: { user: userI | undefined }) {
   const [projectName, setProjectName] = useState<string>('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const today = new Date().toISOString().split('T')[0];
+  const [filesName, setFilesName] = useState<string>('點擊或拖動文件到這裡上傳');
   const [files, setFiles] = useState<FileList | null>(null);
   const [type, setType] = useState('');
+  const handleStartDateChange = (e: any) => {
+      setStartDate(e.target.value);
+      // 清空第二個日期選擇器，防止選擇不符合規則的日期
+      if (endDate && e.target.value > endDate) {
+          setEndDate('');
+      }
+  };
+
+  const handleEndDateChange = (e: any) => {
+      setEndDate(e.target.value);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiles(event.target.files);
+    setFilesName(event.target.files ? event.target.files[0].name : '');
+  };
 
   const handleSubmit = () => {
     if (college.length < 1 || projectName.length < 1) {
@@ -74,7 +92,7 @@ function CreateProject({ user }: { user: userI | undefined }) {
           <section className={styles.add}>
             <div className={styles.setingArea}>
               <Autocomplete
-                sx={{ mb: 2, mt: 2, height: '54px', border: 'none' }}
+                sx={{ mt: 5, height: '54px', border: 'none' }}
                 className={styles.addInput}
                 id="free-solo-demo"
                 freeSolo options={[]}
@@ -108,65 +126,44 @@ function CreateProject({ user }: { user: userI | undefined }) {
             </div>
             <div className={styles.setingArea}>
               <div className={styles.contentShort}>
-                <FormControl className={styles.shortInput}>
-                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="academic"
-                    name="academic"
-                    value={college}
-                    onChange={(e) => setCollege(e.target.value)}
-                  >
-                    <MenuItem value="二技">二技</MenuItem>
-                    <MenuItem value="四技">四技</MenuItem>
-                    <MenuItem value="碩士">碩士</MenuItem>
-                    <MenuItem value="博士">博士</MenuItem>
-                  </Select>
-                </FormControl>
-                <div className={styles.shortInput}>
-                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value as unknown as number)} />
+                <div className={`${styles.shortInput} ${styles.dateInput}`}>
+                  <p>老師評分截止日期 :</p>
+                  <input
+                    type="date"
+                    id="end-date"
+                    value={startDate}
+                    onChange={handleEndDateChange}
+                  />
+                </div>
+                <div className={`${styles.shortInput} ${styles.dateInput}`}>
+                  <p>專案整體截止日期 :</p>
+                  <input
+                    type="date"
+                    id="end-date"
+                    value={endDate}
+                    onChange={handleEndDateChange}
+                    min={startDate || today} // 第二個日期只能選擇第一個日期之後
+                    disabled={!startDate} // 如果未選擇開始日期，禁用第二個日期選擇器
+                  />
                 </div>
               </div>
             </div>
-            <div className={styles.setingArea}>
-              <div className={styles.contentShort}>
-                <FormControl className={styles.shortInput}>
-                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="academic"
-                    name="academic"
-                    value={college}
-                    onChange={(e) => setCollege(e.target.value)}
-                  >
-                    <MenuItem value="二技">二技</MenuItem>
-                  </Select>
-                </FormControl>
-                <div className={styles.shortInput}>
-                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value)} />
-                </div>
-              </div>
-            </div>
-            <div className={styles.setingArea}>
-              <div className={styles.contentShort}>
-                <FormControl className={styles.shortInput}>
-                  <InputLabel id="demo-simple-select-label">學制</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="academic"
-                    name="academic"
-                    value={college}
-                    onChange={(e) => setCollege(e.target.value)}
-                  >
-                    <MenuItem value="二技">二技</MenuItem>
-                  </Select>
-                </FormControl>
-                <div className={styles.shortInput}>
-                  <input className={styles.people} placeholder={'錄取人數'} type="input" value={people} onChange={(e) => setPeople(e.target.value)} />
-                </div>
+            <div className={styles.fileArea}>
+              <p>學生文件檔案(請壓成.zip檔案)：</p>
+              <div className={styles.fileInput}>
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  onChange={handleFileChange}
+                  multiple
+                  accept=".zip"
+                  className={styles.hiddenInput}
+                />
+                <label htmlFor="file" className={styles.file}>
+                  <MdFileUpload className={styles.donloadicon} />
+                  {filesName}
+                </label>
               </div>
             </div>
           </section>
