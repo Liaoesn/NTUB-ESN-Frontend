@@ -136,6 +136,7 @@
 
   .setingButton {
     padding-top: 10px;
+    margin-top: 1%;
     @extend %flex-center;
 
     .button {
@@ -163,7 +164,6 @@
     }
 
     .check {
-      margin-top: 3%;
       border: 2px solid $mainColor;
 
       &:hover {
