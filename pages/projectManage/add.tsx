@@ -137,10 +137,11 @@ function CreateProject({ user }: { user: userI | undefined }) {
                     value={college}
                     onChange={(e) => setCollege(e.target.value)}
                   >
+                    <MenuItem value="二技進修">二技進修</MenuItem>
                     <MenuItem value="二技">二技</MenuItem>
-                    <MenuItem value="四技">四技</MenuItem>
                     <MenuItem value="碩士">碩士</MenuItem>
-                    <MenuItem value="博士">博士</MenuItem>
+                    <MenuItem value="四技">四技</MenuItem>
+                    <MenuItem value="四技進修">四技進修</MenuItem>
                   </Select>
                 </FormControl>
                 <div className={styles.shortInput}>
