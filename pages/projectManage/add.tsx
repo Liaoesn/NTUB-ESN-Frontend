@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout/Layout';
 import styles from '@/styles/page/project/add.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PrivateRoute from '../privateRoute';
 import userI from '../../type/userI';
 import { FaCheck, FaSignOutAlt } from 'react-icons/fa';
@@ -22,6 +22,23 @@ function CreateProject({ user }: { user: userI | undefined }) {
   const [files, setFiles] = useState<FileList | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [popupTitle, setPopupTitle] = useState('')
+  const [id, setId] = useState('');
+
+  useEffect(() => {
+    if (router.isReady) {
+      const fetchProjectData = async () => {
+        try {
+          const response = await axios.get(`/api/project/insert/projectid`);
+
+          setId(response.data[0][0].max_score);
+        } catch (error) {
+          console.error('取得專案資料時出錯:', error);
+        }
+      };
+
+      fetchProjectData(); // 呼叫函數取得資料
+    }
+  }, [router]);
 
   const handleStartDateChange = (e: any) => {
     setStartDate(e.target.value);
@@ -94,13 +111,14 @@ function CreateProject({ user }: { user: userI | undefined }) {
             'admissions': people, 
             'phase1': startDate, 
             'user_no': user?.user_no,
-            'enddate': endDate, 
-        }
+            'enddate': endDate,
+            'pro_no': id+1
+          }
         );
         console.log('專案新增成功：', response.data);
         alert('專案新增成功');
+        router.push(`/projectManage/${id+1}/add-next`)
       } catch (error) {
-        // console.error('新增專案失敗：', error?.response?.data || error.message);
         alert('新增專案失敗，請檢查輸入資料！');
       }
     }
