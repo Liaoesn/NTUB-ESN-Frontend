@@ -15,6 +15,7 @@ interface ProjectNamePopupProps {
     prono?:string;
   }
 const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, oldselet, oldtitle }) => {
+    
     const [title, setTitle] = useState(oldtitle)
     const [prodescription, setProdescription] = useState(oldselet);
     const [showPopup, setShowPopup] = useState(false);
@@ -42,7 +43,7 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, old
       
             // 提交成功後可以進行跳轉或顯示成功訊息
             onClose();
-            router.push(`/projectManage/list`);
+            router.push(`/projectManage/${prono}/edit`);
             
           } catch (error) {
             console.error('Error while updating project:', error);
@@ -91,10 +92,11 @@ const ProjectNamePopup: React.FC<ProjectNamePopupProps> = ({ onClose, prono, old
                                 name="academic"
                                 onChange={handleChange}
                             >
-                                <MenuItem value={'二技'}>二技</MenuItem>
-                                <MenuItem value={'四技'}>四技</MenuItem>
-                                <MenuItem value={'碩士'}>碩士</MenuItem>
-                                <MenuItem value={'博士'}>博士</MenuItem>
+                              <MenuItem value="二技進修">二技進修</MenuItem>
+                              <MenuItem value="二技">二技</MenuItem>
+                              <MenuItem value="碩士">碩士</MenuItem>
+                              <MenuItem value="四技">四技</MenuItem>
+                              <MenuItem value="四技進修">四技進修</MenuItem>
                             </Select>
                         </FormControl>
                     </article>

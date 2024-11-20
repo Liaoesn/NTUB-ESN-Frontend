@@ -20,7 +20,7 @@ type userType = {
 export default function SetTeacher() {
 
   const router = useRouter();
-  const { prono } =router.pathname;
+  const { prono } =router.query;
   const [changeUser, setChangeUser] = useState<string[]>([]); // 儲存被選擇的協作老師 ID
   const [users, setUsers] = useState<userType[]>(); // 儲存所有可選擇的老師
   const [showPopup, setShowPopup] = useState(false); // 控制彈出視窗顯示

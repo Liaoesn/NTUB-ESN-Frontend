@@ -13,12 +13,12 @@ import userI from '@/type/userI';
 import axios from 'axios';
 
 type projectProp = {
-  prono: string;
-  proname: string;
+  pro_no: string;
+  pro_name: string;
   share_type: string;
-  prodescription: string;
+  pro_academic: string;
   phase1: string;
-  endDate: string;
+  end_date: string;
   admissions: number;
 }
 
@@ -39,8 +39,8 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
   useEffect(() => {
     const fetchProjectData = async () => {
       try {
-        const response = await axios.get(`/api/project/update/prono`, {
-          params: { prono }
+        const response = await axios.get(`/api/project/update/:prono`, {
+          params:{prono}
         });
 
         setProjectData(response.data[0]);
@@ -49,12 +49,12 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
         setSDate(`
           ${new Date(response.data[0].phase1).getUTCFullYear()}/
           ${new Date(response.data[0].phase1).getUTCMonth()+1}/
-          ${new Date(response.data[0].phase1).getUTCDate()}
+          ${new Date(response.data[0].phase1).getUTCDate()+1}
         `);
         setEDate(`
-          ${new Date(response.data[0].endDate).getUTCFullYear()}/
-          ${new Date(response.data[0].endDate).getUTCMonth()+1}/
-          ${new Date(response.data[0].endDate).getUTCDate()}
+          ${new Date(response.data[0].end_date).getUTCFullYear()}/
+          ${new Date(response.data[0].end_date).getUTCMonth()+1}/
+          ${new Date(response.data[0].end_date).getUTCDate()+1}
         `);
       } catch (error) {
         console.error('Error fetching project data:', error);
@@ -62,7 +62,7 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
     };
 
     fetchProjectData();
-  }, [prono]);
+  }, [prono, router]);
 
   const handlePopup = (popupName: string) => {
     switch (popupName) {
@@ -88,44 +88,32 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
 
   return (
     <Layout user={user}>
-      {showName && <ProjectNamePopup prono={prono?.toString()} oldselet={projectData?.prodescription} oldtitle={projectData?.proname } onClose={() => handlePopup('Name')} />}
+      {showName && <ProjectNamePopup prono={prono?.toString()} oldselet={projectData?.pro_academic} oldtitle={projectData?.pro_name } onClose={() => handlePopup('Name')} />}
       {showPeople && <ProjectPeoplePopup prono={prono?.toString()} oldNumber={projectData?.admissions} onClose={() => handlePopup('People')} />}
       {showChoose && <ProjectChoosePopup prono={prono?.toString()} oldType={projectData?.share_type} onClose={() => handlePopup('Chose')} />}
       {showFile && <ProjectFilePopup onClose={() => handlePopup('File')} />}
-      {showTime && <ProjectTimePopup oldSDate={new Date(projectData?.phase1 as string)} oldEDate={new Date(projectData?.endDate as string)} prono={prono?.toString()} onClose={() => handlePopup('Time')} />}
+      {showTime && <ProjectTimePopup oldSDate={new Date(projectData?.phase1 as string)} oldEDate={new Date(projectData?.end_date as string)} prono={prono?.toString()} onClose={() => handlePopup('Time')} />}
       <main className={styles.listArea}>
         <h2>專案設定</h2>
         <section className={styles.aboutArea}>
           <div className={styles.setingList}>
             <div className={styles.content}>
               <h3>專案名稱</h3>
-              <p>{projectData ? projectData.proname : "Loading..."}</p>
+              <p>{projectData ? projectData.pro_name : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('Name')}><FaPen /></a>
           </div>
           <div className={styles.setingList}>
-            <div className={styles.contentShort}>
-              <h3>學制</h3>
-              <p>{projectData ? projectData.prodescription : "Loading..."}</p>
-            </div>
-            <a onClick={() => handlePopup('Name')}><FaPen /></a>
-            <div className={styles.contentShort}>
-              <h3>審核方式</h3>
-              <p>{projectData ? projectData.share_type == '1' ? '全部分配' : '平均分配' : "Loading..."}</p>
-            </div>
-            <a onClick={() => handlePopup('Chose')}><FaPen /></a>
-          </div>
-          <div className={styles.setingList}>
-            <div className={styles.contentShort}>
-              <h3>資料數量</h3>
-              <p>{fileNumber ? fileNumber.total_students : "Loading..."}</p>
-            </div>
-            <a onClick={() => handlePopup('File')}><FaFolder /></a>
             <div className={styles.contentShort}>
               <h3>錄取人數</h3>
               <p>{projectData ? projectData.admissions : "Loading..."}</p>
             </div>
             <a onClick={() => handlePopup('People')}><FaPen /></a>
+            <div className={styles.contentShort}>
+              <h3>學制</h3>
+              <p>{projectData ? projectData.pro_academic : "Loading..."}</p>
+            </div>
+            <a onClick={() => handlePopup('')}><FaPen /></a>
           </div>
           <div className={styles.setingList}>
             <div className={styles.contentShort}>
@@ -139,6 +127,12 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
             </div>
             <a onClick={() => handlePopup('Time')}><FaRegCalendarAlt /></a>
           </div>
+          <div className={styles.setingList}>
+            <div className={styles.showOnly}>
+              <h3>資料數量</h3>
+              <p>{fileNumber ? fileNumber.total_students : "Loading..."}</p>
+            </div>
+          </div>
           <div className={styles.setingTeacher}>
             <div className={styles.contentTeacher}>
               <h3>協作老師</h3>
@@ -147,7 +141,6 @@ function ProjectEdit({ user }: { user: userI | undefined }) {
                   <p key={index}>{teacher.username}</p>)) : "Loading..."}
               </div>
             </div>
-            <a onClick={() => router.push(`/projectManage/${prono}/teacher`)}><FaPen /></a>
           </div>
         </section>
         <section className={styles.setingButton}>

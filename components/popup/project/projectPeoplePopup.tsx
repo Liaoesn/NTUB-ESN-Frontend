@@ -25,7 +25,8 @@ const ProjectPeoplePopup: React.FC<ProjectPeoplePopup> = ({ onClose, prono, oldN
               prono
             });
             // 提交成功後進行跳轉
-            router.push(`/projectManage/list`);
+            onClose();
+            router.push(`/projectManage/${prono}/edit`);
             
           } catch (error) {
             console.error('Error while updating project:', error);

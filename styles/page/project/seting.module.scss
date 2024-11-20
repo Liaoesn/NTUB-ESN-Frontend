@@ -21,12 +21,12 @@
             letter-spacing: 2px;
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-bottom: 3%;
             .content{
                 display: flex;
                 align-items: center;
-                width: 85%;
+                width: 90%;
                 height: 4vh;
                 padding: 10px 20px;
                 background-color: $subColor;
@@ -56,6 +56,23 @@
                     text-align: center;
                 }
             }
+
+            .showOnly{
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 4vh;
+                padding: 10px 20px;
+                background-color: $subColor;
+                border-radius: 10px;
+                h3{
+                    font-weight: bold ;
+                }
+                p{
+                    width: 80%;
+                    text-align: center;
+                }
+            }
             a{
                 width: 3vh;
                 height: 3vh;
@@ -72,13 +89,14 @@
             }
         }
         .setingTeacher{
+            width: 100%;
             letter-spacing: 2px;
             display: flex;
             justify-content: space-around;
             .contentTeacher{
                 display: flex;
                 flex-direction: column;
-                width: 85%;
+                width: 100%;
                 height: 25vh;
                 padding: 10px 20px;
                 background-color: $subColor;
@@ -100,20 +118,6 @@
                         color: white;
                         text-align: center;
                     }
-                }
-            }
-            a{
-                width: 3vh;
-                height: 3vh;
-                padding: 10px;
-                border-radius: 10px;
-                background-color: $subColor;
-                @extend %flex-center;
-                cursor: pointer;
-                &:hover{
-                    color: white;
-                    background-color: $mainColorLight;
-                    box-shadow: 1px 2px 1px 1px $mainColorLight ;
                 }
             }
         }
