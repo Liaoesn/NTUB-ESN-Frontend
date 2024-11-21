@@ -47,7 +47,7 @@ function CreateProject({ user }: { user: userI | undefined }) {
       setEndDate('');
     }
   };
-
+console.log(files);
   const handleEndDateChange = (e: any) => {
     setEndDate(e.target.value);
   };
@@ -101,20 +101,29 @@ function CreateProject({ user }: { user: userI | undefined }) {
       setTimeout(() => {
         setShowPopup(false);
       }, 3500);
-    } else {
-      console.log('123456')
+    } else if (!user){
+      setPopupTitle('重整網頁確認登入狀態')
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 2500);
+    } else if (files) {
+      // console.log('123456')
+      const formData = new FormData();
+        formData.append('file', files[0]); // 假設只有單檔案
+        formData.append('proname', projectName);
+        formData.append('prodescription', college);
+        formData.append('admissions', people!.toString());
+        formData.append('phase1', startDate);
+        formData.append('enddate', endDate);
+        formData.append('user_no', user.user_no.toString() );
+        formData.append('pro_no', (id + 1).toString());
       try {
-        const response = await axios.post('/api/project/insert', 
-          {
-            'proname': projectName, 
-            'prodescription': college, 
-            'admissions': people, 
-            'phase1': startDate, 
-            'user_no': user?.user_no,
-            'enddate': endDate,
-            'pro_no': id+1
-          }
-        );
+        const response = await axios.post('/api/project/insert', formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+          },
+      });
         console.log('專案新增成功：', response.data);
         alert('專案新增成功');
         router.push(`/projectManage/${id+1}/add-next`)
